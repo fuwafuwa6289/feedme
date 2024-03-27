@@ -37,8 +37,6 @@ function MyTabs() {
             <Icon name="home-outline" color={color} size={26} />
           ),
 
-          tabBarColor: '#FFFFFF', // กำหนดสีของแท็บบาร์
-          
         }}
       />
       <Tab.Screen
