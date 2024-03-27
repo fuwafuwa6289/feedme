@@ -15,29 +15,20 @@ const Tab = createMaterialBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
-  initialRouteName="Home"
-  // activeColor="#e91e63"
-  labelStyle={{ fontSize: 12 }}
-  barStyle={{ backgroundColor: '#FF8259' }}
-  // แมว
-
-  
->
+      initialRouteName="Home"
+      activeColor="#FF3A0D" // สีส้มเข้มเมื่อถูกเลือก
+      inactiveColor="#FFFFFF" // สีขาวเมื่อไม่ได้เลือก
+      labelStyle={{ fontSize: 12 }}
+      barStyle={{ backgroundColor: '#FF8259' }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
-        tabBarOptions={{
-          activeTintColor: '#FFFFFF', // กำหนดสีของข้อความ Tab ที่ถูกเลือก
-          labelStyle: { fontSize: 12 }
-        }}
         options={{
-          tabBarColor:'white',
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-         
             <Icon name="home-outline" color={color} size={26} />
           ),
-
         }}
       />
       <Tab.Screen
