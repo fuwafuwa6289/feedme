@@ -3,7 +3,9 @@ import { Text, View } from 'react-native';
 
 function Post({ navigation }) {
   return (
-    <ClassThai></ClassThai>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text onPress={() => navigation.navigate('Home')}>Post Hi!</Text>
+    </View>
   );
 }
 
