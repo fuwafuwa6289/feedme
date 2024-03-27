@@ -6,6 +6,7 @@ function Post({ navigation }) {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text onPress={() => navigation.navigate('Home')}>Post Hi!</Text>
     </View>
+    // สวย
   );
 }
 
