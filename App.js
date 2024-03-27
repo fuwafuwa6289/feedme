@@ -16,8 +16,8 @@ function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor="#FF3A0D" // สีส้มเข้มเมื่อถูกเลือก
-      inactiveColor="#FFFFFF" // สีขาวเมื่อไม่ได้เลือก
+      activeColor="#FF3A0D" 
+      inactiveColor="#FFFFFF" 
       labelStyle={{ fontSize: 12 }}
       barStyle={{ backgroundColor: '#FF8259' }}
     >
