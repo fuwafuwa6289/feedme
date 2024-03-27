@@ -20,7 +20,6 @@ function MyTabs() {
   labelStyle={{ fontSize: 12 }}
   barStyle={{ backgroundColor: '#FF8259' }}
 
-
   
 >
       <Tab.Screen
@@ -37,6 +36,8 @@ function MyTabs() {
          
             <Icon name="home-outline" color={color} size={26} />
           ),
+
+          tabBarColor: '#FFFFFF', // กำหนดสีของแท็บบาร์
           
         }}
       />
