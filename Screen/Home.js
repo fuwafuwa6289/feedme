@@ -6,7 +6,7 @@ import { CheckBox, Stack } from '@rneui/themed';
 import FrameComponent from "./FrameComponent";
 
 
-const Class = () => {
+const Home = () => {
 
   const [inputText, setInputText] = useState('');
   // checkbox
@@ -195,7 +195,7 @@ const Class = () => {
   );
 }
 
-export default Class;
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
