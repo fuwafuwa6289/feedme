@@ -19,6 +19,7 @@ function MyTabs() {
   // activeColor="#e91e63"
   labelStyle={{ fontSize: 12 }}
   barStyle={{ backgroundColor: '#FF8259' }}
+  // แมว
 
   
 >
