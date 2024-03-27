@@ -45,7 +45,7 @@ const Class = () => {
 
 
         <View style={styles.titleclass}>
-          <Text style={styles.txtclass}>ร้านอาหารของหมวย</Text>
+          <Text style={styles.txtclass}>ร้านอาหารของหมวยและฝน</Text>
         </View>
 
         {/* checkbox */}
