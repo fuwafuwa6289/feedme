@@ -1,38 +1,38 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
-const Class = () => {
-
+const ClassThai = () => {
   const [inputText, setInputText] = useState('');
+  const navigation = useNavigation();
 
   const handleCreateParty = () => {
-    console.log('Create Party'); // ทำการ console log เมื่อปุ่ม "สร้างปาร์ตี้" ถูกกด
+    console.log('Create Party');
+  };
+
+  const handleGoBack = () => {
+    navigation.goBack();
   };
 
   return (
     <ScrollView style={styles.container}>
       <View>
+        <TouchableOpacity onPress={handleGoBack}>
+          <Image
+            style={styles.iconBack}
+            contentFit="cover"
+            source={require("../assets/epback.png")}
+          />
+        </TouchableOpacity>
 
-        <View>
-          <TouchableOpacity onPress={() => console.log('Back')}>
-            <Image
-              style={styles.iconBack}
-              contentFit="cover"
-              source={require("../assets/epback.png")}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View>
-          <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-            <Image
-              style={styles.iconLayout}
-              contentFit="cover"
-              source={require("../assets/ellipse-46.png")}
-            />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
+          <Image
+            style={styles.iconLayout}
+            contentFit="cover"
+            source={require("../assets/ellipse-46.png")}
+          />
+        </TouchableOpacity>
 
         <View style={styles.Search}>
           <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
@@ -143,14 +143,12 @@ const Class = () => {
             <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
           </TouchableOpacity>
         </View>
-
-
       </View>
     </ScrollView>
   );
 }
 
-export default Class;
+export default ClassThai;
 
 const styles = StyleSheet.create({
   container: {
