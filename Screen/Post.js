@@ -5,7 +5,8 @@ import ClassThai from './ClassThai'
 function Post({ navigation }) {
   return (
     <ClassThai></ClassThai>
-    //สวย
+    //มากันยัง ครับ
+    //แจ๋ว
   );
 }
 
