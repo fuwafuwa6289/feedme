@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image } from 'react-native';
 import Home from './Screen/Home';
 import Post from './Screen/Post';
 import CreateParty from './Screen/CreateParty';
@@ -49,10 +50,13 @@ function MyTabs() {
         name="CreateParty"
         component={CreateParty}
         options={{
+          tabBarLabel: 'Create',
           tabBarIcon: ({ color }) => (
-            <Icon name="add-outline" color={color} size={26} />
+            <Image
+              source={require('./assets/fluentfoodpizza24regular.png')}
+              style={{ tintColor: color, width: 29, height: 29 }}
+            />
           ),
-          headerShown: false, // ซ่อน Header ของหน้า CreateParty
         }}
       />
       <Tab.Screen
