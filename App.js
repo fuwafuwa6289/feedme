@@ -1,84 +1,78 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { NavigationContainer, useTheme } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; // เปลี่ยน import statement
-import Home from './Screen/Home'; // นำเข้า Home.js
-import Post from './Screen/Post'; // นำเข้า Post.js
-import CreateParty from './Screen/CreateParty'; // นำเข้า CreateParty.js
-import Notifications from './Screen/Noti'; // นำเข้า Notifications.js
-import Chat from './Screen/Chat'; // นำเข้า Chat.js
-import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons or any other icon library
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Home from './Screen/Home';
+import Post from './Screen/Post';
+import CreateParty from './Screen/CreateParty';
+import Notifications from './Screen/Noti';
+import Chat from './Screen/Chat';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const Tab = createBottomTabNavigator(); // เปลี่ยนการสร้าง Bottom Tab Navigator
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function MyTabs() {
-  const { colors } = useTheme(); // เรียกใช้ hook useTheme เพื่อใช้งานสีจาก theme
-
   return (
     <Tab.Navigator
-  initialRouteName="Home"
-  tabBarOptions={{
-    activeTintColor: '#FF8259', 
-    inactiveTintColor: '#FFFFFF', 
-    activeBackgroundColor: '#FFFFFF', 
-    inactiveBackgroundColor: '#FF8259', 
-    style: { backgroundColor: '#FF8259' }, 
-    labelStyle: { fontSize: 12 },
-    showLabel: false, 
-  }}
->
-
+      initialRouteName="Home"
+      tabBarOptions={{
+        activeTintColor: '#FF8259',
+        inactiveTintColor: '#FFFFFF',
+        activeBackgroundColor: '#FFFFFF',
+        inactiveBackgroundColor: '#FF8259',
+        style: { backgroundColor: '#FF8259' },
+        showLabel: false, // เพิ่ม showLabel เป็น false เพื่อซ่อนชื่อแท็บบาร์
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={26} />
+            <Icon name="home-outline" color={color} size={26} />
           ),
+          headerShown: false, // ซ่อน Header ของหน้า Home
         }}
       />
       <Tab.Screen
         name="Post"
         component={Post}
         options={{
-          tabBarLabel: 'Post',
           tabBarIcon: ({ color }) => (
-            <Icon name="newspaper" color={color} size={26} />
+            <Icon name="newspaper-outline" color={color} size={26} />
           ),
+          headerShown: false, // ซ่อน Header ของหน้า Post
         }}
       />
       <Tab.Screen
         name="CreateParty"
         component={CreateParty}
         options={{
-          tabBarLabel: 'Create',
           tabBarIcon: ({ color }) => (
-            <Image
-              source={require('./assets/fluentfoodpizza24regular.png')}
-              style={{ tintColor: color, width: 30, height: 30 }}
-            />
+            <Icon name="add-outline" color={color} size={26} />
           ),
+          headerShown: false, // ซ่อน Header ของหน้า CreateParty
         }}
       />
       <Tab.Screen
         name="Notifications"
         component={Notifications}
         options={{
-          tabBarLabel: 'Noti',
           tabBarIcon: ({ color }) => (
-            <Icon name="notifications" color={color} size={26} />
+            <Icon name="notifications-outline" color={color} size={26} />
           ),
+          headerShown: false, // ซ่อน Header ของหน้า Notifications
         }}
       />
       <Tab.Screen
         name="Chat"
         component={Chat}
         options={{
-          tabBarLabel: 'Chat',
           tabBarIcon: ({ color }) => (
-            <Icon name="chatbubbles" color={color} size={26} />
+            <Icon name="chatbubbles-outline" color={color} size={26} />
           ),
+          headerShown: false, // ซ่อน Header ของหน้า Chat
         }}
       />
     </Tab.Navigator>
@@ -88,7 +82,13 @@ function MyTabs() {
 export default function App() {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Main"
+          component={MyTabs}
+          options={{ headerShown: false }} // ซ่อน Header Bar ของ Stack Navigator
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
