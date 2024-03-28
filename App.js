@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { NavigationContainer, useTheme } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'; // เปลี่ยน import statement
 import Home from './Screen/Home'; // นำเข้า Home.js
 import Post from './Screen/Post'; // นำเข้า Post.js
 import CreateParty from './Screen/CreateParty'; // นำเข้า CreateParty.js
@@ -9,25 +9,32 @@ import Notifications from './Screen/Noti'; // นำเข้า Notifications.j
 import Chat from './Screen/Chat'; // นำเข้า Chat.js
 import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons or any other icon library
 
-const Tab = createMaterialBottomTabNavigator();
-
+const Tab = createBottomTabNavigator(); // เปลี่ยนการสร้าง Bottom Tab Navigator
 
 function MyTabs() {
+  const { colors } = useTheme(); // เรียกใช้ hook useTheme เพื่อใช้งานสีจาก theme
+
   return (
     <Tab.Navigator
-      initialRouteName="Home"
-      activeColor="#FF3A0D" 
-      inactiveColor="#FFFFFF" 
-      labelStyle={{ fontSize: 12 }}
-      barStyle={{ backgroundColor: '#FF8259' }}
-    >
+  initialRouteName="Home"
+  tabBarOptions={{
+    activeTintColor: '#FF8259', 
+    inactiveTintColor: '#FFFFFF', 
+    activeBackgroundColor: '#FFFFFF', 
+    inactiveBackgroundColor: '#FF8259', 
+    style: { backgroundColor: '#FF8259' }, 
+    labelStyle: { fontSize: 12 },
+    showLabel: false, 
+  }}
+>
+
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <Icon name="home-outline" color={color} size={26} />
+            <Icon name="home" color={color} size={26} />
           ),
         }}
       />
@@ -37,7 +44,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Post',
           tabBarIcon: ({ color }) => (
-            <Icon name="newspaper-outline" color={color} size={26} />
+            <Icon name="newspaper" color={color} size={26} />
           ),
         }}
       />
@@ -47,7 +54,10 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Create',
           tabBarIcon: ({ color }) => (
-            <Icon name="add-outline" color={color} size={26} />
+            <Image
+              source={require('./assets/fluentfoodpizza24regular.png')}
+              style={{ tintColor: color, width: 30, height: 30 }}
+            />
           ),
         }}
       />
@@ -57,7 +67,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Noti',
           tabBarIcon: ({ color }) => (
-            <Icon name="notifications-outline" color={color} size={26} />
+            <Icon name="notifications" color={color} size={26} />
           ),
         }}
       />
@@ -67,7 +77,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Chat',
           tabBarIcon: ({ color }) => (
-            <Icon name="chatbubbles-outline" color={color} size={26} />
+            <Icon name="chatbubbles" color={color} size={26} />
           ),
         }}
       />
