@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { createStackNavigator } from '@react-navigation/stack';
 import { CheckBox, Stack } from '@rneui/themed';
 import FrameComponent from "./FrameComponent";
-
+import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Home = () => {
 
   const [inputText, setInputText] = useState('');
+  const navigation = useNavigation();
   // checkbox
   const [checked1, setChecked1] = React.useState(true);
   const [checked2, setChecked2] = React.useState(true);
@@ -16,8 +18,9 @@ const Home = () => {
   const toggleCheckbox1 = () => setChecked1(!checked1);
   const toggleCheckbox2 = () => setChecked2(!checked2);
 
-  const handleCreateParty = () => {
-    console.log('Create Party'); // ทำการ console log เมื่อปุ่ม "สร้างปาร์ตี้" ถูกกด
+  const handletoClassthai = () => {
+    console.log('Classthai');
+    navigation.navigate('ClassThai'); // ทำการ console log เมื่อปุ่ม "สร้างปาร์ตี้" ถูกกด
   };
 
   return (
@@ -49,7 +52,7 @@ const Home = () => {
         </View>
 
         {/* checkbox */}
-        <View style={{ flexDirection: 'row', alignItems: 'center' ,marginLeft:17}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 17 }}>
           <CheckBox
             title="ทาน 2 คน"
             checked={checked1}
@@ -59,7 +62,7 @@ const Home = () => {
             checkedColor="#FF6C3A"
             onPress={toggleCheckbox1}
             size={20}
-            textStyle={{ color: '#FF6C3A',fontWeight: 'normal',}} 
+            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', }}
           />
           <CheckBox
             title="ปาร์ตี้ 3 คนขึ้นไป"
@@ -70,125 +73,128 @@ const Home = () => {
             checkedColor="#FF6C3A"
             onPress={toggleCheckbox2}
             size={20}
-            textStyle={{ color: '#FF6C3A',fontWeight: 'normal' }} 
+            textStyle={{ color: '#FF6C3A', fontWeight: 'normal' }}
           />
         </View>
 
         <View style={styles.categoryCard}>
-        <Text style={[styles.text, styles.textTypo]}>หมวดหมู่</Text>
-        
-          <View style={{ flexDirection: 'row', alignItems: 'flex-start' ,justifyContent:'space-around',flex:1,flexWrap:'wrap',marginTop:30}}>
-          {/* row1 */}
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Image
-              resizeMode="cover"
-              source={require("../assets/ellipse-14.png")}
-            />
-            <Text style={styles.categoryText} >อาหารไทย</Text>
-          </View>
+          <Text style={[styles.text, styles.textTypo]}>หมวดหมู่</Text>
 
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Image
-              resizeMode="cover"
-              source={require("../assets/ellipse-15.png")}
-            />
-            <Text style={styles.categoryText}>อาหารนานาชาติ</Text>
-          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-around', flex: 1, flexWrap: 'wrap', marginTop: 30 }}>
+            {/* row1 */}
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <TouchableOpacity onPress={handletoClassthai}>
+                <Image
+                  resizeMode="cover"
+                  source={require("../assets/ellipse-14.png")}
+                />
+              </TouchableOpacity>
+              <Text style={styles.categoryText} >อาหารไทย</Text>
+            </View>
 
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Image
-              resizeMode="cover"
-              source={require("../assets/ellipse-16.png")}
-            />
-            <Text style={styles.categoryText}>อาหารเช้า</Text>
-          </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-15.png")}
+              />
+              <Text style={styles.categoryText}>อาหารนานาชาติ</Text>
+            </View>
 
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Image
-              resizeMode="cover"
-              source={require("../assets/ellipse-17.png")}
-            />
-            <Text style={styles.categoryText}>คาเฟ่และขนมหวาน</Text>
-          </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-16.png")}
+              />
+              <Text style={styles.categoryText}>อาหารเช้า</Text>
+            </View>
 
-          {/* row2 */}
-          <View style={{ flexDirection: 'column', alignItems: 'center',}}>
-            <Image
-              resizeMode="cover"
-              source={require("../assets/ellipse-183.png")}
-            />
-            <Text style={styles.categoryText} >อาหารบุฟเฟต์</Text>
-          </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-17.png")}
+              />
+              <Text style={styles.categoryText}>คาเฟ่และขนมหวาน</Text>
+            </View>
 
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Image
-              resizeMode="cover"
-              source={require("../assets/ellipse-194.png")}
-            />
-            <Text style={styles.categoryText}>อาหารแบนด์ดัง</Text>
-          </View>
+            {/* row2 */}
+            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-183.png")}
+              />
+              <Text style={styles.categoryText} >อาหารบุฟเฟต์</Text>
+            </View>
 
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Image
-              resizeMode="cover"
-              source={require("../assets/ellipse-201.png")}
-            />
-            <Text style={styles.categoryText}>อาหารทะเล</Text>
-          </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-194.png")}
+              />
+              <Text style={styles.categoryText}>อาหารแบนด์ดัง</Text>
+            </View>
 
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Image
-              resizeMode="cover"
-              source={require("../assets/ellipse-21.png")}
-            />
-            <Text style={styles.categoryText}>อาหารเพื่อสุขภาพ</Text>
-          </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-201.png")}
+              />
+              <Text style={styles.categoryText}>อาหารทะเล</Text>
+            </View>
+
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-21.png")}
+              />
+              <Text style={styles.categoryText}>อาหารเพื่อสุขภาพ</Text>
+            </View>
           </View>
         </View>
 
         <View style={styles.card}>
-          
+
           <Text style={[styles.text, styles.textTypo]}>การเชิญชวนแนะนำ</Text>
-          
-            <View style= {{flexDirection:'row',justifyContent:'space-around',flex:1,marginTop:-20,}}>
-              <View style={{alignItems: 'flex-start'}}>
-          <Image
-          resizeMode="cover"
-          source={require("../assets/rectangle-131.png")}
-        />
-          </View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start',flexWrap:'wrap',flex:0.2 ,paddingLeft:2 }}>
-            <Image
-                // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
-                
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop: -20, }}>
+            <View style={{ alignItems: 'flex-start' }}>
+              <Image
                 resizeMode="cover"
-                source={require("../assets/mdifire.png")}
-              
+                source={require("../assets/rectangle-131.png")}
               />
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start',flexWrap:'wrap',flex:1, }}>
-           <Text style={styles.partyName}>โดยองหิวข้าว</Text>
-           <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
-           <Text style={styles.detail} >5.0(500) | อาหารนานาชาติ</Text>
-           <Text style={styles.detail}>500 km (40 นาที)</Text>
-           <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
-           <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
-           <Pressable
-            style={styles.parent}
-            // onPress={onFramePressablePress}
-           >
-          <Text  style={styles.joinButton} >เข้าร่วม</Text>
-    </Pressable>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.2, paddingLeft: 2 }}>
+              <Image
+                // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
+
+                resizeMode="cover"
+                source={require("../assets/mdifire.png")}
+
+              />
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
+              <Text style={styles.partyName}>โดยองหิวข้าว</Text>
+              <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
+              <Text style={styles.detail} >5.0(500) | อาหารนานาชาติ</Text>
+              <Text style={styles.detail}>500 km (40 นาที)</Text>
+              <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
+              <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
+              <TouchableOpacity
+                style={styles.parent}
+                onPress={''}
+              // onPress={onFramePressablePress}
+              >
+                <Text style={styles.joinButton}>เข้าร่วม</Text>
+              </TouchableOpacity>
             </View>
           </View>
           {/* 2 */}
-          
-        
+
+
 
 
         </View>
 
-        
+
 
       </View>
     </ScrollView>
@@ -201,7 +207,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FCFCFC',
-    fontFamily:'Inter-Regular',
+    fontFamily: 'Inter-Regular',
   },
 
   Search: {
@@ -220,38 +226,38 @@ const styles = StyleSheet.create({
 
   input: {
     flex: 1,
-   
+
   },
 
   searchIcon: {
     marginRight: 10,
   },
-  partyName:{
-    fontSize:16,
+  partyName: {
+    fontSize: 16,
     margin: 1,
-    color:'black',
+    color: 'black',
   },
-  restaurantName:{
-    fontSize:14,
+  restaurantName: {
+    fontSize: 14,
     margin: 1,
-    color:'black',
+    color: 'black',
   },
- detail:{
-    fontSize:10,
+  detail: {
+    fontSize: 10,
     margin: 2,
-    marginBottom:2,
-    color:'black',
+    marginBottom: 2,
+    color: 'black',
   },
-  memberDetail:{
-    fontSize:10,
+  memberDetail: {
+    fontSize: 10,
     margin: 2,
-    marginBottom:5,
-    color:'#FF4B10',
+    marginBottom: 5,
+    color: '#FF4B10',
 
   },
-  joinButton:{
-    fontSize:13,
-    color:'#FF6C3A',
+  joinButton: {
+    fontSize: 13,
+    color: '#FF6C3A',
   },
   titleclass: {
     flexDirection: 'row',
@@ -274,12 +280,12 @@ const styles = StyleSheet.create({
     color: '#FF6C3A',
     fontFamily: 'Inter',
   },
-  categoryText:{
-    fontSize:12,
-    marginBottom:10,
-    marginTop:5,
-    color:'#FF6C3A',
-    fontFamily:'Inter-Regular',
+  categoryText: {
+    fontSize: 12,
+    marginBottom: 10,
+    marginTop: 5,
+    color: '#FF6C3A',
+    fontFamily: 'Inter-Regular',
   },
   iconLayout: {
     position: 'absolute',
@@ -292,7 +298,7 @@ const styles = StyleSheet.create({
     top: 10,
     left: 20,
   },
-  categoryCard : {
+  categoryCard: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -407,7 +413,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 11,
-    paddingVertical:4,
+    paddingVertical: 4,
   },
 
 });
