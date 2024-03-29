@@ -77,7 +77,7 @@ const Home = () => {
         <View style={styles.categoryCard}>
         <Text style={[styles.text, styles.textTypo]}>หมวดหมู่</Text>
         
-          <View style={{ flexDirection: 'row', alignItems: 'flex-start' ,justifyContent:'space-around',flex:1,flexWrap:'wrap',marginTop:30}}>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start' ,justifyContent:'space-around',flex:1,flexWrap:'wrap',marginTop:35}}>
           {/* row1 */}
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <Image
@@ -152,7 +152,7 @@ const Home = () => {
           
             <View style= {{flexDirection:'row',justifyContent:'space-around',flex:1,marginTop:-20,}}>
               <View style={{alignItems: 'flex-start'}}>
-          <Image style={{width:170,borderRadius:10}}
+          <Image style={{width:170,height:137,borderRadius:10}}
           resizeMode="cover"
           source={require("../assets/rectangle-131.png")}
         />
@@ -169,11 +169,14 @@ const Home = () => {
             <View style={{ flexDirection: 'row', alignItems: 'flex-start',flexWrap:'wrap',flex:1, }}>
            <Text style={styles.partyName}>โดยองหิวข้าว</Text>
            <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
-           <Text style={styles.detailStar} > 5.0(500) | อาหารนานาชาติ</Text>
-           <Image style={[styles.starIcon,styles.text35Position]}
+           <View style={{flexDirection:'row',flexWrap:'wrap',}}>
+           <Image style={{marginTop:3}}
             contentFit="cover"
             source={require("../assets/star-1.png")} />
+            <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
+            </View>
            <Text style={styles.detail}>500 km (40 นาที)</Text>
+         
            {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
            <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
            <Pressable
@@ -242,7 +245,7 @@ const styles = StyleSheet.create({
   },
   partyName:{
     fontSize:16,
-    marginTop:-4,
+    marginTop:-1,
     color:'black',
     fontFamily:'Mitr-Regular',
   },
@@ -265,13 +268,13 @@ const styles = StyleSheet.create({
     marginBottom:2,
     color:'black',
     fontFamily:'Mitr-Regular',
-    paddingLeft:8,
+    paddingLeft:2,
    
   },
   memberDetail:{
     fontSize:10,
     margin: 2,
-    marginBottom:5,
+    marginBottom:7,
     color:'#FF4B10',
     fontFamily:'Mitr-Regular',
 
