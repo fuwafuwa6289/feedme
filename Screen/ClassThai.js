@@ -191,13 +191,13 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45,
     backgroundColor: '#FFE5DC',
-    fontFamily: 'Inter',
+
 
   },
 
   txtclass: {
     color: '#FF6C3A',
-    fontFamily: 'Inter',
+    fontFamily: 'Mitr-Regular',
   },
 
   iconLayout: {
