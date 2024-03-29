@@ -59,7 +59,7 @@ const Home = () => {
             checkedColor="#FF6C3A"
             onPress={toggleCheckbox1}
             size={20}
-            textStyle={{ color: '#FF6C3A',fontWeight: 'normal',}} 
+            textStyle={{ color: '#FF6C3A',fontWeight: 'normal', fontFamily:'Mitr-Regular',}} 
           />
           <CheckBox
             title="ปาร์ตี้ 3 คนขึ้นไป"
@@ -70,7 +70,7 @@ const Home = () => {
             checkedColor="#FF6C3A"
             onPress={toggleCheckbox2}
             size={20}
-            textStyle={{ color: '#FF6C3A',fontWeight: 'normal' }} 
+            textStyle={{ color: '#FF6C3A',fontWeight: 'normal' , fontFamily:'Mitr-Regular',}} 
           />
         </View>
 
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FCFCFC',
-    fontFamily:'Inter-Regular',
+    fontFamily:'Mitr-Regular',
   },
 
   Search: {
@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
 
   input: {
     flex: 1,
+    fontFamily:'Mitr-Regular',
    
   },
 
@@ -230,28 +231,33 @@ const styles = StyleSheet.create({
     fontSize:16,
     margin: 1,
     color:'black',
+    fontFamily:'Mitr-Regular',
   },
   restaurantName:{
     fontSize:14,
     margin: 1,
     color:'black',
+    fontFamily:'Mitr-Regular',
   },
  detail:{
     fontSize:10,
     margin: 2,
     marginBottom:2,
     color:'black',
+    fontFamily:'Mitr-Regular',
   },
   memberDetail:{
     fontSize:10,
     margin: 2,
     marginBottom:5,
     color:'#FF4B10',
+    fontFamily:'Mitr-Regular',
 
   },
   joinButton:{
     fontSize:13,
     color:'#FF6C3A',
+    fontFamily:'Mitr-Regular',
   },
   titleclass: {
     flexDirection: 'row',
@@ -266,20 +272,20 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45,
     backgroundColor: '#FFE5DC',
-    fontFamily: 'Inter',
+    fontFamily:'Mitr-Regular',
 
   },
 
   txtclass: {
     color: '#FF6C3A',
-    fontFamily: 'Inter',
+    fontFamily:'Mitr-Regular',
   },
   categoryText:{
     fontSize:12,
     marginBottom:10,
     marginTop:5,
     color:'#FF6C3A',
-    fontFamily:'Inter-Regular',
+    fontFamily:'Mitr-Regular',
   },
   iconLayout: {
     position: 'absolute',
@@ -347,13 +353,16 @@ const styles = StyleSheet.create({
     left: 15,
     color: '#FF6C3A',
     textAlign: "left",
-    fontFamily: 'interRegular',
+    fontFamily:'Mitr-Regular',
   },
 
   starIcon: {
     position: 'absolute',
     top: 33,
     left: 15,
+  },
+  text:{
+    fontFamily:'Mitr-Regular',
   },
 
   text1: {
