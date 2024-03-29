@@ -152,7 +152,7 @@ const Home = () => {
           
             <View style= {{flexDirection:'row',justifyContent:'space-around',flex:1,marginTop:-20,}}>
               <View style={{alignItems: 'flex-start'}}>
-          <Image
+          <Image style={{width:170,borderRadius:10}}
           resizeMode="cover"
           source={require("../assets/rectangle-131.png")}
         />
@@ -169,9 +169,12 @@ const Home = () => {
             <View style={{ flexDirection: 'row', alignItems: 'flex-start',flexWrap:'wrap',flex:1, }}>
            <Text style={styles.partyName}>โดยองหิวข้าว</Text>
            <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
-           <Text style={styles.detail} >5.0(500) | อาหารนานาชาติ</Text>
+           <Text style={styles.detailStar} > 5.0(500) | อาหารนานาชาติ</Text>
+           <Image style={[styles.starIcon,styles.text35Position]}
+            contentFit="cover"
+            source={require("../assets/star-1.png")} />
            <Text style={styles.detail}>500 km (40 นาที)</Text>
-           <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
+           {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
            <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
            <Pressable
             style={styles.parent}
@@ -217,6 +220,16 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45
   },
+  starIcon:{
+    height: 11,
+    width: 11,
+    left: 100,
+  },
+  text35Position: {
+    top: 46,
+    left:-1,
+    position: "absolute",
+  },
 
   input: {
     flex: 1,
@@ -229,7 +242,7 @@ const styles = StyleSheet.create({
   },
   partyName:{
     fontSize:16,
-    margin: 1,
+    marginTop:-4,
     color:'black',
     fontFamily:'Mitr-Regular',
   },
@@ -245,6 +258,15 @@ const styles = StyleSheet.create({
     marginBottom:2,
     color:'black',
     fontFamily:'Mitr-Regular',
+  },
+  detailStar:{
+    fontSize:10,
+    margin: 2,
+    marginBottom:2,
+    color:'black',
+    fontFamily:'Mitr-Regular',
+    paddingLeft:8,
+   
   },
   memberDetail:{
     fontSize:10,
