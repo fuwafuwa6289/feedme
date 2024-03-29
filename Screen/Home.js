@@ -77,7 +77,7 @@ const Home = () => {
         <View style={styles.categoryCard}>
         <Text style={[styles.text, styles.textTypo]}>หมวดหมู่</Text>
         
-          <View style={{ flexDirection: 'row', alignItems: 'flex-start' ,justifyContent:'space-around',flex:1,flexWrap:'wrap',marginTop:35}}>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start' ,justifyContent:'space-around',flex:1,flexWrap:'wrap',marginTop:25}}>
           {/* row1 */}
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <Image
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 0,
     width: '90%',
-    height: 240,
+    height: 270,
     left: 20,
   },
   card: {
