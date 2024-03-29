@@ -19,9 +19,9 @@ function MyTabs() {
     <Tab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        activeTintColor: '#FF8259',
+        activeTintColor: '#FFFFFF',
         inactiveTintColor: '#FFFFFF',
-        activeBackgroundColor: '#FFFFFF',
+        activeBackgroundColor: '#FE9D80',
         inactiveBackgroundColor: '#FF8259',
         style: { backgroundColor: '#FF8259' },
         showLabel: false, // เพิ่ม showLabel เป็น false เพื่อซ่อนชื่อแท็บบาร์
