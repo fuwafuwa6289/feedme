@@ -7,10 +7,12 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
 const Home = () => {
 
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
+
   // checkbox
   const [checked1, setChecked1] = React.useState(true);
   const [checked2, setChecked2] = React.useState(true);
@@ -18,10 +20,15 @@ const Home = () => {
   const toggleCheckbox1 = () => setChecked1(!checked1);
   const toggleCheckbox2 = () => setChecked2(!checked2);
 
+  const handleCreateParty = () => {
+    console.log('Create Party'); // ทำการ console log เมื่อปุ่ม "สร้างปาร์ตี้" ถูกกด
+  };
+
   const handletoClassthai = () => {
     console.log('Classthai');
     navigation.navigate('ClassThai'); // ทำการ console log เมื่อปุ่ม "สร้างปาร์ตี้" ถูกกด
   };
+
 
   return (
     <ScrollView style={styles.container}>
@@ -62,7 +69,7 @@ const Home = () => {
             checkedColor="#FF6C3A"
             onPress={toggleCheckbox1}
             size={20}
-            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', }}
+            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Mitr-Regular', }}
           />
           <CheckBox
             title="ปาร์ตี้ 3 คนขึ้นไป"
@@ -73,14 +80,14 @@ const Home = () => {
             checkedColor="#FF6C3A"
             onPress={toggleCheckbox2}
             size={20}
-            textStyle={{ color: '#FF6C3A', fontWeight: 'normal' }}
+            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Mitr-Regular', }}
           />
         </View>
 
         <View style={styles.categoryCard}>
           <Text style={[styles.text, styles.textTypo]}>หมวดหมู่</Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-around', flex: 1, flexWrap: 'wrap', marginTop: 30 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-around', flex: 1, flexWrap: 'wrap', marginTop: 25 }}>
             {/* row1 */}
             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
               <TouchableOpacity onPress={handletoClassthai}>
@@ -157,7 +164,7 @@ const Home = () => {
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop: -20, }}>
             <View style={{ alignItems: 'flex-start' }}>
-              <Image
+              <Image style={{ width: 170, height: 137, borderRadius: 10 }}
                 resizeMode="cover"
                 source={require("../assets/rectangle-131.png")}
               />
@@ -174,17 +181,22 @@ const Home = () => {
             <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
               <Text style={styles.partyName}>โดยองหิวข้าว</Text>
               <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
-              <Text style={styles.detail} >5.0(500) | อาหารนานาชาติ</Text>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+                <Image style={{ marginTop: 3 }}
+                  contentFit="cover"
+                  source={require("../assets/star-1.png")} />
+                <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
+              </View>
               <Text style={styles.detail}>500 km (40 นาที)</Text>
-              <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
+
+              {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
               <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
-              <TouchableOpacity
+              <Pressable
                 style={styles.parent}
-                onPress={''}
               // onPress={onFramePressablePress}
               >
-                <Text style={styles.joinButton}>เข้าร่วม</Text>
-              </TouchableOpacity>
+                <Text style={styles.joinButton} >เข้าร่วม</Text>
+              </Pressable>
             </View>
           </View>
           {/* 2 */}
@@ -207,7 +219,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FCFCFC',
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Mitr-Regular',
   },
 
   Search: {
@@ -223,9 +235,20 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45
   },
+  starIcon: {
+    height: 11,
+    width: 11,
+    left: 100,
+  },
+  text35Position: {
+    top: 46,
+    left: -1,
+    position: "absolute",
+  },
 
   input: {
     flex: 1,
+    fontFamily: 'Mitr-Regular',
 
   },
 
@@ -234,30 +257,44 @@ const styles = StyleSheet.create({
   },
   partyName: {
     fontSize: 16,
-    margin: 1,
+    marginTop: -1,
     color: 'black',
+    fontFamily: 'Mitr-Regular',
   },
   restaurantName: {
     fontSize: 14,
     margin: 1,
     color: 'black',
+    fontFamily: 'Mitr-Regular',
   },
   detail: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
+    fontFamily: 'Mitr-Regular',
+  },
+  detailStar: {
+    fontSize: 10,
+    margin: 2,
+    marginBottom: 2,
+    color: 'black',
+    fontFamily: 'Mitr-Regular',
+    paddingLeft: 2,
+
   },
   memberDetail: {
     fontSize: 10,
     margin: 2,
-    marginBottom: 5,
+    marginBottom: 7,
     color: '#FF4B10',
+    fontFamily: 'Mitr-Regular',
 
   },
   joinButton: {
     fontSize: 13,
     color: '#FF6C3A',
+    fontFamily: 'Mitr-Regular',
   },
   titleclass: {
     flexDirection: 'row',
@@ -272,20 +309,20 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45,
     backgroundColor: '#FFE5DC',
-    fontFamily: 'Inter',
+    fontFamily: 'Mitr-Regular',
 
   },
 
   txtclass: {
     color: '#FF6C3A',
-    fontFamily: 'Inter',
+    fontFamily: 'Mitr-Regular',
   },
   categoryText: {
     fontSize: 12,
     marginBottom: 10,
     marginTop: 5,
     color: '#FF6C3A',
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   iconLayout: {
     position: 'absolute',
@@ -308,7 +345,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 0,
     width: '90%',
-    height: 240,
+    height: 270,
     left: 20,
   },
   card: {
@@ -353,13 +390,16 @@ const styles = StyleSheet.create({
     left: 15,
     color: '#FF6C3A',
     textAlign: "left",
-    fontFamily: 'interRegular',
+    fontFamily: 'Mitr-Regular',
   },
 
   starIcon: {
     position: 'absolute',
     top: 33,
     left: 15,
+  },
+  text: {
+    fontFamily: 'Mitr-Regular',
   },
 
   text1: {
