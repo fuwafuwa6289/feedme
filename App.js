@@ -9,6 +9,7 @@ import CreateParty from './Screen/CreateParty';
 import Notifications from './Screen/Noti';
 import Chat from './Screen/Chat';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ClassThai from './Screen/ClassThai';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -93,6 +94,9 @@ export default function App() {
           component={MyTabs}
           options={{ headerShown: false }} // ซ่อน Header Bar ของ Stack Navigator
         />
+        <Stack.Screen name="ClassThai" 
+        component={ClassThai}
+        options={{ headerShown: false }} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );
