@@ -57,6 +57,7 @@ function MyTabs() {
               style={{ tintColor: color, width: 29, height: 29 }}
             />
           ),
+          headerShown: false, // ซ่อน Header ของหน้า CreateParty
         }}
       />
       <Tab.Screen
