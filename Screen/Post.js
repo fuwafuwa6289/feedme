@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
-const ClassThai = () => {
+const Post = () => {
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
 
@@ -50,9 +50,7 @@ const ClassThai = () => {
         </View>
         <View style={styles.card}>
 
-          <Text style={[styles.text, styles.textTypo]}>การเชิญชวนแนะนำ</Text>
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop: -20, }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, }}>
             <View style={{ alignItems: 'flex-start' }}>
               <Image style={{ width: 170, height: 137, borderRadius: 10 }}
                 resizeMode="cover"
@@ -92,14 +90,12 @@ const ClassThai = () => {
         </View>
 
        
-
-       
       </View>
     </ScrollView>
   );
 }
 
-export default ClassThai;
+export default Post;
 
 const styles = StyleSheet.create({
   container: {
@@ -159,9 +155,6 @@ const styles = StyleSheet.create({
     left: 45
   },
 
-  input: {
-    flex: 1,
-  },
 
   searchIcon: {
     marginRight: 10,
@@ -190,7 +183,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 20,
     width: '90%',
-    height: 250,
+    height: 170,
     left: 20,
   },
 
