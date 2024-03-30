@@ -61,6 +61,7 @@ const Home = () => {
 
         {/* checkbox */}
         <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 17 }}>
+          
           <CheckBox
             title="ทาน 2 คน"
             checked={checked1}
@@ -90,16 +91,15 @@ const Home = () => {
 
           <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-around', flex: 1, flexWrap: 'wrap', marginTop: 25 }}>
             {/* row1 */}
+            <TouchableOpacity onPress={handletoClassthai}>
             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-              <TouchableOpacity onPress={handletoClassthai}>
                 <Image
                   resizeMode="cover"
                   source={require("../assets/ellipse-14.png")}
                 />
-              </TouchableOpacity>
               <Text style={styles.categoryText} >อาหารไทย</Text>
             </View>
-
+            </TouchableOpacity>
             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
               <Image
                 resizeMode="cover"
@@ -200,14 +200,7 @@ const Home = () => {
               </Pressable>
             </View>
           </View>
-          {/* 2 */}
-
-
-
-
         </View>
-
-
 
       </View>
     </ScrollView>
@@ -220,7 +213,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FCFCFC',
-    fontFamily: 'Mitr-Regular',
+    
   },
 
   Search: {
@@ -362,33 +355,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#FEF1EE',
     borderRadius: 5,
+    paddingTop:40,
     paddingHorizontal: 10,
     marginTop: 10,
     width: '90%',
-    height: 250,
+    height: 220,
     left: 20,
-  },
-
-  createpartyBT: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#FFE5DC',
-    borderRadius: 50,
-    paddingHorizontal: 10,
-    marginTop: 20,
-    width: '40%',
-    height: 40,
-    backgroundColor: '#FFE5DC'
-  },
-
-  txtcreatepartyBT: {
-    color: '#FF6C3A',
-    fontFamily: 'Inter'
+    // backgroundColor:'red'
   },
 
   textTypo: {
@@ -409,48 +382,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Mitr-Regular',
   },
 
-  text1: {
-    position: 'absolute',
-    top: 30,
-    left: 30,
-    color: 'black',
-    textAlign: "left",
-    fontFamily: 'interRegular',
-    fontSize: 12,
-    color: 'Black'
-  },
 
-  text2: {
-    position: 'absolute',
-    top: 48,
-    left: 15,
-    color: 'black',
-    textAlign: "left",
-    fontFamily: 'interRegular',
-    fontSize: 12,
-    color: 'Black'
-  },
-
-  frameItem: {
-    position: 'absolute',
-    top: 70,
-    left: 15,
-  },
-
-  frameItem2: {
-    position: 'absolute',
-    top: 70,
-    left: 150,
-  },
-
-  frameItem3: {
-    position: 'absolute',
-    top: 70,
-    left: 285,
-    height: 112,
-    width: 70,
-    borderRadius: 5
-  },
   parent: {
     borderRadius: 15,
     backgroundColor: '#ffe5dc',
