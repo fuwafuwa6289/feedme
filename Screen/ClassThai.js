@@ -40,7 +40,8 @@ const ClassThai = () => {
             style={styles.input}
             onChangeText={setInputText}
             value={inputText}
-            placeholder="ค้นหาร้านอาหาร..."
+            placeholder="ค้นหาชื่อร้านอาหาร"
+
           />
         </View>
 
@@ -162,16 +163,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: '#FE502A',
-    borderRadius: 5,
+    borderRadius: 10,
     paddingHorizontal: 10,
     marginTop: 60,
     width: '80%',
-    height: 40,
+    height: 50,
     left: 45
   },
 
   input: {
     flex: 1,
+    fontFamily: 'Mitr-Regular',
+    // marginTop:-1,
+    alignItems: 'center',
+    // backgroundColor:'pink',
+    textAlignVertical: 'center',
+    alignContent: 'center',
+
+
   },
 
   searchIcon: {
@@ -245,7 +254,7 @@ const styles = StyleSheet.create({
 
   txtcreatepartyBT: {
     color: '#FF6C3A',
-    fontFamily: 'Inter'
+    fontFamily: 'Mitr-Regular',
   },
 
   textTypo: {
@@ -254,7 +263,7 @@ const styles = StyleSheet.create({
     left: 15,
     color: 'black',
     textAlign: "left",
-    fontFamily: 'interRegular',
+    fontFamily: 'Mitr-Regular',
   },
 
   starIcon: {
@@ -271,7 +280,8 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontFamily: 'interRegular',
     fontSize: 12,
-    color: 'Black'
+    color: 'Black',
+    fontFamily: 'Mitr-Regular',
   },
 
   text2: {
@@ -282,7 +292,8 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontFamily: 'interRegular',
     fontSize: 12,
-    color: 'Black'
+    color: 'Black',
+    fontFamily: 'Mitr-Regular',
   },
 
   frameItem: {
