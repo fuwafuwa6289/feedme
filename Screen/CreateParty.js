@@ -165,7 +165,7 @@ const CreateParty = (props) => {
                         placeholder="   -"
                     />
                     <View style={styles.textinput3}><Text style={{ textAlign: 'center', color: '#FF5C00' }}>รูปภาพ</Text></View>
-                    <View style={{ justifyContent: 'center', borderWidth: 1, borderColor: '#FF5C00', width: 342, height: 131, justifyContent: 'flex-end', bottom: 5, borderRadius: 12, }}>
+                    <View style={{ justifyContent: 'center', borderWidth: 1, borderColor: '#FF5C00', width: 342, height: 131,  bottom: 5, borderRadius: 12, }}>
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
                             {selectedImage.map((image, index) => (
                                 <Image
@@ -176,7 +176,7 @@ const CreateParty = (props) => {
 
                             ))}
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
                             <View >
                                 {/* <Button title="Choose from Device" onPress={openImagePicker} /> */}
                                 <TouchableOpacity onPress={() => setOpen(true)}>
