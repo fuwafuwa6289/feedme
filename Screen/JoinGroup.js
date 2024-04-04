@@ -100,38 +100,62 @@ const JoinGroup = () => {
          
         </View>
 
-        
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,backgroundColor:'red',paddingHorizontal:25}}> 
+            
+            
+            <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
+            
+              <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+                <Image style={{ marginTop: 3 }}
+                  contentFit="cover"
+                  source={require("../assets/star-1.png")} />
+                <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
+              </View>
+              <Text style={styles.detail}>500 km (40 นาที)</Text>
+
+              <Text style={styles.detail}>show review</Text>
+             
+              {/* <TouchableOpacity onPress={handletoJoingroup} style={styles.parent}>
+                <Text style={styles.joinButton} >เข้าร่วม</Text>
+                </TouchableOpacity> */}
+            </View>
+            <View style={{justifyContent:'center',backgroundColor:'pink',}}>
+            <Image
+        style={[styles.rectangleIcon1]}
+        resizeMode="cover"
+        source={require("../assets/rectangle.png")}
+      />
+      <Text style={{textAlign:'right'}}>Show map</Text>
+            </View>
+          </View>
 
         <View style={styles.card}>
-          <Text style={[styles.text, styles.textTypo]}>ส้มตำเจ๊ไฝ ตำนรกครกแตก</Text>
-          <Image style={styles.starIcon}
-            contentFit="cover"
-            source={require("../assets/star-1.png")} />
-          <Text
-            style={styles.text1}>{`5.0 (500) | อาหารไทย `}</Text>
-          <Text style={styles.text2}>500 km (40 นาที)</Text>
+        <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
+            
+            <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+              <Image style={{ marginTop: 3 }}
+                contentFit="cover"
+                source={require("../assets/star-1.png")} />
+              <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
+            </View>
+            <Text style={styles.detail}>500 km (40 นาที)</Text>
 
+            <Text style={styles.detail}>show review</Text>
+           
+            {/* <TouchableOpacity onPress={handletoJoingroup} style={styles.parent}>
+              <Text style={styles.joinButton} >เข้าร่วม</Text>
+              </TouchableOpacity> */}
+          </View>
+          <View style={{justifyContent:'center',backgroundColor:'pink',}}>
           <Image
-            style={[styles.frameItem]}
-            contentFit="cover"
-            source={require("../assets/rectangle-161.png")}
-          />
-
-          <Image
-            style={[styles.frameItem2]}
-            contentFit="cover"
-            source={require("../assets/rectangle-171.png")}
-          />
-
-          <Image
-            style={[styles.frameItem3]}
-            contentFit="cover"
-            source={require("../assets/rectangle-181.png")}
-          />
-
-          <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-            <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-          </TouchableOpacity>
+      style={[styles.rectangleIcon1]}
+      resizeMode="cover"
+      source={require("../assets/rectangle.png")}
+    />
+    <Text style={{textAlign:'right'}}>Show map</Text>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -144,6 +168,50 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FCFCFC',
+  },
+  partyName: {
+    fontSize: 16,
+    marginTop: -1,
+    color: 'black',
+    fontFamily: 'Mitr-Regular',
+  },
+  
+  restaurantName: {
+    fontSize: 14,
+    margin: 1,
+    color: 'black',
+    fontFamily: 'Mitr-Regular',
+  },
+  detail: {
+    fontSize: 10,
+    margin: 2,
+    marginBottom: 2,
+    color: 'black',
+    fontFamily: 'Mitr-Regular',
+  },
+  detailStar: {
+    fontSize: 10,
+    margin: 2,
+    marginBottom: 2,
+    color: 'black',
+    fontFamily: 'Mitr-Regular',
+    paddingLeft: 2,
+
+  },
+  memberDetail: {
+    fontSize: 10,
+    margin: 2,
+    marginBottom: 7,
+    color: '#FF4B10',
+    fontFamily: 'Mitr-Regular',
+
+  },
+  rectangleIcon1: {
+    justifyContent:'center',
+    alignItems:'center',
+    width: 206,
+    height: 60,
+    borderRadius: 6 ,
   },
 
   Search: {
@@ -223,11 +291,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: '#FEF1EE',
-    borderRadius: 5,
+    borderRadius: 21,
     paddingHorizontal: 10,
-    marginTop: 100,
+    marginTop: 20,
+    height: 175,
     width: '90%',
-    height: 250,
     left: 20,
   },
 
