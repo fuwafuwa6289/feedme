@@ -133,7 +133,8 @@ const JoinGroup = () => {
         <View style={styles.card}>
         <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
             
-            <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
+        <Text style={styles.partyName}>โดยองหิวข้าว</Text>
+        <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
               <Image style={{ marginTop: 3 }}
                 contentFit="cover"
@@ -149,12 +150,9 @@ const JoinGroup = () => {
               </TouchableOpacity> */}
           </View>
           <View style={{justifyContent:'center',backgroundColor:'pink',}}>
-          <Image
-      style={[styles.rectangleIcon1]}
-      resizeMode="cover"
-      source={require("../assets/rectangle.png")}
-    />
-    <Text style={{textAlign:'right'}}>Show map</Text>
+          <TouchableOpacity  style={styles.parent}>
+                <Text style={styles.joinButton} >เข้าร่วม</Text>
+                </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -174,6 +172,22 @@ const styles = StyleSheet.create({
     marginTop: -1,
     color: 'black',
     fontFamily: 'Mitr-Regular',
+  },
+  joinButton: {
+    fontSize: 13,
+    color: '#FF6C3A',
+    fontFamily: 'Mitr-Regular',
+  },
+  parent: {
+    borderRadius: 15,
+    backgroundColor: '#ffe5dc',
+    width: 87,
+    overflow: "hidden",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 11,
+    paddingVertical: 4,
   },
   
   restaurantName: {
