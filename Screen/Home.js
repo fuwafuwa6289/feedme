@@ -20,13 +20,14 @@ const Home = () => {
   const toggleCheckbox1 = () => setChecked1(!checked1);
   const toggleCheckbox2 = () => setChecked2(!checked2);
 
-  const handleCreateParty = () => {
-    console.log('Create Party'); // ทำการ console log เมื่อปุ่ม "สร้างปาร์ตี้" ถูกกด
+  const handletoJoingroup = () => {
+    console.log('join group'); 
+    navigation.navigate('JoinGroup');
   };
 
   const handletoClassthai = () => {
     console.log('Classthai');
-    navigation.navigate('ClassThai'); // ทำการ console log เมื่อปุ่ม "สร้างปาร์ตี้" ถูกกด
+    navigation.navigate('ClassThai'); 
   };
 
 
@@ -192,12 +193,9 @@ const Home = () => {
 
               {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
               <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
-              <Pressable
-                style={styles.parent}
-              // onPress={onFramePressablePress}
-              >
+              <TouchableOpacity onPress={handletoJoingroup} style={styles.parent}>
                 <Text style={styles.joinButton} >เข้าร่วม</Text>
-              </Pressable>
+                </TouchableOpacity>
             </View>
           </View>
         </View>
