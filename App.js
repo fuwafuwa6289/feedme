@@ -10,6 +10,7 @@ import Notifications from './Screen/Noti';
 import Chat from './Screen/Chat';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ClassThai from './Screen/ClassThai';
+import JoinGroup from './Screen/JoinGroup';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -97,7 +98,13 @@ export default function App() {
         <Stack.Screen name="ClassThai" 
         component={ClassThai}
         options={{ headerShown: false }} /> 
+
+        <Stack.Screen name="JoinGroup" 
+        component={JoinGroup}
+        options={{ headerShown: false }} /> 
       </Stack.Navigator>
+
+      
     </NavigationContainer>
   );
 }
