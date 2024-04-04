@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCFCFC',
     
   },
+  
 
   Search: {
     flexDirection: 'row',
