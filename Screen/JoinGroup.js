@@ -18,6 +18,7 @@ const JoinGroup = () => {
   return (
     <ScrollView style={styles.container}>
       <View>
+        <View> 
         <TouchableOpacity onPress={handleGoBack}>
           <Image
             style={styles.iconBack}
@@ -33,84 +34,73 @@ const JoinGroup = () => {
             source={require("../assets/ellipse-46.png")}
           />
         </TouchableOpacity>
-
-        <View style={styles.Search}>
-          <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
-          <TextInput
-            style={styles.input}
-            onChangeText={setInputText}
-            value={inputText}
-            placeholder="ค้นหาร้านอาหาร..."
-          />
+        </View> 
+        {/* ภาพร้านอาหาร */}
+        <View >
+          <View style={{flexDirection:'row',backgroundColor:'red',marginTop:65,
+    height: 174,}}>
+        <Image
+        style={[styles.item, styles.itemLayout]}
+        resizeMode="cover"
+        source={require("../assets/rectangle-135.png")}
+      />
+      </View>
+      <View style={{backgroundColor:'pink',flexDirection:'row',paddingHorizontal:24,paddingVertical:5,justifyContent: 'space-around',left:5}}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Image
+        style={[styles.inner]}
+        resizeMode="cover"
+        source={require("../assets/rectangle-145.png")}
+      />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Image
+        style={[styles.inner]}
+        resizeMode="cover"
+        source={require("../assets/rectangle-155.png")}
+      />
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Image
+        style={[styles.inner]}
+        resizeMode="cover"
+        source={require("../assets/rectangle-166.png")}
+      />
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Image
+        style={[styles.inner]}
+        resizeMode="cover"
+        source={require("../assets/rectangle-155.png")}
+      />
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Image
+        style={[styles.inner]}
+        resizeMode="cover"
+        source={require("../assets/rectangle-155.png")}
+      />
         </View>
 
-        <View style={styles.titleclass}>
-          <Text style={styles.txtclass}>อาหารไทย</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Image
+        style={[styles.inner]}
+        resizeMode="cover"
+        source={require("../assets/rectangle-155.png")}
+      />
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Image
+        style={[styles.inner2]}
+        resizeMode="cover"
+        source={require("../assets/rectangle-203.png")}
+      />
+        </View>
+      </View>
+         
         </View>
 
-        <View style={styles.card}>
-          <Text style={[styles.text, styles.textTypo]}>ยายสวย</Text>
-          <Image style={styles.starIcon}
-            contentFit="cover"
-            source={require("../assets/star-1.png")} />
-          <Text
-            style={styles.text1}>{`5.0 (500) | อาหารไทย `}</Text>
-          <Text style={styles.text2}>500 km (40 นาที)</Text>
-
-          <Image
-            style={[styles.frameItem]}
-            contentFit="cover"
-            source={require("../assets/rectangle-3.png")}
-          />
-
-          <Image
-            style={[styles.frameItem2]}
-            contentFit="cover"
-            source={require("../assets/rectangle-5.png")}
-          />
-
-          <Image
-            style={[styles.frameItem3]}
-            contentFit="cover"
-            source={require("../assets/rectangle-6.png")}
-          />
-
-          <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-            <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.card}>
-          <Text style={[styles.text, styles.textTypo]}>ยำเจ๊เล็ก กินสามคำสวดอภิธรรมสามคืน</Text>
-          <Image style={styles.starIcon}
-            contentFit="cover"
-            source={require("../assets/star-1.png")} />
-          <Text
-            style={styles.text1}>{`5.0 (500) | อาหารไทย `}</Text>
-          <Text style={styles.text2}>500 km (40 นาที)</Text>
-
-          <Image
-            style={[styles.frameItem]}
-            contentFit="cover"
-            source={require("../assets/rectangle-16.png")}
-          />
-
-          <Image
-            style={[styles.frameItem2]}
-            contentFit="cover"
-            source={require("../assets/rectangle-17.png")}
-          />
-
-          <Image
-            style={[styles.frameItem3]}
-            contentFit="cover"
-            source={require("../assets/rectangle-18.png")}
-          />
-
-          <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-            <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-          </TouchableOpacity>
-        </View>
+        
 
         <View style={styles.card}>
           <Text style={[styles.text, styles.textTypo]}>ส้มตำเจ๊ไฝ ตำนรกครกแตก</Text>
@@ -169,13 +159,22 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45
   },
-
+  inner2:{
+  
+      
+      width: 20,
+      height: 49,
+  },
   input: {
     flex: 1,
   },
 
-  searchIcon: {
-    marginRight: 10,
+  
+  item: {
+    // top: 75,
+    width: 363,
+    height: 174,
+    left: 30,
   },
 
   titleclass: {
@@ -193,6 +192,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFE5DC',
 
 
+  },
+  childLayout1: {
+    height: 49,
+    top: 256,
+    borderRadius: 6,
+    position: "absolute",
   },
 
   txtclass: {
@@ -220,7 +225,7 @@ const styles = StyleSheet.create({
     borderColor: '#FEF1EE',
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginTop: 20,
+    marginTop: 100,
     width: '90%',
     height: 250,
     left: 20,
@@ -255,6 +260,12 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: "left",
     fontFamily: 'interRegular',
+  },
+  inner: {
+    width: 53,
+    height: 49,
+    // top: 80,
+    // left: 38,
   },
 
   starIcon: {
