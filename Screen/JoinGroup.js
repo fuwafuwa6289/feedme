@@ -37,7 +37,7 @@ const JoinGroup = () => {
         </View> 
         {/* ภาพร้านอาหาร */}
         <View >
-          <View style={{flexDirection:'row',backgroundColor:'red',marginTop:65,
+          <View style={{flexDirection:'row',marginTop:65,
     height: 174,}}>
         <Image
         style={[styles.item, styles.itemLayout]}
@@ -45,7 +45,7 @@ const JoinGroup = () => {
         source={require("../assets/rectangle-135.png")}
       />
       </View>
-      <View style={{backgroundColor:'pink',flexDirection:'row',paddingHorizontal:24,paddingVertical:5,justifyContent: 'space-around',left:5}}>
+      <View style={{flexDirection:'row',paddingHorizontal:24,paddingVertical:5,justifyContent: 'space-around',left:5}}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Image
         style={[styles.inner]}
@@ -100,7 +100,7 @@ const JoinGroup = () => {
          
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,backgroundColor:'red',paddingHorizontal:25}}> 
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,paddingHorizontal:24,marginLeft:5}}> 
             
             
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
@@ -114,19 +114,17 @@ const JoinGroup = () => {
               </View>
               <Text style={styles.detail}>500 km (40 นาที)</Text>
 
-              <Text style={styles.detail}>show review</Text>
+              <Text style={styles.showReview}>Show review</Text>
              
-              {/* <TouchableOpacity onPress={handletoJoingroup} style={styles.parent}>
-                <Text style={styles.joinButton} >เข้าร่วม</Text>
-                </TouchableOpacity> */}
+             
             </View>
-            <View style={{justifyContent:'center',backgroundColor:'pink',}}>
+            <View style={{justifyContent:'center',}}>
             <Image
         style={[styles.rectangleIcon1]}
         resizeMode="cover"
         source={require("../assets/rectangle.png")}
       />
-      <Text style={{textAlign:'right'}}>Show map</Text>
+      <Text style={styles.showMap}>Show map</Text>
             </View>
           </View>
 
@@ -134,26 +132,45 @@ const JoinGroup = () => {
         <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
             
         <Text style={styles.partyName}>โดยองหิวข้าว</Text>
-        <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
+        <Text style={styles.caption}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-              <Image style={{ marginTop: 3 }}
-                contentFit="cover"
-                source={require("../assets/star-1.png")} />
-              <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
+            <Image
+          style={{ marginTop: 3 }}
+          resizeMode="cover"
+          source={require("../assets/linemdaccount.png")}
+        />
+              <Text style={styles.memberDetail} >สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
             </View>
-            <Text style={styles.detail}>500 km (40 นาที)</Text>
+            <Text style={styles.timeTopic}>ช่วงเวลานัดหมาย</Text>
 
-            <Text style={styles.detail}>show review</Text>
-           
-            {/* <TouchableOpacity onPress={handletoJoingroup} style={styles.parent}>
-              <Text style={styles.joinButton} >เข้าร่วม</Text>
-              </TouchableOpacity> */}
+            <Text style={styles.timeDetail}>วันที่ 05/04/2024</Text>
+            <Text style={styles.timeDetail}>เวลา 10:00 น.</Text>
           </View>
-          <View style={{justifyContent:'center',backgroundColor:'pink',}}>
+          <View style={{justifyContent:'center',}}>
           <TouchableOpacity  style={styles.parent}>
                 <Text style={styles.joinButton} >เข้าร่วม</Text>
                 </TouchableOpacity>
           </View>
+        </View>
+        <View>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1,justifyContent:'flex-start',marginHorizontal:24,marginTop:15}}>
+          <Text style={styles.membertopic}>รายชื่อสมาชิก</Text>
+        </View>
+
+        <View style={styles.card2}>
+          <View>
+          <Image
+          style={styles.groupInner}
+          resizeMode="cover"
+          source={require("../assets/ellipse-461.png")}
+        />
+          </View>
+          <View style={{justifyContent:'center',alignItems:'center',marginTop:7}}>
+          <Text style={styles.memberName}>
+          พี่โดไม่ชอบคนทางขวา
+        </Text>
+          </View>
+        </View>
         </View>
       </View>
     </ScrollView>
@@ -167,21 +184,32 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FCFCFC',
   },
+  membertopic:{
+    fontSize:14,
+    color: 'black',
+    fontFamily: 'Mitr-Regular',
+  },
+  memberName:{
+    fontSize:13,
+    color: 'black',
+    fontFamily: 'Mitr-Regular',
+  },
   partyName: {
-    fontSize: 16,
-    marginTop: -1,
+    fontSize: 32,
+    marginTop: -5,
     color: 'black',
     fontFamily: 'Mitr-Regular',
   },
   joinButton: {
     fontSize: 13,
-    color: '#FF6C3A',
+    color: '#FFFFFF',
     fontFamily: 'Mitr-Regular',
   },
   parent: {
     borderRadius: 15,
-    backgroundColor: '#ffe5dc',
-    width: 87,
+    backgroundColor: '#FF8259',
+    width: 99,
+    height: 29,
     overflow: "hidden",
     flexDirection: "row",
     alignItems: "center",
@@ -197,10 +225,46 @@ const styles = StyleSheet.create({
     fontFamily: 'Mitr-Regular',
   },
   detail: {
-    fontSize: 10,
+    fontSize: 10 ,
     margin: 2,
     marginBottom: 2,
     color: 'black',
+    fontFamily: 'Mitr-Regular',
+  },
+  timeTopic: {
+    fontSize: 13 ,
+    margin: 2,
+    marginBottom: 2,
+    color: 'black',
+    fontFamily: 'Mitr-Regular',
+  },
+  showMap: {
+    fontSize: 10 ,
+    margin: 2,
+    marginBottom: 2,
+    color: '#F24E1E',
+    fontFamily: 'Mitr-Regular',
+    textAlign:'right'
+  },
+  showReview: {
+    fontSize: 10 ,
+    margin: 2,
+    marginBottom: 2,
+    color: '#F24E1E',
+    fontFamily: 'Mitr-Regular',
+  },
+  timeDetail: {
+    fontSize: 13 ,
+    margin: 2,
+    marginBottom: 2,
+    color: '#5E5E5E',
+    fontFamily: 'Mitr-Regular',
+  },
+  caption: {
+    fontSize: 15 ,
+    margin: 2,
+    marginBottom: 2,
+    color: '#5E5E5E',
     fontFamily: 'Mitr-Regular',
   },
   detailStar: {
@@ -301,15 +365,30 @@ const styles = StyleSheet.create({
 
   card: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     borderWidth: 2,
     borderColor: '#FEF1EE',
     borderRadius: 21,
     paddingHorizontal: 10,
-    marginTop: 20,
-    height: 175,
+    paddingVertical:10,
+    marginTop: 10,
+    height: 195,
     width: '90%',
+    left: 20,
+  },
+
+  card2: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    // justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: '#FEF1EE',
+    borderRadius: 21,
+    paddingTop:10,
+    marginTop: 10,
+    height: 152,
+    width: 162,
     left: 20,
   },
 
@@ -394,8 +473,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 70,
     left: 285,
-    height: 112,
-    width: 70,
+    height: 175,
+    width: 364,
     borderRadius: 5
   },
 
