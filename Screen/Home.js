@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
 
   input: {
     flex: 1,
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Bold',
     // marginTop:-1,
     alignItems:'center',
     // backgroundColor:'pink',
