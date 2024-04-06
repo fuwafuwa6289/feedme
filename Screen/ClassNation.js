@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
 const ClassNation = () => {
   const [inputText, setInputText] = useState('');
   const [restaurantData, setRestaurantData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
     fetch('https://pantira111.github.io/FeedmeApi/restaurant.json')
       .then(response => response.json())
       .then(data => {
-        // Filter only Thai food restaurants
         const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'อาหารนานาชาติ');
         setRestaurantData(thaiRestaurants);
+        setLoading(false);
       })
-      .catch(error => console.error('Error fetching data: ', error));
+      .catch(error => {
+        console.error('Error fetching data: ', error);
+        setLoading(false);
+      });
   }, []);
 
   const handleCreateParty = () => {
     console.log('Create Party');
-    navigation.navigate('CreateParty'); // Navigate back to Home screen
+    navigation.navigate('CreateParty');
   };
 
   const handleGoBack = () => {
@@ -34,7 +38,7 @@ const ClassNation = () => {
         <TouchableOpacity onPress={handleGoBack}>
           <Image
             style={styles.iconBack}
-            contentFit="cover"
+            resizeMode="cover"
             source={require("../assets/epback.png")}
           />
         </TouchableOpacity>
@@ -42,7 +46,7 @@ const ClassNation = () => {
         <TouchableOpacity onPress={() => console.log('Go to Profile')}>
           <Image
             style={styles.iconLayout}
-            contentFit="cover"
+            resizeMode="cover"
             source={require("../assets/ellipse-46.png")}
           />
         </TouchableOpacity>
@@ -61,35 +65,39 @@ const ClassNation = () => {
           <Text style={styles.txtclass}>อาหารนานาชาติ</Text>
         </View>
   
-        <FlatList
-          data={restaurantData}
-          keyExtractor={(item, id) => id.toString()}
-          renderItem={({ item, index }) => (
-            <View style={styles.card} key={index}>
-              <Text style={[styles.textTypo]}>{item.name}</Text>
-              <Image style={styles.starIcon}
-                contentFit="cover"
-                source={require("../assets/star-1.png")} />
-              <Text
-                style={styles.text1}>{item.star} คะแนน | {item.type}</Text>
-              <Text style={styles.text2}>{item.distance}</Text>
-        
-              <FlatList
-                horizontal
-                data={[item.image2, item.image3, item.image4 , item.image5, item.image6 ]}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                  <Image source={{ uri: item }} style={styles.image} />
-                )}
-                pagingEnabled
-              />
-        
-              <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-                <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />
+        ) : (
+          <FlatList
+            data={restaurantData}
+            keyExtractor={(item, id) => id.toString()}
+            renderItem={({ item, index }) => (
+              <View style={styles.card} key={index}>
+                <Text style={[styles.textTypo]}>{item.name}</Text>
+                <Image style={styles.starIcon}
+                  resizeMode="cover"
+                  source={require("../assets/star-1.png")} />
+                <Text
+                  style={styles.text1}>{item.star} คะแนน | {item.type}</Text>
+                <Text style={styles.text2}>{item.distance}</Text>
+          
+                <FlatList
+                  horizontal
+                  data={[item.image2, item.image3, item.image4 , item.image5, item.image6 ]}
+                  keyExtractor={(item, index) => index.toString()}
+                  renderItem={({ item }) => (
+                    <Image source={{ uri: item }} style={styles.image} resizeMode="cover" />
+                  )}
+                  pagingEnabled
+                />
+          
+                <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
+                  <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        )}
       </View>
     </ScrollView>
   );
@@ -195,11 +203,12 @@ const styles = StyleSheet.create({
 
   textTypo: {
     position: 'absolute',
-    top: 10,
+    top: 9,
     left: 15,
     color: 'black',
     textAlign: "left",
     fontFamily: 'Kanit-Light',
+    fontSize: 16,
   },
 
   starIcon: {
@@ -235,5 +244,9 @@ const styles = StyleSheet.create({
     height: 110,
     borderRadius: 5,
     margin: 5,
+  },
+
+  loadingIndicator: {
+    marginTop: 20,
   },
 });
