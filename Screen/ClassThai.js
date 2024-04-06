@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
 const ClassThai = () => {
   const [inputText, setInputText] = useState('');
+  const [restaurantData, setRestaurantData] = useState([]);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    fetch('https://pantira111.github.io/FeedmeApi/restaurant.json')
+      .then(response => response.json())
+      .then(data => {
+        // Filter only Thai food restaurants
+        const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'อาหารไทย');
+        setRestaurantData(thaiRestaurants);
+      })
+      .catch(error => console.error('Error fetching data: ', error));
+  }, []);
 
   const handleCreateParty = () => {
     console.log('Create Party');
+    navigation.navigate('CreateParty'); // Navigate back to Home screen
   };
 
   const handleGoBack = () => {
@@ -25,7 +38,7 @@ const ClassThai = () => {
             source={require("../assets/epback.png")}
           />
         </TouchableOpacity>
-
+  
         <TouchableOpacity onPress={() => console.log('Go to Profile')}>
           <Image
             style={styles.iconLayout}
@@ -33,117 +46,50 @@ const ClassThai = () => {
             source={require("../assets/ellipse-46.png")}
           />
         </TouchableOpacity>
-
+  
         <View style={styles.Search}>
           <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
           <TextInput
             style={styles.input}
             onChangeText={setInputText}
             value={inputText}
-            placeholder="ค้นหาชื่อร้านอาหาร"
-
+            placeholder="ค้นหาร้านอาหาร..."
           />
         </View>
-
+  
         <View style={styles.titleclass}>
           <Text style={styles.txtclass}>อาหารไทย</Text>
         </View>
-
-        <View style={styles.card}>
-          <Text style={[styles.text, styles.textTypo]}>ยายน้อยโภชนา</Text>
-          <Image style={styles.starIcon}
-            contentFit="cover"
-            source={require("../assets/star-1.png")} />
-          <Text
-            style={styles.text1}>{`5.0 (500) | อาหารไทย `}</Text>
-          <Text style={styles.text2}>500 km (40 นาที)</Text>
-
-          <Image
-            style={[styles.frameItem]}
-            contentFit="cover"
-            source={require("../assets/rectangle-3.png")}
-          />
-
-          <Image
-            style={[styles.frameItem2]}
-            contentFit="cover"
-            source={require("../assets/rectangle-5.png")}
-          />
-
-          <Image
-            style={[styles.frameItem3]}
-            contentFit="cover"
-            source={require("../assets/rectangle-6.png")}
-          />
-
-          <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-            <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.card}>
-          <Text style={[styles.text, styles.textTypo]}>ยำเจ๊เล็ก กินสามคำสวดอภิธรรมสามคืน</Text>
-          <Image style={styles.starIcon}
-            contentFit="cover"
-            source={require("../assets/star-1.png")} />
-          <Text
-            style={styles.text1}>{`5.0 (500) | อาหารไทย `}</Text>
-          <Text style={styles.text2}>500 km (40 นาที)</Text>
-
-          <Image
-            style={[styles.frameItem]}
-            contentFit="cover"
-            source={require("../assets/rectangle-16.png")}
-          />
-
-          <Image
-            style={[styles.frameItem2]}
-            contentFit="cover"
-            source={require("../assets/rectangle-17.png")}
-          />
-
-          <Image
-            style={[styles.frameItem3]}
-            contentFit="cover"
-            source={require("../assets/rectangle-18.png")}
-          />
-
-          <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-            <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.card}>
-          <Text style={[styles.text, styles.textTypo]}>ส้มตำเจ๊ไฝ ตำนรกครกแตก</Text>
-          <Image style={styles.starIcon}
-            contentFit="cover"
-            source={require("../assets/star-1.png")} />
-          <Text
-            style={styles.text1}>{`5.0 (500) | อาหารไทย `}</Text>
-          <Text style={styles.text2}>500 km (40 นาที)</Text>
-
-          <Image
-            style={[styles.frameItem]}
-            contentFit="cover"
-            source={require("../assets/rectangle-161.png")}
-          />
-
-          <Image
-            style={[styles.frameItem2]}
-            contentFit="cover"
-            source={require("../assets/rectangle-171.png")}
-          />
-
-          <Image
-            style={[styles.frameItem3]}
-            contentFit="cover"
-            source={require("../assets/rectangle-181.png")}
-          />
-
-          <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-            <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-          </TouchableOpacity>
-        </View>
+  
+        <FlatList
+          data={restaurantData}
+          keyExtractor={(item, id) => id.toString()}
+          renderItem={({ item, index }) => (
+            <View style={styles.card} key={index}>
+              <Text style={[styles.textTypo]}>{item.name}</Text>
+              <Image style={styles.starIcon}
+                contentFit="cover"
+                source={require("../assets/star-1.png")} />
+              <Text
+                style={styles.text1}>{item.star} คะแนน | {item.type}</Text>
+              <Text style={styles.text2}>{item.distance}</Text>
+        
+              <FlatList
+                horizontal
+                data={[item.image2, item.image3, item.image4 , item.image5, item.image6 ]}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                  <Image source={{ uri: item }} style={styles.image} />
+                )}
+                pagingEnabled
+              />
+        
+              <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
+                <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
       </View>
     </ScrollView>
   );
@@ -163,24 +109,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: '#FE502A',
-    borderRadius: 10,
+    borderRadius: 5,
     paddingHorizontal: 10,
     marginTop: 60,
     width: '80%',
-    height: 50,
+    height: 40,
     left: 45
   },
 
   input: {
     flex: 1,
-    fontFamily: 'Mitr-Regular',
-    // marginTop:-1,
-    alignItems: 'center',
-    // backgroundColor:'pink',
-    textAlignVertical: 'center',
-    alignContent: 'center',
-
-
   },
 
   searchIcon: {
@@ -200,13 +138,11 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45,
     backgroundColor: '#FFE5DC',
-
-
   },
 
   txtclass: {
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Light',
   },
 
   iconLayout: {
@@ -254,7 +190,7 @@ const styles = StyleSheet.create({
 
   txtcreatepartyBT: {
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Light'
   },
 
   textTypo: {
@@ -263,7 +199,7 @@ const styles = StyleSheet.create({
     left: 15,
     color: 'black',
     textAlign: "left",
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Light',
   },
 
   starIcon: {
@@ -278,10 +214,9 @@ const styles = StyleSheet.create({
     left: 30,
     color: 'black',
     textAlign: "left",
-    fontFamily: 'interRegular',
+    fontFamily: 'Kanit-Light',
     fontSize: 12,
-    color: 'Black',
-    fontFamily: 'Mitr-Regular',
+    color: 'Black'
   },
 
   text2: {
@@ -290,31 +225,15 @@ const styles = StyleSheet.create({
     left: 15,
     color: 'black',
     textAlign: "left",
-    fontFamily: 'interRegular',
+    fontFamily: 'Kanit-Light',
     fontSize: 12,
-    color: 'Black',
-    fontFamily: 'Mitr-Regular',
+    color: 'Black'
   },
 
-  frameItem: {
-    position: 'absolute',
-    top: 70,
-    left: 15,
+  image: {
+    width: 110,
+    height: 110,
+    borderRadius: 5,
+    margin: 5,
   },
-
-  frameItem2: {
-    position: 'absolute',
-    top: 70,
-    left: 150,
-  },
-
-  frameItem3: {
-    position: 'absolute',
-    top: 70,
-    left: 285,
-    height: 112,
-    width: 70,
-    borderRadius: 5
-  },
-
 });
