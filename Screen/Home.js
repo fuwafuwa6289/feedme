@@ -30,6 +30,21 @@ const Home = () => {
     navigation.navigate('ClassThai'); 
   };
 
+  const handletoClassNation = () => {
+    console.log('ClassNation');
+    navigation.navigate('ClassNation'); 
+  };
+
+  const handletoClassCafe = () => {
+    console.log('ClassCafe');
+    navigation.navigate('ClassCafe'); 
+  };
+
+  const handletoClassBreakfast = () => {
+    console.log('ClassBreakfast');
+    navigation.navigate('ClassBreakfast'); 
+  };
+
 
   return (
     <ScrollView style={styles.container}>
@@ -101,6 +116,8 @@ const Home = () => {
               <Text style={styles.categoryText} >อาหารไทย</Text>
             </View>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={handletoClassNation}>
             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
               <Image
                 resizeMode="cover"
@@ -108,7 +125,9 @@ const Home = () => {
               />
               <Text style={styles.categoryText}>อาหารนานาชาติ</Text>
             </View>
+            </TouchableOpacity>
 
+            <TouchableOpacity onPress={handletoClassBreakfast}>
             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
               <Image
                 resizeMode="cover"
@@ -116,7 +135,9 @@ const Home = () => {
               />
               <Text style={styles.categoryText}>อาหารเช้า</Text>
             </View>
+            </TouchableOpacity>
 
+            <TouchableOpacity onPress={handletoClassCafe}>
             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
               <Image
                 resizeMode="cover"
@@ -124,6 +145,7 @@ const Home = () => {
               />
               <Text style={styles.categoryText}>คาเฟ่และขนมหวาน</Text>
             </View>
+            </TouchableOpacity>
 
             {/* row2 */}
             <View style={{ flexDirection: 'column', alignItems: 'center', }}>

@@ -10,10 +10,16 @@ import Notifications from './Screen/Noti';
 import Chat from './Screen/Chat';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ClassThai from './Screen/ClassThai';
+import ClassNation from './Screen/ClassNation';
+import ClassBreakfast from './Screen/ClassBreakfast';
+import ClassCafe from './Screen/ClassCafe';
 import JoinGroup from './Screen/JoinGroup';
+import { useEffect, useState } from 'react';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+
 
 function MyTabs() {
   return (
@@ -95,16 +101,30 @@ export default function App() {
           component={MyTabs}
           options={{ headerShown: false }} // ซ่อน Header Bar ของ Stack Navigator
         />
-        <Stack.Screen name="ClassThai" 
-        component={ClassThai}
-        options={{ headerShown: false }} /> 
+        <Stack.Screen name="ClassThai"
+          component={ClassThai}
+          options={{ headerShown: false }} />
 
-        <Stack.Screen name="JoinGroup" 
-        component={JoinGroup}
-        options={{ headerShown: false }} /> 
+        <Stack.Screen name="ClassNation"
+          component={ClassNation}
+          options={{ headerShown: false }} />
+
+        <Stack.Screen name="ClassCafe"
+          component={ClassCafe}
+          options={{ headerShown: false }} />
+
+        <Stack.Screen name="ClassBreakfast"
+          component={ClassBreakfast}
+          options={{ headerShown: false }} />
+
+        <Stack.Screen name="JoinGroup"
+          component={JoinGroup}
+          options={{ headerShown: false }} />
       </Stack.Navigator>
 
-      
+
     </NavigationContainer>
   );
 }
+
+

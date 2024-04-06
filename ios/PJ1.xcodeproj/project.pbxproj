@@ -20,6 +20,8 @@
 		C6FFCD01CA0B49BE862D565C /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A3DA3EAD3944D5EA2AD846D /* Inter-Regular.ttf */; };
 		DEF2019EC4A1441789EE3525 /* Mitr-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44683B7F2A4B425E83047F70 /* Mitr-Regular.ttf */; };
 		E1AB0E4CF51F4D1EAC37A22B /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D62FC4BA07427B832707EF /* Poppins-Regular.ttf */; };
+		148DEBEB0A9B463682392434 /* Kanit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE87ECC1946A4717A226C5DC /* Kanit-Bold.ttf */; };
+		2B6F01E05EF042BA985E962D /* Kanit-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A5A8F7C1DC24B41AE5AB01D /* Kanit-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		6A3DA3EAD3944D5EA2AD846D /* Inter-Regular.ttf */ = {isa = PBXFileReference; name = "Inter-Regular.ttf"; path = "../assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		44683B7F2A4B425E83047F70 /* Mitr-Regular.ttf */ = {isa = PBXFileReference; name = "Mitr-Regular.ttf"; path = "../assets/fonts/Mitr-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D0D62FC4BA07427B832707EF /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DE87ECC1946A4717A226C5DC /* Kanit-Bold.ttf */ = {isa = PBXFileReference; name = "Kanit-Bold.ttf"; path = "../assets/fonts/Kanit-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7A5A8F7C1DC24B41AE5AB01D /* Kanit-Light.ttf */ = {isa = PBXFileReference; name = "Kanit-Light.ttf"; path = "../assets/fonts/Kanit-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +174,8 @@
 				6A3DA3EAD3944D5EA2AD846D /* Inter-Regular.ttf */,
 				44683B7F2A4B425E83047F70 /* Mitr-Regular.ttf */,
 				D0D62FC4BA07427B832707EF /* Poppins-Regular.ttf */,
+				DE87ECC1946A4717A226C5DC /* Kanit-Bold.ttf */,
+				7A5A8F7C1DC24B41AE5AB01D /* Kanit-Light.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -276,6 +282,8 @@
 				C6FFCD01CA0B49BE862D565C /* Inter-Regular.ttf in Resources */,
 				DEF2019EC4A1441789EE3525 /* Mitr-Regular.ttf in Resources */,
 				E1AB0E4CF51F4D1EAC37A22B /* Poppins-Regular.ttf in Resources */,
+				148DEBEB0A9B463682392434 /* Kanit-Bold.ttf in Resources */,
+				2B6F01E05EF042BA985E962D /* Kanit-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

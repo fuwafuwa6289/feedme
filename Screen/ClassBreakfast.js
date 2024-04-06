@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
-const ClassCafe = () => {
+const ClassBreakfast = () => {
   const [inputText, setInputText] = useState('');
   const [restaurantData, setRestaurantData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,7 @@ const ClassCafe = () => {
       .then(response => response.json())
       .then(data => {
         // Filter only Thai food restaurants
-        const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'คาเฟ่');
+        const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'อาหารเช้า');
         setRestaurantData(thaiRestaurants);
         setLoading(false); // Set loading to false when data is fetched
       })
@@ -63,7 +63,7 @@ const ClassCafe = () => {
         </View>
   
         <View style={styles.titleclass}>
-          <Text style={styles.txtclass}>คาเฟ่และขนมหวาน</Text>
+          <Text style={styles.txtclass}>อาหารเช้า</Text>
         </View>
   
         {loading ? (
@@ -107,7 +107,7 @@ const ClassCafe = () => {
   );
 }
 
-export default ClassCafe;
+export default ClassBreakfast;
 
 const styles = StyleSheet.create({
   container: {
