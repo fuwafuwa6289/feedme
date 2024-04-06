@@ -40,9 +40,9 @@ const Home = () => {
     navigation.navigate('ClassCafe'); 
   };
 
-  const handletoClassBakefast = () => {
-    console.log('ClassBakefast');
-    navigation.navigate('ClassBakefast'); 
+  const handletoClassBreakfast = () => {
+    console.log('ClassBreakfast');
+    navigation.navigate('ClassBreakfast'); 
   };
 
 
@@ -127,7 +127,7 @@ const Home = () => {
             </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={handletoClassBakefast}>
+            <TouchableOpacity onPress={handletoClassBreakfast}>
             <View style={{ flexDirection: 'column', alignItems: 'center' }}>
               <Image
                 resizeMode="cover"
