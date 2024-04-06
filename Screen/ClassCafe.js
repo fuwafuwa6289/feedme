@@ -58,7 +58,7 @@ const ClassCafe = () => {
         </View>
   
         <View style={styles.titleclass}>
-          <Text style={styles.txtclass}>ร้านคาเฟ่</Text>
+          <Text style={styles.txtclass}>คาเฟ่และขนมหวาน</Text>
         </View>
   
         <FlatList
