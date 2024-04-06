@@ -11,7 +11,7 @@ import Chat from './Screen/Chat';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ClassThai from './Screen/ClassThai';
 import ClassNation from './Screen/ClassNation';
-import ClassBakefast from './Screen/ClassBakefast';
+import ClassBreakfast from './Screen/ClassBreakfast';
 import ClassCafe from './Screen/ClassCafe';
 import JoinGroup from './Screen/JoinGroup';
 import { useEffect, useState } from 'react';
@@ -113,8 +113,8 @@ export default function App() {
           component={ClassCafe}
           options={{ headerShown: false }} />
 
-        <Stack.Screen name="ClassBakefast"
-          component={ClassBakefast}
+        <Stack.Screen name="ClassBreakfast"
+          component={ClassBreakfast}
           options={{ headerShown: false }} />
 
         <Stack.Screen name="JoinGroup"
