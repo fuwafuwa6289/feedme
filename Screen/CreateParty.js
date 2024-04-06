@@ -26,8 +26,9 @@ const CreateParty = (props) => {
         { label: 'Item 7', value: '7' },
         { label: 'Item 8', value: '8' },
     ];
-    const [selectedImage, setSelectedImage] = React.useState([]);
-
+    const [selectedImage1, setSelectedImage1] = React.useState([]);
+    const [selectedImage2, setSelectedImage2] = React.useState([]);
+    const [selectedImage3, setSelectedImage3] = React.useState([]);
     const openImagePicker = () => {
         const options = {
             mediaType: 'photo',
@@ -68,9 +69,17 @@ const CreateParty = (props) => {
                 console.log('Camera Error: ', response.error);
             } else {
                 let imageUri = response.uri || response.assets?.[0]?.uri;
-                if (selectedImage.length < 3) {
-                    setSelectedImage(prevImages => [...prevImages, imageUri]);
-                } else {
+                if (selectedImage1.length < 1) {
+                    setSelectedImage1(prevImages => [...prevImages, imageUri]);
+                } 
+                else if (selectedImage2.length < 1) {
+                    setSelectedImage2(prevImages => [...prevImages, imageUri]);
+                } 
+                else if (selectedImage3.length < 1) {
+                    setSelectedImage3(prevImages => [...prevImages, imageUri]);
+                } 
+                
+                else {
                     console.log('You can only select up to 3 images.');
                 }
             }
@@ -92,15 +101,17 @@ const CreateParty = (props) => {
                 colors={['#FF7336', '#FFFFFF']}
                 style={{ flex: 0.30 }}>
 
-                <Text style={styles.text}>
+            <Text style={styles.text}>
                     สร้างปาร์ตี้
                 </Text>
+        
+                
                 <View style={styles.containerinput}>
                     <View style={styles.textinput}>
                         <LinearGradient
-                            colors={['#FFF4EF', '#FFFFFF']}
+                            colors={['#FFEDE6', '#FFFFFF']}
                             style={{ flex: 1 }}>
-                            <Text style={{ textAlign: 'center', color: '#FF5C00' }}>ชื่อปาร์ตี้</Text>
+                            <Text style={{ textAlign: 'center', color: '#FF5C00',fontFamily:'Mitr-Regular', }}>ชื่อปาร์ตี้</Text>
                         </LinearGradient>
                     </View>
                     <TextInput
@@ -108,12 +119,13 @@ const CreateParty = (props) => {
                         onChangeText={onChangeText}
                         value={text}
                         placeholder="โปรดตั้งชื่อปาร์ตี้"
+        
                     />
-                    <View style={styles.textinput}><Text style={{ textAlign: 'center', color: '#FF5C00' }}>วันที่-เวลา</Text></View>
+                    <View style={styles.textinput}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>วันที่-เวลา</Text></View>
                     <View style={styles.input}>
                         <TouchableOpacity onPress={() => setOpen(true)}>
                             <View>
-                                <Text style={{ color: 'black' }}>{date.toDateString()}, {date.toLocaleTimeString()} </Text>
+                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{date.toDateString()}, {date.toLocaleTimeString()} </Text>
                             </View>
                         </TouchableOpacity>
                         <DatePicker
@@ -127,10 +139,11 @@ const CreateParty = (props) => {
                             onCancel={() => {
                                 setOpen(false)
                             }}
+                            
                         />
                     </View>
 
-                    <View style={styles.textinput}><Text style={{ textAlign: 'center', color: '#FF5C00' }}>สถานที่</Text></View>
+                    <View style={styles.textinput}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>สถานที่</Text></View>
                     <TextInput
                         style={styles.input}
                         onChangeText={onChangeText2}
@@ -138,7 +151,7 @@ const CreateParty = (props) => {
                         placeholder="เลือกสถานที่"
                     />
 
-                    <View style={styles.textinput1}><Text style={{ textAlign: 'center', color: '#FF5C00' }}>จำนวนคน</Text></View>
+                    <View style={styles.textinput1}><Text style={{ textAlign: 'center', color: '#FF5C00',fontFamily:'Mitr-Regular' }}>จำนวนคน</Text></View>
                     <Dropdown
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
@@ -157,61 +170,142 @@ const CreateParty = (props) => {
                             setValue(item.value);
                         }}
                     />
-                    <View style={styles.textinput2}><Text style={{ textAlign: 'center', color: '#FF5C00' }}>รายละเอียดเพิ่มเติม</Text></View>
+                    <View style={styles.textinput2}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>รายละเอียดเพิ่มเติม</Text></View>
                     <TextInput
                         style={styles.input1}
                         onChangeText={onChangeText3}
                         value={text3}
                         placeholder="   -"
                     />
-                    <View style={styles.textinput3}><Text style={{ textAlign: 'center', color: '#FF5C00' }}>รูปภาพ</Text></View>
-                    <View style={{ justifyContent: 'center', borderWidth: 1, borderColor: '#FF5C00', width: 342, height: 131,  bottom: 5, borderRadius: 12, }}>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            {selectedImage.map((image, index) => (
-                                <Image
-                                    key={index}
-                                    source={{ uri: image }}
-                                    style={{ width: 100, height: 80, margin: 5 }}
-                                />
+                    <View style={styles.textinput3}><Text style={{ textAlign: 'center', color: '#FF5C00',fontFamily:'Mitr-Regular' }}>รูปภาพ</Text></View>
+                    <View style={{alignItems:'center',flexDirection: 'row', justifyContent: 'center', borderWidth: 1, borderColor: '#FF5C00', width: 342, height: 131, bottom: 5, borderRadius: 12, }}>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+                            <View style={{ flexDirection: 'row',width:102,height:106,alignItems:'center',justifyContent: 'center'}}>
+                                {selectedImage1.map((image, index) => (
+                                    <Image
+                                        key={index}
+                                        source={{ uri: image }}
+                                        style={{ width: 90, height: 95, margin: 5 }}
+                                        borderRadius={10}
+                                    />
+                                ))}
 
-                            ))}
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
-                            <View >
-                                {/* <Button title="Choose from Device" onPress={openImagePicker} /> */}
-                                <TouchableOpacity onPress={() => setOpen(true)}>
-                                    <View>
-                                        <Icon name="image-outline" size={26} onPress={openImagePicker} />
+                                {selectedImage1.length < 1 && (
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                        <View >
+                                            {/* <Button title="Choose from Device" onPress={openImagePicker} /> */}
+                                            <TouchableOpacity onPress={() => setOpen(true)}>
+                                                <View>
+                                                    <Icon name="image-outline" size={26} onPress={openImagePicker} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ marginLeft: 12 }}>
+                                            {/* <Button title="Open Camera" onPress={handleCameraLaunch} /> */}
+                                            <TouchableOpacity onPress={() => setOpen(true)}>
+                                                <View>
+                                                    <Icon name="camera" size={26} onPress={handleCameraLaunch} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+
                                     </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ marginLeft: 30 }}>
-                                {/* <Button title="Open Camera" onPress={handleCameraLaunch} /> */}
-                                <TouchableOpacity onPress={() => setOpen(true)}>
-                                    <View>
-                                        <Icon name="camera" size={26} onPress={handleCameraLaunch} />
-                                    </View>
-                                </TouchableOpacity>
+                                )}
                             </View>
                         </View>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginHorizontal:5}}>
+                            <View style={{ flexDirection: 'row',width:102,height:106 ,alignItems:'center',justifyContent: 'center'}}>
+                                {selectedImage2.map((image, index) => (
+                                    <Image
+                                        key={index}
+                                        source={{ uri: image }}
+                                        style={{ width: 90, height: 95, margin: 5  }}
+                                        borderRadius={10}
+                                    />
+                                ))}
+
+                                {selectedImage2.length < 1 && (
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                        <View >
+                                            {/* <Button title="Choose from Device" onPress={openImagePicker} /> */}
+                                            <TouchableOpacity onPress={() => setOpen(true)}>
+                                                <View>
+                                                    <Icon name="image-outline" size={26} onPress={openImagePicker} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ marginLeft: 12 }}>
+                                            {/* <Button title="Open Camera" onPress={handleCameraLaunch} /> */}
+                                            <TouchableOpacity onPress={() => setOpen(true)}>
+                                                <View>
+                                                    <Icon name="camera" size={26} onPress={handleCameraLaunch} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+
+                                    </View>
+                                )}
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            <View style={{ flexDirection: 'row',width:102,height:106,alignItems:'center',justifyContent: 'center'}}>
+                                {selectedImage3.map((image, index) => (
+                                    <Image
+                                        key={index}
+                                        source={{ uri: image }}
+                                        style={{ width: 90, height: 95, margin: 5  }}
+                                        borderRadius={10}
+                                    />
+                                ))}
+
+                                {selectedImage3.length < 1 && (
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                        <View >
+                                            {/* <Button title="Choose from Device" onPress={openImagePicker} /> */}
+                                            <TouchableOpacity onPress={() => setOpen(true)}>
+                                                <View>
+                                                    <Icon name="image-outline" size={26} onPress={openImagePicker} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ marginLeft: 12 }}>
+                                            {/* <Button title="Open Camera" onPress={handleCameraLaunch} /> */}
+                                            <TouchableOpacity onPress={() => setOpen(true)}>
+                                                <View>
+                                                    <Icon name="camera" size={26} onPress={handleCameraLaunch} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+
+                                    </View>
+                                )}
+                            </View>
+                        </View>
+
                     </View>
 
                     <View style={styles.container}>
                         {/* <Button title="Show Modal" onPress={handlePopup} /> */}
                         <Button
                             title="สร้างปาร์ตี้"
-                            titleStyle={{ fontWeight: '700' }}
+                            titleStyle={{
+                            fontFamily:'Mitr-Regular'
+                        }}
                             buttonStyle={{
                                 backgroundColor: '#FF8259',
                                 borderColor: 'transparent',
                                 borderRadius: 12,
+                               
                             }}
+                            
                             containerStyle={{
                                 width: 300,
                                 marginHorizontal: 50,
                                 marginVertical: 5,
                             }}
+                           
                             onPress={handlePopup}
+                            
                         />
                         <Modal
                             visible={showModal}
@@ -252,15 +346,15 @@ const styles = StyleSheet.create({
 
 
     text: {
-        fontFamily: 'Mitr Regular',
-        fontSize: 40,
+fontFamily:'Mitr-Regular',
+       fontSize: 40,
         marginTop: 140,
         alignSelf: 'center',
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         color: '#E6420C',
         textShadowColor: 'rgba(0, 0, 0, 0.45)',
         textShadowOffset: { width: 0, height: 2 },
-        textShadowRadius: 10
+        textShadowRadius: 10,
     },
     input: {
         width: 342,
@@ -270,7 +364,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         color: 'black',
         borderColor: '#FF5C00',
-        display: 'flex'
+        display: 'flex',
+        fontFamily:'Mitr-Regular'
     },
     containerinput: {
         alignItems: 'center',
@@ -294,11 +389,13 @@ const styles = StyleSheet.create({
         padding: 12,
         borderColor: '#FF5C00',
         borderWidth: 1,
-        bottom: 15
+        bottom: 15,
+        fontFamily:'Mitr-Regular'
     },
     placeholderStyle: {
         fontSize: 15,
         color: '#A8ABAD',
+        fontFamily:'Mitr-Regular'
     },
     textinput1: {
         height: 20,
@@ -325,7 +422,8 @@ const styles = StyleSheet.create({
         color: 'black',
         borderColor: '#FF5C00',
         display: 'flex',
-        bottom: 28
+        bottom: 28,
+        fontFamily:'Mitr-Regular'
     }, textinput3: {
         height: 20,
         width: 50,
