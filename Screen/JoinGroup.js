@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   },
   
   restaurantName: {
-    fontSize: 14,
+    fontSize: 16,
     margin: 1,
     color: 'black',
     fontFamily: 'Mitr-Regular',
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
   detail: {
     fontSize: 10 ,
     margin: 2,
-    marginBottom: 2,
+    marginBottom: 1,
     color: 'black',
     fontFamily: 'Mitr-Regular',
   },
@@ -269,8 +269,7 @@ const styles = StyleSheet.create({
   },
   detailStar: {
     fontSize: 10,
-    margin: 2,
-    marginBottom: 2,
+    marginBottom: 1,
     color: 'black',
     fontFamily: 'Mitr-Regular',
     paddingLeft: 2,
