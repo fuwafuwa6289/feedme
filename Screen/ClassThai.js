@@ -33,7 +33,7 @@ const ClassThai = () => {
     navigation.goBack();
   };
 
-  
+
   // Render item for FlatList
   const renderItem = ({ item, index }) => {
     // จำกัดความยาวของชื่อร้านอาหารเพียง 20 ตัวอักษรและตัดทอนด้วย ...
