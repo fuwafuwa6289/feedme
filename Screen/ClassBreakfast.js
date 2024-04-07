@@ -34,28 +34,31 @@ const ClassBreakfast = () => {
   };
 
   // Render item for FlatList
-  const renderItem = ({ item, index }) => (
-    <View style={styles.card} key={index}>
-      <Text style={[styles.textTypo]}>{item.name}</Text>
-      <Image style={styles.starIcon} resizeMode="cover" source={require("../assets/star-1.png")} />
-      <Text style={styles.text1}>{item.star} คะแนน | {item.type}</Text>
-      <Text style={styles.text2}>{item.distance}</Text>
-      
-      <FlatList
-        horizontal
-        data={[item.image7, item.image3, item.image4 , item.image5, item.image8 ]}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <Image source={{ uri: item }} style={styles.image} />
-        )}
-        pagingEnabled
-      />
-      
-      <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-        <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  const renderItem = ({ item, index }) => {
+    // จำกัดความยาวของชื่อร้านอาหารเพียง 20 ตัวอักษรและตัดทอนด้วย ...
+    const truncatedName = item.name.length > 50 ? item.name.slice(0, 50) + '...' : item.name;
+
+    return (
+      <View style={styles.card} key={index}>
+        <Text style={[styles.textTypo]}>{truncatedName}</Text>
+        <Image style={styles.starIcon} resizeMode="cover" source={require("../assets/star-1.png")} />
+        <Text style={styles.text1}>{item.star} คะแนน | {item.type}</Text>
+        <Text style={styles.text2}>{item.distance}</Text>
+        <FlatList
+          horizontal
+          data={[item.image2, item.image3, item.image4, item.image5, item.image6]}
+          keyExtractor={(imageUri, index) => index.toString()}
+          renderItem={({ item }) => (
+            <Image source={{ uri: item }} style={styles.image} resizeMode="cover" />
+          )}
+        />
+
+        <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
+          <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   // Render empty placeholder for FlatList
   const renderEmpty = () => (
