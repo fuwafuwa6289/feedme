@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
 
 
 const ClassThai = () => {
@@ -50,7 +51,7 @@ const ClassThai = () => {
           data={[item.image2, item.image3, item.image4, item.image5, item.image6]}
           keyExtractor={(imageUri, index) => index.toString()}
           renderItem={({ item }) => (
-            <Image source={{ uri: item }} style={styles.image} resizeMode="cover" />
+            <FastImage source={{ uri: item }} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
           )}
         />
 
