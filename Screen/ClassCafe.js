@@ -4,37 +4,37 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
 const ClassCafe = () => {
-    const [inputText, setInputText] = useState('');
-    const [restaurantData, setRestaurantData] = useState([]);
-    const [loading, setLoading] = useState(true); // เพิ่ม state สำหรับตรวจสอบการโหลดข้อมูล
-    const navigation = useNavigation();
-  
-    useEffect(() => {
-      fetch('https://pantira111.github.io/FeedmeApi/restaurant.json')
-        .then(response => response.json())
-        .then(data => {
-          // Filter only Thai food restaurants
-          const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'คาเฟ่');
-          setRestaurantData(thaiRestaurants);
-          setLoading(false); // ตั้งค่า loading เป็น false เมื่อโหลดข้อมูลเสร็จสิ้น
-        })
-        .catch(error => {
-          console.error('Error fetching data: ', error);
-          setLoading(false); // ตั้งค่า loading เป็น false เมื่อเกิดข้อผิดพลาดในการโหลดข้อมูล
-        });
-    }, []);
-  
-    const handleCreateParty = () => {
-      console.log('Create Party');
-      navigation.navigate('CreateParty'); // Navigate back to Home screen
-    };
-  
-    const handleGoBack = () => {
-      navigation.goBack();
-    };
-  
+  const [inputText, setInputText] = useState('');
+  const [restaurantData, setRestaurantData] = useState([]);
+  const [loading, setLoading] = useState(true); // เพิ่ม state สำหรับตรวจสอบการโหลดข้อมูล
+  const navigation = useNavigation();
 
-  
+  useEffect(() => {
+    fetch('https://pantira111.github.io/FeedmeApi/restaurant.json')
+      .then(response => response.json())
+      .then(data => {
+        // Filter only Thai food restaurants
+        const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'คาเฟ่');
+        setRestaurantData(thaiRestaurants);
+        setLoading(false); // ตั้งค่า loading เป็น false เมื่อโหลดข้อมูลเสร็จสิ้น
+      })
+      .catch(error => {
+        console.error('Error fetching data: ', error);
+        setLoading(false); // ตั้งค่า loading เป็น false เมื่อเกิดข้อผิดพลาดในการโหลดข้อมูล
+      });
+  }, []);
+
+  const handleCreateParty = () => {
+    console.log('Create Party');
+    navigation.navigate('CreateParty'); // Navigate back to Home screen
+  };
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
+
+
   // Render item for FlatList
   const renderItem = ({ item, index }) => {
     // จำกัดความยาวของชื่อร้านอาหารเพียง 20 ตัวอักษรและตัดทอนด้วย ...
@@ -65,54 +65,54 @@ const ClassCafe = () => {
   const renderEmpty = () => (
     <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} /> // Placeholder ในรูปแบบของ ActivityIndicator
   );
-  
-    return (
-      <FlatList
-        style={styles.container}
-        data={[{ key: 'dummy' }]} // Dummy data to render a single item
-        renderItem={({ item }) => (
-          <View>
-            <TouchableOpacity onPress={handleGoBack}>
-              <Image
-                style={styles.iconBack}
-                contentFit="cover"
-                source={require("../assets/epback.png")}
-              />
-            </TouchableOpacity>
-  
-            <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-              <Image
-                style={styles.iconLayout}
-                contentFit="cover"
-                source={require("../assets/ellipse-46.png")}
-              />
-            </TouchableOpacity>
-  
-            <View style={styles.Search}>
-              <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
-              <TextInput
-                style={styles.input}
-                onChangeText={setInputText}
-                value={inputText}
-                placeholder="ค้นหาร้านอาหาร..."
-              />
-            </View>
-  
-            <View style={styles.titleclass}>
-              <Text style={styles.txtclass}>คาเฟ่และขนมหวาน</Text>
-            </View>
-  
-            <FlatList
+
+  return (
+    <FlatList
+      style={styles.container}
+      data={[{ key: 'dummy' }]} // Dummy data to render a single item
+      renderItem={({ item }) => (
+        <View>
+          <TouchableOpacity onPress={handleGoBack}>
+            <Image
+              style={styles.iconBack}
+              contentFit="cover"
+              source={require("../assets/epback.png")}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => console.log('Go to Profile')}>
+            <Image
+              style={styles.iconLayout}
+              contentFit="cover"
+              source={require("../assets/ellipse-46.png")}
+            />
+          </TouchableOpacity>
+
+          <View style={styles.Search}>
+            <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
+            <TextInput
+              style={styles.input}
+              onChangeText={setInputText}
+              value={inputText}
+              placeholder="ค้นหาร้านอาหาร..."
+            />
+          </View>
+
+          <View style={styles.titleclass}>
+            <Text style={styles.txtclass}>คาเฟ่และขนมหวาน</Text>
+          </View>
+
+          <FlatList
             data={restaurantData}
             keyExtractor={(item, id) => id.toString()}
             renderItem={renderItem}
             ListEmptyComponent={renderEmpty}
           />
-          </View>
-        )}
-      />
-    );
-  }
+        </View>
+      )}
+    />
+  );
+}
 
 export default ClassCafe;
 
