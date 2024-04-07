@@ -33,34 +33,38 @@ const ClassCafe = () => {
       navigation.goBack();
     };
   
-    // Render item for FlatList
-    const renderItem = ({ item, index }) => (
+
+  
+  // Render item for FlatList
+  const renderItem = ({ item, index }) => {
+    // จำกัดความยาวของชื่อร้านอาหารเพียง 20 ตัวอักษรและตัดทอนด้วย ...
+    const truncatedName = item.name.length > 50 ? item.name.slice(0, 50) + '...' : item.name;
+
+    return (
       <View style={styles.card} key={index}>
-        <Text style={[styles.textTypo]}>{item.name}</Text>
+        <Text style={[styles.textTypo]}>{truncatedName}</Text>
         <Image style={styles.starIcon} resizeMode="cover" source={require("../assets/star-1.png")} />
         <Text style={styles.text1}>{item.star} คะแนน | {item.type}</Text>
         <Text style={styles.text2}>{item.distance}</Text>
-        
         <FlatList
           horizontal
-          data={[item.image2, item.image3, item.image4 , item.image5, item.image6 ]}
-          keyExtractor={(item, index) => index.toString()}
+          data={[item.image2, item.image3, item.image4, item.image5, item.image6]}
+          keyExtractor={(imageUri, index) => index.toString()}
           renderItem={({ item }) => (
-            <Image source={{ uri: item }} style={styles.image} />
+            <Image source={{ uri: item }} style={styles.image} resizeMode="cover" />
           )}
-          pagingEnabled
         />
-        
+
         <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
           <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
         </TouchableOpacity>
       </View>
     );
-  
-    // Render empty placeholder for FlatList
-    const renderEmpty = () => (
-      <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />
-    );
+  };
+
+  const renderEmpty = () => (
+    <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} /> // Placeholder ในรูปแบบของ ActivityIndicator
+  );
   
     return (
       <FlatList
@@ -99,11 +103,11 @@ const ClassCafe = () => {
             </View>
   
             <FlatList
-              data={restaurantData}
-              keyExtractor={(item, id) => id.toString()}
-              renderItem={renderItem}
-              ListEmptyComponent={renderEmpty}
-            />
+            data={restaurantData}
+            keyExtractor={(item, id) => id.toString()}
+            renderItem={renderItem}
+            ListEmptyComponent={renderEmpty}
+          />
           </View>
         )}
       />
