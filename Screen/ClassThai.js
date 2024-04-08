@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
 
   input: {
     flex: 1,
+    fontFamily:'Kanit-Light'
   },
 
   searchIcon: {
