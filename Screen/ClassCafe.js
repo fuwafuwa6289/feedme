@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
 
 const ClassCafe = () => {
   const [inputText, setInputText] = useState('');
   const [restaurantData, setRestaurantData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // เพิ่ม state สำหรับตรวจสอบการโหลดข้อมูล
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -16,11 +17,11 @@ const ClassCafe = () => {
         // Filter only Thai food restaurants
         const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'คาเฟ่');
         setRestaurantData(thaiRestaurants);
-        setLoading(false); // Set loading to false when data is fetched
+        setLoading(false); // ตั้งค่า loading เป็น false เมื่อโหลดข้อมูลเสร็จสิ้น
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
-        setLoading(false); // Set loading to false even if there's an error
+        setLoading(false); // ตั้งค่า loading เป็น false เมื่อเกิดข้อผิดพลาดในการโหลดข้อมูล
       });
   }, []);
 
@@ -33,77 +34,84 @@ const ClassCafe = () => {
     navigation.goBack();
   };
 
+
+
+  // Render item for FlatList
+  const renderItem = ({ item, index }) => {
+    // จำกัดความยาวของชื่อร้านอาหารเพียง 20 ตัวอักษรและตัดทอนด้วย ...
+    const truncatedName = item.name.length > 50 ? item.name.slice(0, 50) + '...' : item.name;
+
+    return (
+      <View style={styles.card} key={index}>
+        <Text style={[styles.textTypo]}>{truncatedName}</Text>
+        <Image style={styles.starIcon} resizeMode="cover" source={require("../assets/star-1.png")} />
+        <Text style={styles.text1}>{item.star} คะแนน | {item.type}</Text>
+        <Text style={styles.text2}>{item.distance}</Text>
+        <FlatList
+          horizontal
+          data={[item.image2, item.image3, item.image4, item.image5, item.image6]}
+          keyExtractor={(imageUri, index) => index.toString()}
+          renderItem={({ item }) => (
+            <FastImage source={{ uri: item }} style={styles.image} resizeMode={FastImage.resizeMode.cover} />
+          )}
+        />
+
+        <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
+          <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderEmpty = () => (
+    <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} /> // Placeholder ในรูปแบบของ ActivityIndicator
+  );
+
   return (
-    <ScrollView style={styles.container}>
-      <View>
-        <TouchableOpacity onPress={handleGoBack}>
-          <Image
-            style={styles.iconBack}
-            contentFit="cover"
-            source={require("../assets/epback.png")}
-          />
-        </TouchableOpacity>
-  
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <Image
-            style={styles.iconLayout}
-            contentFit="cover"
-            source={require("../assets/ellipse-46.png")}
-          />
-        </TouchableOpacity>
-  
-        <View style={styles.Search}>
-          <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
-          <TextInput
-            style={styles.input}
-            onChangeText={setInputText}
-            value={inputText}
-            placeholder="ค้นหาร้านอาหาร..."
-          />
-        </View>
-  
-        <View style={styles.titleclass}>
-          <Text style={styles.txtclass}>คาเฟ่และขนมหวาน</Text>
-        </View>
-  
-        {loading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#FF6C3A" />
-            <Text style={styles.loadingText}>กำลังโหลด...</Text>
+    <FlatList
+      style={styles.container}
+      data={[{ key: 'dummy' }]} // Dummy data to render a single item
+      renderItem={({ item }) => (
+        <View>
+          <TouchableOpacity onPress={handleGoBack}>
+            <Image
+              style={styles.iconBack}
+              contentFit="cover"
+              source={require("../assets/epback.png")}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => console.log('Go to Profile')}>
+            <Image
+              style={styles.iconLayout}
+              contentFit="cover"
+              source={require("../assets/ellipse-46.png")}
+            />
+          </TouchableOpacity>
+
+          <View style={styles.Search}>
+            <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
+            <TextInput
+              style={styles.input}
+              onChangeText={setInputText}
+              value={inputText}
+              placeholder="ค้นหาร้านอาหาร..."
+            />
           </View>
-        ) : (
+
+          <View style={styles.titleclass}>
+            <Text style={styles.txtclass}>คาเฟ่และขนมหวาน</Text>
+          </View>
+
           <FlatList
             data={restaurantData}
             keyExtractor={(item, id) => id.toString()}
-            renderItem={({ item, index }) => (
-              <View style={styles.card} key={index}>
-                <Text style={[styles.textTypo]}>{item.name}</Text>
-                <Image style={styles.starIcon}
-                  resizeMode="cover"
-                  source={require("../assets/star-1.png")} />
-                <Text
-                  style={styles.text1}>{item.star} คะแนน | {item.type}</Text>
-                <Text style={styles.text2}>{item.distance}</Text>
-          
-                <FlatList
-                  horizontal
-                  data={[item.image2, item.image3, item.image4 , item.image5, item.image6 ]}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => (
-                    <Image source={{ uri: item }} style={styles.image} resizeMode="cover" />
-                  )}
-                  pagingEnabled
-                />
-          
-                <TouchableOpacity style={styles.createpartyBT} onPress={handleCreateParty}>
-                  <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-                </TouchableOpacity>
-              </View>
-            )}
+            renderItem={renderItem}
+            ListEmptyComponent={renderEmpty}
           />
-        )}
-      </View>
-    </ScrollView>
+        </View>
+      )}
+    />
   );
 }
 
@@ -121,16 +129,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: '#FE502A',
-    borderRadius: 5,
+    borderRadius: 10,
     paddingHorizontal: 10,
     marginTop: 60,
     width: '80%',
-    height: 40,
+    height: 50,
     left: 45
   },
 
   input: {
     flex: 1,
+    fontFamily: 'Kanit-Light',
+    fontSize: 15,
   },
 
   searchIcon: {
@@ -248,6 +258,7 @@ const styles = StyleSheet.create({
     height: 110,
     borderRadius: 5,
     margin: 5,
+    marginTop: 15,
   },
 
   loadingContainer: {

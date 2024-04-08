@@ -25,13 +25,13 @@ function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      tabBarOptions={{
-        activeTintColor: '#FFFFFF',
-        inactiveTintColor: '#FFFFFF',
-        activeBackgroundColor: '#FE9D80',
-        inactiveBackgroundColor: '#FF8259',
-        style: { backgroundColor: '#FF8259' },
-        showLabel: false, // เพิ่ม showLabel เป็น false เพื่อซ่อนชื่อแท็บบาร์
+      screenOptions={{
+        tabBarActiveTintColor: '#FFFFFF',
+        tabBarInactiveTintColor: '#FFFFFF',
+        tabBarActiveBackgroundColor: '#FE9D80',
+        tabBarInactiveBackgroundColor: '#FF8259',
+        tabBarStyle: { backgroundColor: '#FF8259' },
+        tabBarShowLabel: false, // เพิ่ม tabBarShowLabel เป็น false เพื่อซ่อนชื่อแท็บบาร์
       }}
     >
       <Tab.Screen
@@ -39,21 +39,23 @@ function MyTabs() {
         component={Home}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="home-outline" color={color} size={26} />
+            <Icon name="home-outline" color="#FFFFFF" size={26} />
           ),
           headerShown: false, // ซ่อน Header ของหน้า Home
         }}
       />
+
       <Tab.Screen
         name="Post"
         component={Post}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="newspaper-outline" color={color} size={26} />
+            <Icon name="newspaper-outline" color="#FFFFFF" size={26} />
           ),
           headerShown: false, // ซ่อน Header ของหน้า Post
         }}
       />
+
       <Tab.Screen
         name="CreateParty"
         component={CreateParty}
@@ -62,32 +64,35 @@ function MyTabs() {
           tabBarIcon: ({ color }) => (
             <Image
               source={require('./assets/fluentfoodpizza24regular.png')}
-              style={{ tintColor: color, width: 29, height: 29 }}
+              style={{ tintColor: "#FFFFFF", width: 29, height: 29 }}
             />
           ),
           headerShown: false, // ซ่อน Header ของหน้า CreateParty
         }}
       />
+
       <Tab.Screen
         name="Notifications"
         component={Notifications}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="notifications-outline" color={color} size={26} />
+            <Icon name="notifications-outline" color="#FFFFFF" size={26} />
           ),
           headerShown: false, // ซ่อน Header ของหน้า Notifications
         }}
       />
+
       <Tab.Screen
         name="Chat"
         component={Chat}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="chatbubbles-outline" color={color} size={26} />
+            <Icon name="chatbubbles-outline" color="#FFFFFF" size={26} />
           ),
           headerShown: false, // ซ่อน Header ของหน้า Chat
         }}
       />
+
     </Tab.Navigator>
   );
 }
