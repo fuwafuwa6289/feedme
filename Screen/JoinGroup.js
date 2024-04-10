@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { database } from '@react-native-firebase/database';
 
 const JoinGroup = () => {
+  // const [name, setName] = useState('code with Nilz');
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('https://feedmecreateparty-default-rtdb.asia-southeast1.firebasedatabase.app/parties.json');
+      if (!response.ok) {
+        console.error('Failed to fetch data');
+        return;
+      }
+      const data = await response.json();
+      // เปลี่ยนข้อมูลให้เป็น array และลบ key ที่ไม่ต้องการออก
+      const filteredData = Object.values(data);
+      // setUserData(filteredData);
+      console.log('UserData:', data); // แสดงข้อมูลใน log
+    };
+  
+    fetchData();
+  }, []);
 
   const handleCreateParty = () => {
     console.log('Create Party');
@@ -170,7 +189,9 @@ const JoinGroup = () => {
           พี่โดไม่ชอบคนทางขวา
         </Text>
           </View>
+          
         </View>
+       
         </View>
       </View>
     </ScrollView>
