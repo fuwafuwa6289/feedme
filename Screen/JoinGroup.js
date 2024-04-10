@@ -1,31 +1,52 @@
 import React, { useState,useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { database } from '@react-native-firebase/database';
+// import CardComponent from '../Component/Card'
+import userData from '../assets/User.json'
 
 const JoinGroup = () => {
   // const [name, setName] = useState('code with Nilz');
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
+const [partiesData, setPartiesData] = useState([]);
+ var user = Object.values(userData);
 
-  useEffect(() => {
+   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('https://feedmecreateparty-default-rtdb.asia-southeast1.firebasedatabase.app/parties.json');
-      if (!response.ok) {
-        console.error('Failed to fetch data');
-        return;
+      try {
+        const response = await fetch('https://feedmecreateparty-default-rtdb.asia-southeast1.firebasedatabase.app/parties.json');
+        if (!response.ok) {
+          console.error('Failed to fetch data');
+          return;
+        }
+        const data = await response.json();
+        const filteredData = Object.values(data); // Convert object to array
+        setPartiesData(filteredData);
+        console.log('Parties Data:', filteredData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-      const data = await response.json();
-      // เปลี่ยนข้อมูลให้เป็น array และลบ key ที่ไม่ต้องการออก
-      const filteredData = Object.values(data);
-      // setUserData(filteredData);
-      console.log('UserData:', data); // แสดงข้อมูลใน log
+     
+      console.log('name: ', user[0]);
+      console.log('img: ', user[1]); 
     };
-  
+
     fetchData();
   }, []);
 
+  const renderPartyItem = ({ item }) => (
+    <View style={{ marginVertical: 10, marginHorizontal: 20, padding: 10, backgroundColor: '#eee', borderRadius: 5 }}>
+      <Text>Party ID: {item.party_id}</Text>
+      <Text>Party Name: {item.party_name}</Text>
+      <Text>Date: {item.date}</Text>
+      <Text>Time: {item.time}</Text>
+      <Text>Details: {item.details}</Text>
+      <Text>Number of Party Members: {item.party_member}</Text>
+    </View>
+  );
+  
   const handleCreateParty = () => {
     console.log('Create Party');
   };
@@ -178,20 +199,36 @@ const JoinGroup = () => {
 
         <View style={styles.card2}>
           <View>
-          <Image
-          style={styles.groupInner}
-          resizeMode="cover"
-          source={require("../assets/ellipse-461.png")}
-        />
+          <Image 
+          style={{height:100,width:100,borderRadius:100,borderColor:'#FF6C3A',borderWidth:1}}
+       
+          source={{ uri: user[1] }}
+          />
           </View>
           <View style={{justifyContent:'center',alignItems:'center',marginTop:7}}>
           <Text style={styles.memberName}>
-          พี่โดไม่ชอบคนทางขวา
+          {user[0]}
         </Text>
           </View>
+
           
         </View>
-       
+        
+        <View style={{ flex: 1, padding: 20 }}>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Party List</Text>
+      <FlatList
+        data={partiesData}
+        renderItem={renderPartyItem}
+        keyExtractor={(item) => item.
+          party_id.toString()} // Assuming id is unique
+      />
+      
+    </View>
+      {/* console.log('name: ', userData.name);
+      console.log('img: ', userData.image); */}
+
+            {/* <CardComponent name={userData.name} image={userData.image}/> */}
+
         </View>
       </View>
     </ScrollView>
