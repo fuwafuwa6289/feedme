@@ -14,6 +14,8 @@ import ClassNation from './Screen/ClassNation';
 import ClassBreakfast from './Screen/ClassBreakfast';
 import ClassCafe from './Screen/ClassCafe';
 import JoinGroup from './Screen/JoinGroup';
+import Chatinner from './Screen/Chatinner';
+
 import { useEffect, useState } from 'react';
 
 const Stack = createStackNavigator();
@@ -124,6 +126,10 @@ export default function App() {
 
         <Stack.Screen name="JoinGroup"
           component={JoinGroup}
+          options={{ headerShown: false }} />
+
+        <Stack.Screen name="Chatinner"
+          component={Chatinner}
           options={{ headerShown: false }} />
       </Stack.Navigator>
 
