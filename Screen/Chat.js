@@ -30,6 +30,7 @@ function Chat({ navigation }) {
   />
 </View>
 <View style={{alignSelf:'center',justifyContent:'center',left:10}}>
+<TouchableOpacity onPress={() => console.log('Go to Profile')}>
 <View style={styles.con}>
 <Image
         style={styles.image}
@@ -46,6 +47,8 @@ function Chat({ navigation }) {
         </View>
       </View>
 </View>
+</TouchableOpacity>
+<TouchableOpacity onPress={() => console.log('Go to Profile')}>
 <View style={styles.con}>
 <Image
         style={styles.image}
@@ -62,6 +65,8 @@ function Chat({ navigation }) {
         </View>
       </View>
 </View>
+</TouchableOpacity>
+<TouchableOpacity onPress={() => console.log('Go to Profile')}>
 <View style={styles.con}>
 <Image
         style={styles.image}
@@ -78,6 +83,8 @@ function Chat({ navigation }) {
         </View>
       </View>
 </View>
+</TouchableOpacity>
+<TouchableOpacity onPress={() => console.log('Go to Profile')}>
 <View style={styles.con}>
 <Image
         style={styles.image}
@@ -94,6 +101,8 @@ function Chat({ navigation }) {
         </View>
       </View>
 </View>
+</TouchableOpacity>
+<TouchableOpacity onPress={() => console.log('Go to Profile')}>
 <View style={styles.con}>
 <Image
         style={styles.image}
@@ -110,6 +119,8 @@ function Chat({ navigation }) {
         </View>
       </View>
 </View>
+</TouchableOpacity>
+<TouchableOpacity onPress={() => console.log('Go to Profile')}>
 <View style={styles.con}>
 <Image
         style={styles.image}
@@ -126,6 +137,8 @@ function Chat({ navigation }) {
         </View>
       </View>
 </View>
+</TouchableOpacity>
+<TouchableOpacity onPress={() => console.log('Go to Profile')}>
 <View style={styles.con}>
 <Image
         style={styles.image}
@@ -142,6 +155,8 @@ function Chat({ navigation }) {
         </View>
       </View>
 </View>
+</TouchableOpacity>
+<TouchableOpacity onPress={() => console.log('Go to Profile')}>
 <View style={styles.con}>
 <Image
         style={styles.image}
@@ -158,7 +173,7 @@ function Chat({ navigation }) {
         </View>
       </View>
 </View>
-
+</TouchableOpacity>
 
 </View>
 </>
