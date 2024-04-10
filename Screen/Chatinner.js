@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Chatinner = () => {
     const navigation = useNavigation();
@@ -18,13 +19,29 @@ const Chatinner = () => {
         // Handle cancel logic here
     };
 
+    const [chatHistory, setChatHistory] = useState([]); // เก็บประวัติการแชท
+
+    const [inputText, setInputText] = useState('');
+
+    const handleSend = () => {
+        if (inputText.trim() === '') return;
+        const newMessage = { id: chatHistory.length, text: inputText }; // สร้างข้อความใหม่
+        setChatHistory([...chatHistory, newMessage]); // เพิ่มข้อความใหม่เข้าไปในประวัติการแชท
+        setInputText('');
+    };
+
+    const renderMessageItem = ({ item }) => (
+        <View style={styles.messageContainer}>
+            <Text style={styles.messageText}>{item.text}</Text>
+        </View>
+    );
+
     return (
-        <View style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
+        <KeyboardAvoidingView style={{ backgroundColor: '#FFFFFF', flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : null}>
             <LinearGradient
                 colors={['#FF7336', '#FFFFFF']}
-                style={{ flex: 0.30 }}>
-            </LinearGradient>
-
+                style={{ flex: 0.8 }}
+            />
             <TouchableOpacity onPress={handleGoBack}>
                 <Image
                     style={styles.iconBack}
@@ -64,7 +81,35 @@ const Chatinner = () => {
             <TouchableOpacity onPress={handleCancel} style={styles.buttonCancel}>
                 <Text style={styles.buttonText}>ยกเลิก</Text>
             </TouchableOpacity>
-        </View>
+
+            <View style={styles.container}>
+                <FlatList
+                    data={chatHistory} // ใช้ chatHistory แทน messages
+                    renderItem={renderMessageItem}
+                    keyExtractor={(item) => item.id.toString()}
+                    style={styles.messagesList}
+                    inverted={false}
+                />
+                <View style={styles.inputContainer}>
+                    <TouchableOpacity style={styles.iconButton}>
+                        <Icon name="plus" size={20} color='#FF872E' />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.iconButton}>
+                        <Icon name="camera" size={20} color='#FF872E' />
+                    </TouchableOpacity>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="พิมพ์..."
+                        placeholderTextColor="#FF872E"
+                        value={inputText}
+                        onChangeText={(text) => setInputText(text)}
+                    />
+                    <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
+                        <Icon name="send" size={20} color="white" />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -73,7 +118,7 @@ export default Chatinner;
 const styles = StyleSheet.create({
     iconBack: {
         position: 'absolute',
-        top: -193,
+        top: -290,
         left: 20,
         width: 30,
         height: 30,
@@ -195,4 +240,52 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'Kanit-Light',
     },
+
+    container: {
+        marginTop: 50,
+        margin: 10,
+        flex: 1,
+    },
+    messagesList: {
+        flex: 1,
+    },
+    messageContainer: {
+        padding: 10,
+        borderWidth: 2,
+        borderColor: '#FF984C',
+        marginBottom: 10,
+        borderRadius: 50,
+        alignSelf: 'flex-end',
+    },
+    messageText: {
+        color: '#FF872E',
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    textInput: {
+        flex: 1,
+        borderWidth: 2,
+        borderColor: '#FF872E',
+        borderRadius: 20,
+        paddingHorizontal: 15,
+        marginRight: 10,
+        width: 200,
+        height: 40,
+        color: '#FF872E',
+    },
+    iconButton: {
+        padding: 10,
+        marginRight: 5
+    },
+    sendButton: {
+        backgroundColor: '#FF872E',
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+    },
 });
+
+
