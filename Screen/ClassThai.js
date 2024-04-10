@@ -9,6 +9,7 @@ const ClassThai = () => {
   const [inputText, setInputText] = useState('');
   const [restaurantData, setRestaurantData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -34,10 +35,7 @@ const ClassThai = () => {
     navigation.goBack();
   };
 
-
-  // Render item for FlatList
   const renderItem = ({ item, index }) => {
-    // จำกัดความยาวของชื่อร้านอาหารเพียง 20 ตัวอักษรและตัดทอนด้วย ...
     const truncatedName = item.name.length > 50 ? item.name.slice(0, 50) + '...' : item.name;
 
     return (
@@ -63,8 +61,16 @@ const ClassThai = () => {
   };
 
   const renderEmpty = () => (
-    <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} /> // Placeholder ในรูปแบบของ ActivityIndicator
+    <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />
   );
+
+  const getFilteredRestaurants = () => {
+    return restaurantData.filter(restaurant =>
+      restaurant.name.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+  };
+
+  const filteredRestaurants = getFilteredRestaurants();
 
   return (
     <FlatList
@@ -92,8 +98,8 @@ const ClassThai = () => {
             <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
             <TextInput
               style={styles.input}
-              onChangeText={setInputText}
-              value={inputText}
+              onChangeText={setSearchKeyword}
+              value={searchKeyword}
               placeholder="ค้นหาร้านอาหาร..."
             />
           </View>
@@ -103,7 +109,7 @@ const ClassThai = () => {
           </View>
 
           <FlatList
-            data={restaurantData}
+            data={filteredRestaurants}
             keyExtractor={(item, id) => id.toString()}
             renderItem={renderItem}
             ListEmptyComponent={renderEmpty}
