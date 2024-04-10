@@ -1,42 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 
 const ClassBreakfast = () => {
-  const [inputText, setInputText] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState('');
   const [restaurantData, setRestaurantData] = useState([]);
-  const [loading, setLoading] = useState(true); // เพิ่ม state สำหรับตรวจสอบการโหลดข้อมูล
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
     fetch('https://pantira111.github.io/FeedmeApi/restaurant.json')
       .then(response => response.json())
       .then(data => {
-        // Filter only Thai food restaurants
-        const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'อาหารเช้า');
-        setRestaurantData(thaiRestaurants);
-        setLoading(false); // ตั้งค่า loading เป็น false เมื่อโหลดข้อมูลเสร็จสิ้น
+        const breakfastRestaurants = data[0].filter(restaurant => restaurant.type === 'อาหารเช้า');
+        setRestaurantData(breakfastRestaurants);
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
-        setLoading(false); // ตั้งค่า loading เป็น false เมื่อเกิดข้อผิดพลาดในการโหลดข้อมูล
+        setLoading(false);
       });
   }, []);
 
   const handleCreateParty = () => {
     console.log('Create Party');
-    navigation.navigate('CreateParty'); // Navigate back to Home screen
+    navigation.navigate('CreateParty');
   };
 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
-  // Render item for FlatList
   const renderItem = ({ item, index }) => {
-    // จำกัดความยาวของชื่อร้านอาหารเพียง 20 ตัวอักษรและตัดทอนด้วย ...
     const truncatedName = item.name.length > 50 ? item.name.slice(0, 50) + '...' : item.name;
 
     return (
@@ -61,56 +58,62 @@ const ClassBreakfast = () => {
     );
   };
 
-  // Render empty placeholder for FlatList
   const renderEmpty = () => (
-    <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#0000ff" />
+      <Text style={styles.loadingText}>Loading...</Text>
+    </View>
   );
 
+  const getFilteredRestaurants = () => {
+    return restaurantData.filter(restaurant =>
+      restaurant.name.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+  };
+
+  const filteredRestaurants = getFilteredRestaurants();
+
   return (
-    <FlatList
-      style={styles.container}
-      data={[{ key: 'dummy' }]} // Dummy data to render a single item
-      renderItem={({ item }) => (
-        <View>
-          <TouchableOpacity onPress={handleGoBack}>
-            <Image
-              style={styles.iconBack}
-              contentFit="cover"
-              source={require("../assets/epback.png")}
-            />
-          </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={handleGoBack}>
+        <Image
+          style={styles.iconBack}
+          source={require("../assets/epback.png")}
+        />
+      </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-            <Image
-              style={styles.iconLayout}
-              contentFit="cover"
-              source={require("../assets/ellipse-46.png")}
-            />
-          </TouchableOpacity>
+      <TouchableOpacity onPress={() => console.log('Go to Profile')}>
+        <Image
+          style={styles.iconLayout}
+          source={require("../assets/ellipse-46.png")}
+        />
+      </TouchableOpacity>
 
-          <View style={styles.Search}>
-            <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
-            <TextInput
-              style={styles.input}
-              onChangeText={setInputText}
-              value={inputText}
-              placeholder="ค้นหาร้านอาหาร..."
-            />
-          </View>
+      <View style={styles.Search}>
+        <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
+        <TextInput
+          style={styles.input}
+          onChangeText={setSearchKeyword}
+          value={searchKeyword}
+          placeholder="ค้นหาร้านอาหาร..."
+        />
+      </View>
 
-          <View style={styles.titleclass}>
-            <Text style={styles.txtclass}>อาหารเช้า</Text>
-          </View>
+      <View style={styles.titleclass}>
+        <Text style={styles.txtclass}>อาหารเช้า</Text>
+      </View>
 
-          <FlatList
-            data={restaurantData}
-            keyExtractor={(item, id) => id.toString()}
-            renderItem={renderItem}
-            ListEmptyComponent={renderEmpty}
-          />
-        </View>
+      {loading ? (
+        renderEmpty()
+      ) : (
+        <FlatList
+          data={filteredRestaurants}
+          keyExtractor={(item, id) => id.toString()}
+          renderItem={renderItem}
+          ListEmptyComponent={renderEmpty}
+        />
       )}
-    />
+    </View>
   );
 }
 
