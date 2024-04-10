@@ -5,38 +5,35 @@ import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 
 const ClassNation = () => {
-  const [inputText, setInputText] = useState('');
   const [restaurantData, setRestaurantData] = useState([]);
-  const [loading, setLoading] = useState(true); // เพิ่ม state สำหรับตรวจสอบการโหลดข้อมูล
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   useEffect(() => {
     fetch('https://pantira111.github.io/FeedmeApi/restaurant.json')
       .then(response => response.json())
       .then(data => {
-        // Filter only Thai food restaurants
-        const thaiRestaurants = data[0].filter(restaurant => restaurant.type === 'อาหารนานาชาติ');
-        setRestaurantData(thaiRestaurants);
-        setLoading(false); // ตั้งค่า loading เป็น false เมื่อโหลดข้อมูลเสร็จสิ้น
+        const internationalRestaurants = data[0].filter(restaurant => restaurant.type === 'อาหารนานาชาติ');
+        setRestaurantData(internationalRestaurants);
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
-        setLoading(false); // ตั้งค่า loading เป็น false เมื่อเกิดข้อผิดพลาดในการโหลดข้อมูล
+        setLoading(false);
       });
   }, []);
 
   const handleCreateParty = () => {
     console.log('Create Party');
-    navigation.navigate('CreateParty'); // Navigate back to Home screen
+    navigation.navigate('CreateParty');
   };
 
   const handleGoBack = () => {
     navigation.goBack();
   };
 
-  // Render item for FlatList
   const renderItem = ({ item, index }) => {
-    // จำกัดความยาวของชื่อร้านอาหารเพียง 20 ตัวอักษรและตัดทอนด้วย ...
     const truncatedName = item.name.length > 50 ? item.name.slice(0, 50) + '...' : item.name;
 
     return (
@@ -61,15 +58,22 @@ const ClassNation = () => {
     );
   };
 
-  // Render empty placeholder for FlatList
   const renderEmpty = () => (
     <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />
   );
 
+  const getFilteredRestaurants = () => {
+    return restaurantData.filter(restaurant =>
+      restaurant.name.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+  };
+
+  const filteredRestaurants = getFilteredRestaurants();
+
   return (
     <FlatList
       style={styles.container}
-      data={[{ key: 'dummy' }]} // Dummy data to render a single item
+      data={[{ key: 'dummy' }]}
       renderItem={({ item }) => (
         <View>
           <TouchableOpacity onPress={handleGoBack}>
@@ -92,8 +96,8 @@ const ClassNation = () => {
             <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
             <TextInput
               style={styles.input}
-              onChangeText={setInputText}
-              value={inputText}
+              onChangeText={setSearchKeyword}
+              value={searchKeyword}
               placeholder="ค้นหาร้านอาหาร..."
             />
           </View>
@@ -103,7 +107,7 @@ const ClassNation = () => {
           </View>
 
           <FlatList
-            data={restaurantData}
+            data={filteredRestaurants}
             keyExtractor={(item, id) => id.toString()}
             renderItem={renderItem}
             ListEmptyComponent={renderEmpty}
