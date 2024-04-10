@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Modal } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Modal,useEffect } from 'react-native';
 import * as React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import DatePicker from 'react-native-date-picker';
@@ -7,14 +7,34 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Button } from '@rneui/themed';
 import { Image } from '@rneui/themed';
+import { useNavigationState } from '@react-navigation/native';
 
-const CreateParty = (props) => {
+const CreateParty = ({ route,navigation }) => {
+    
+    const { restaurantName, restaurantImages } = route.params || {};
+    const isPartyCreated = restaurantName || restaurantImages;
+    
+    const [text2, onChangeText2] = React.useState(isPartyCreated ? restaurantName : null);
+    const [selectedImage1, setSelectedImage1] = React.useState(isPartyCreated && restaurantImages[0] ? [restaurantImages[0]] : []);
+    const [selectedImage2, setSelectedImage2] = React.useState(isPartyCreated && restaurantImages[1] ? [restaurantImages[1]] : []);
+    const [selectedImage3, setSelectedImage3] = React.useState(isPartyCreated && restaurantImages[2] ? [restaurantImages[2]] : []);
+    React.useEffect(() => {
+        if (route.params) {
+          const { restaurantName, restaurantImages } = route.params;
+          onChangeText2(restaurantName || null);
+          setSelectedImage1(restaurantImages && restaurantImages.length > 0 ? [restaurantImages[0]] : []);
+          setSelectedImage2(restaurantImages && restaurantImages.length > 1 ? [restaurantImages[1]] : []);
+          setSelectedImage3(restaurantImages && restaurantImages.length > 2 ? [restaurantImages[2]] : []);
+        }
+      }, [route.params]);
     const image1 = require('../iconnn.png');
     const [text, onChangeText] = React.useState(null);
-    const [text2, onChangeText2] = React.useState(null);
+    // const [text2, onChangeText2] = React.useState(null);
     const [text3, onChangeText3] = React.useState(null);
-    const [date, setDate] = React.useState(new Date());
+    const [date1, setDate1] = React.useState(new Date());
+    const [time, setTime] = React.useState(new Date());
     const [open, setOpen] = React.useState(false);
+    const [open1, setOpen1] = React.useState(false);
     const [value, setValue] = React.useState(null);
     const data = [
         { label: 'Item 1', value: '1' },
@@ -26,9 +46,9 @@ const CreateParty = (props) => {
         { label: 'Item 7', value: '7' },
         { label: 'Item 8', value: '8' },
     ];
-    const [selectedImage1, setSelectedImage1] = React.useState([]);
-    const [selectedImage2, setSelectedImage2] = React.useState([]);
-    const [selectedImage3, setSelectedImage3] = React.useState([]);
+    // const [selectedImage1, setSelectedImage1] = React.useState([]);
+    // const [selectedImage2, setSelectedImage2] = React.useState([]);
+    // const [selectedImage3, setSelectedImage3] = React.useState([]);
     const openImagePicker = () => {
         const options = {
             mediaType: 'photo',
@@ -99,7 +119,7 @@ const CreateParty = (props) => {
         <View style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
             <LinearGradient
                 colors={['#FF7336', '#FFFFFF']}
-                style={{ flex: 0.30 }}>
+                style={{ flex: 0.35 }}>
 
             <Text style={styles.text}>
                     สร้างปาร์ตี้
@@ -109,7 +129,7 @@ const CreateParty = (props) => {
                 <View style={styles.containerinput}>
                     <View style={styles.textinput}>
                         <LinearGradient
-                            colors={['#FFEDE6', '#FFFFFF']}
+                            colors={['#FFC0A6', '#FFD4C2']}
                             style={{ flex: 1 }}>
                             <Text style={{ textAlign: 'center', color: '#FF5C00',fontFamily:'Mitr-Regular', }}>ชื่อปาร์ตี้</Text>
                         </LinearGradient>
@@ -121,20 +141,26 @@ const CreateParty = (props) => {
                         placeholder="โปรดตั้งชื่อปาร์ตี้"
         
                     />
-                    <View style={styles.textinput}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>วันที่-เวลา</Text></View>
+                    
+                    <View style={styles.textdate}>
+                    <LinearGradient
+                            colors={['#FFE3D7', '#FFF0EA']}
+                            style={{ flex: 1 }}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>วันที่</Text>
+                             </LinearGradient></View>
                     <View style={styles.input}>
                         <TouchableOpacity onPress={() => setOpen(true)}>
                             <View>
-                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{date.toDateString()}, {date.toLocaleTimeString()} </Text>
+                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{date1.toDateString()} </Text>
                             </View>
                         </TouchableOpacity>
                         <DatePicker
                             modal
+                            mode="date"
                             open={open}
-                            date={date}
-                            onConfirm={(date) => {
+                            date={date1}
+                            onConfirm={(date1) => {
                                 setOpen(false)
-                                setDate(date)
+                                setDate1(date1)
                             }}
                             onCancel={() => {
                                 setOpen(false)
@@ -142,6 +168,29 @@ const CreateParty = (props) => {
                             
                         />
                     </View>
+                    <View style={styles.texttime}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>เวลา</Text></View>
+                    <View style={styles.inputtime}>
+                        <TouchableOpacity onPress={() => setOpen1(true)}>
+                            <View>
+                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{time.toLocaleTimeString()} </Text>
+                            </View>
+                        </TouchableOpacity>
+                        <DatePicker
+                            modal
+                            mode="time"
+                            open={open1}
+                            date={time}
+                            onConfirm={(time) => {
+                                setOpen1(false)
+                                setTime(time)
+                            }}
+                            onCancel={() => {
+                                setOpen1(false)
+                            }}
+                            
+                        />
+                    </View>
+                    
 
                     <View style={styles.textinput}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>สถานที่</Text></View>
                     <TextInput
@@ -348,7 +397,7 @@ const styles = StyleSheet.create({
     text: {
 fontFamily:'Mitr-Regular',
        fontSize: 40,
-        marginTop: 140,
+        marginTop: 90,
         alignSelf: 'center',
         // fontWeight: 'bold',
         color: '#E6420C',
@@ -366,6 +415,17 @@ fontFamily:'Mitr-Regular',
         borderColor: '#FF5C00',
         display: 'flex',
         fontFamily:'Mitr-Regular'
+    },inputtime: {
+        width: 342,
+        height: 44,
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 10,
+        color: 'black',
+        borderColor: '#FF5C00',
+        display: 'flex',
+        fontFamily:'Mitr-Regular',
+        marginTop:1
     },
     containerinput: {
         alignItems: 'center',
@@ -379,6 +439,22 @@ fontFamily:'Mitr-Regular',
         top: 10,
         zIndex: 1,
         right: 120
+    },
+    textdate: {
+        height: 20,
+        width: 40,
+        backgroundColor: 'white',
+        top: 9,
+        zIndex: 1,
+        right: 133
+    },
+    texttime: {
+        height: 18,
+        width: 40,
+        backgroundColor: 'white',
+        top: 10,
+        zIndex: 1,
+        right: 133
     },
     dropdown: {
         width: '83%',
