@@ -22,6 +22,7 @@
 		E1AB0E4CF51F4D1EAC37A22B /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0D62FC4BA07427B832707EF /* Poppins-Regular.ttf */; };
 		148DEBEB0A9B463682392434 /* Kanit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE87ECC1946A4717A226C5DC /* Kanit-Bold.ttf */; };
 		2B6F01E05EF042BA985E962D /* Kanit-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A5A8F7C1DC24B41AE5AB01D /* Kanit-Light.ttf */; };
+		C3D971A38708431394E941C6 /* Kanit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CDE6E479D894BCC97E15F83 /* Kanit-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		D0D62FC4BA07427B832707EF /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		DE87ECC1946A4717A226C5DC /* Kanit-Bold.ttf */ = {isa = PBXFileReference; name = "Kanit-Bold.ttf"; path = "../assets/fonts/Kanit-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7A5A8F7C1DC24B41AE5AB01D /* Kanit-Light.ttf */ = {isa = PBXFileReference; name = "Kanit-Light.ttf"; path = "../assets/fonts/Kanit-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9CDE6E479D894BCC97E15F83 /* Kanit-Regular.ttf */ = {isa = PBXFileReference; name = "Kanit-Regular.ttf"; path = "../assets/fonts/Kanit-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 				D0D62FC4BA07427B832707EF /* Poppins-Regular.ttf */,
 				DE87ECC1946A4717A226C5DC /* Kanit-Bold.ttf */,
 				7A5A8F7C1DC24B41AE5AB01D /* Kanit-Light.ttf */,
+				9CDE6E479D894BCC97E15F83 /* Kanit-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				E1AB0E4CF51F4D1EAC37A22B /* Poppins-Regular.ttf in Resources */,
 				148DEBEB0A9B463682392434 /* Kanit-Bold.ttf in Resources */,
 				2B6F01E05EF042BA985E962D /* Kanit-Light.ttf in Resources */,
+				C3D971A38708431394E941C6 /* Kanit-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
