@@ -16,9 +16,10 @@ import{db} from '../comp/config'
 
 const CreateParty = ({ route,navigation }) => {
     const [id, setId] = React.useState(0);
-    const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance } = route.params || {};
-    const isPartyCreated = restaurantName || restaurantImages||restaurantType||restaurantDistance||restaurantStar;
+    const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg } = route.params || {};
+    const isPartyCreated = restaurantName || restaurantImages||restaurantType||restaurantDistance||restaurantStar||restaurantimg;
     const [star, setstar] = React.useState(isPartyCreated ? restaurantStar : null);
+    const [img, setimg] = React.useState(isPartyCreated ? restaurantimg : null);
     const [distance, setdistance] = React.useState(isPartyCreated ? restaurantDistance : null);
     const [type, settype] = React.useState(isPartyCreated ? restaurantType : null);
     const [text2, onChangeText2] = React.useState(isPartyCreated ? restaurantName : null);
@@ -27,8 +28,9 @@ const CreateParty = ({ route,navigation }) => {
     const [selectedImage3, setSelectedImage3] = React.useState(isPartyCreated && restaurantImages[2] ? [restaurantImages[2]] : []);
     React.useEffect(() => {
         if (route.params) {
-        const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance } = route.params || {};
+        const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg } = route.params || {};
           onChangeText2(restaurantName || null);
+          setimg(restaurantimg || null);
           setstar(restaurantStar || null);
           setdistance(restaurantDistance || null);
           settype(restaurantType || null);
@@ -136,17 +138,18 @@ const CreateParty = ({ route,navigation }) => {
         const newId = id + 1;
          set(ref(db, 'user/' + 'Id' +newId), {
              nameParty: text,
-             date : date1.toDateString(),
-             time: time.toLocaleTimeString(),
+             date : moment(date1).locale('th').format('DD/MM/YYYY'),
+             time: moment(time).format('HH:mm'),
              position:text2,
              people:value,
              des:text3,
-             img1:selectedImage1,
+             img1:img,
              img2:selectedImage2,
              img3:selectedImage3,
              type:type,
              star:star,
-             distance:distance
+             distance:distance,
+             party_id:newId
  
            }).then(() => {
              setId(newId);

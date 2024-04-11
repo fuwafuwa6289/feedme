@@ -1,11 +1,78 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,Pressable } from 'react-native';
+import React, { useState ,useEffect} from 'react';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,Pressable,FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
 const Post = () => {
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
+  const [partiesData, setPartiesData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://feedme-createparty-default-rtdb.asia-southeast1.firebasedatabase.app/user.json');
+        if (!response.ok) {
+          console.error('Failed to fetch data');
+          return;
+        }
+        const data = await response.json();
+        const filteredData = Object.values(data); // Convert object to array
+        setPartiesData(filteredData);
+        console.log('Parties Data:', filteredData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+     
+    };
+
+    fetchData();
+  }, []);
+
+  const renderPartyItem = ({ item }) => (
+    <View style={styles.card}>
+
+    <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, }}>
+      <View style={{ alignItems: 'flex-start' }}>
+        <Image style={{ width: 170, height: 137, borderRadius: 10 }}
+          resizeMode="cover"
+          source={{ uri: item.img1 }}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.2, paddingLeft: 2 }}>
+        <Image
+          // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
+
+          resizeMode="cover"
+          source={{ uri: Array.isArray(item.img1) && item.img1.length > 0 ? item.img1[0] : '' }}
+
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
+        <Text style={styles.partyName}>{item.nameParty}</Text>
+        <Text style={styles.restaurantName}>{item.position}</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+          <Image style={{ marginTop: 5 }}
+            contentFit="cover"
+            source={require("../assets/star-1.png")} />
+          <Text style={styles.detailStar} >{item.distance} | {item.type}</Text>
+        </View>
+        <Text style={styles.detail}>{item.distance}</Text>
+
+        {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
+        <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/{item.people} คน )</Text>
+        <Pressable
+          style={styles.parent}
+        // onPress={onFramePressablePress}
+        >
+          <Text style={styles.joinButton} >เข้าร่วม</Text>
+        </Pressable>
+      </View>
+    </View>
+  </View>
+  );
+
+  
 
   const handleCreateParty = () => {
     console.log('Create Party');
@@ -14,6 +81,8 @@ const Post = () => {
   const handleGoBack = () => {
     navigation.goBack();
   };
+
+
 
   return (
     <ScrollView style={styles.container}>
@@ -48,47 +117,17 @@ const Post = () => {
             
           />
         </View>
-        <View style={styles.card}>
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, }}>
-            <View style={{ alignItems: 'flex-start' }}>
-              <Image style={{ width: 170, height: 137, borderRadius: 10 }}
-                resizeMode="cover"
-                source={require("../assets/rectangle-131.png")}
-              />
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.2, paddingLeft: 2 }}>
-              <Image
-                // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
-
-                resizeMode="cover"
-                source={require("../assets/mdifire.png")}
-
-              />
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
-              <Text style={styles.partyName}>โดยองหิวข้าว</Text>
-              <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-                <Image style={{ marginTop: 3 }}
-                  contentFit="cover"
-                  source={require("../assets/star-1.png")} />
-                <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
-              </View>
-              <Text style={styles.detail}>500 km (40 นาที)</Text>
-
-              {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
-              <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
-              <Pressable
-                style={styles.parent}
-              // onPress={onFramePressablePress}
-              >
-                <Text style={styles.joinButton} >เข้าร่วม</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-
+        
+        
+      <FlatList
+        data={partiesData}
+        renderItem={renderPartyItem}
+        keyExtractor={(item) => item.
+          party_id.toString()} // Assuming id is unique
+          
+      />
+      
+ 
        
       </View>
     </ScrollView>
@@ -212,6 +251,7 @@ const styles = StyleSheet.create({
   restaurantName: {
     fontSize: 14,
     margin: 1,
+    marginTop:2,
     color: 'black',
     fontFamily: 'Mitr-Regular',
   },
