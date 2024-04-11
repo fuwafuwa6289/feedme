@@ -165,6 +165,7 @@ const CreateParty = ({ route,navigation }) => {
                             onCancel={() => {
                                 setOpen(false)
                             }}
+                            locale="th-TH" 
                             
                         />
                     </View>
@@ -187,7 +188,13 @@ const CreateParty = ({ route,navigation }) => {
                             onCancel={() => {
                                 setOpen1(false)
                             }}
+                            
                             locale="th-TH" 
+                            display="inline"
+                            is24Hour={true}
+                            format="HH:mm"// กำหนดรูปแบบการแสดงผลเวลาเป็น HH:mm
+                    
+                       
                         />
                     </View>
                     
