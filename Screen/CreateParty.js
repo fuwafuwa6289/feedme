@@ -8,6 +8,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Button } from '@rneui/themed';
 import { Image } from '@rneui/themed';
 import { useNavigationState } from '@react-navigation/native';
+import moment from 'moment';
+import { ref, set } from "firebase/database";
+import{db} from '../comp/config'
 
 
 
@@ -124,28 +127,29 @@ const CreateParty = ({ route,navigation }) => {
     }
 
     function create(){
-       // const newKey = push(child(ref(database),'users')).key;
-       const newId = id + 1;
-        set(ref(db, 'users/' + 'Id' +newId), {
-            nameParty: text,
-            date : date1.toDateString(),
-            time: time.toLocaleTimeString(),
-            position:text2,
-            people:value,
-            des:text3,
-            img1:selectedImage1,
-            img2:selectedImage2,
-            img3:selectedImage3
-
-          }).then(() => {
-            setId(newId);
-            Alert('data updated');
-          })
-          .catch((error)=>{
-            Alert(error);
-          
-          });
-    }
+        // const newKey = push(child(ref(database),'users')).key;
+        const newId = id + 1;
+         set(ref(db, 'users/' + 'Id' +newId), {
+             nameParty: text,
+             date : date1.toDateString(),
+             time: time.toLocaleTimeString(),
+             position:text2,
+             people:value,
+             des:text3,
+             img1:selectedImage1,
+             img2:selectedImage2,
+             img3:selectedImage3
+ 
+           }).then(() => {
+             setId(newId);
+             Alert('data updated');
+           })
+           .catch((error)=>{
+             Alert(error);
+           
+           });
+     }
+ 
 
     return (
         <View style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
