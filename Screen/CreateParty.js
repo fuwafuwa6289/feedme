@@ -187,7 +187,7 @@ const CreateParty = ({ route,navigation }) => {
                             onCancel={() => {
                                 setOpen1(false)
                             }}
-                            
+                            locale="th-TH" 
                         />
                     </View>
                     
