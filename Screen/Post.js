@@ -1,11 +1,44 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,Pressable } from 'react-native';
+import React, { useState ,useEffect} from 'react';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,Pressable,FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
 const Post = () => {
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
+  const [partiesData, setPartiesData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://feedmecreateparty-default-rtdb.asia-southeast1.firebasedatabase.app/parties.json');
+        if (!response.ok) {
+          console.error('Failed to fetch data');
+          return;
+        }
+        const data = await response.json();
+        const filteredData = Object.values(data); // Convert object to array
+        setPartiesData(filteredData);
+        console.log('Parties Data:', filteredData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+     
+    };
+
+    fetchData();
+  }, []);
+
+  const renderPartyItem = ({ item }) => (
+    <View style={{ marginVertical: 10, marginHorizontal: 20, padding: 10, backgroundColor: '#eee', borderRadius: 5 }}>
+      {/* <Text>Party ID: {item.party_id}</Text> */}
+      <Text>Party Name: {item.party_name}</Text>
+      <Text>Date: {item.date}</Text>
+      <Text>Time: {item.time}</Text>
+      <Text>Details: {item.details}</Text>
+      <Text>Number of Party Members: {item.party_member}</Text>
+    </View>
+  );
 
   const handleCreateParty = () => {
     console.log('Create Party');
@@ -14,6 +47,8 @@ const Post = () => {
   const handleGoBack = () => {
     navigation.goBack();
   };
+
+
 
   return (
     <ScrollView style={styles.container}>
@@ -88,7 +123,16 @@ const Post = () => {
             </View>
           </View>
         </View>
-
+        <View style={{ flex: 1, padding: 20 }}>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Party List</Text>
+      <FlatList
+        data={partiesData}
+        renderItem={renderPartyItem}
+        keyExtractor={(item) => item.
+          party_id.toString()} // Assuming id is unique
+      />
+      
+    </View>
        
       </View>
     </ScrollView>
