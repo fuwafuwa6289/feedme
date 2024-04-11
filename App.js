@@ -15,12 +15,11 @@ import ClassBreakfast from './Screen/ClassBreakfast';
 import ClassCafe from './Screen/ClassCafe';
 import JoinGroup from './Screen/JoinGroup';
 import Chatinner from './Screen/Chatinner';
-
 import { useEffect, useState } from 'react';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
 
 
 function MyTabs() {

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Modal,useEffect } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ImageBackground, Modal,useEffect, FlatList } from 'react-native';
 import * as React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import DatePicker from 'react-native-date-picker';
@@ -9,8 +9,10 @@ import { Button } from '@rneui/themed';
 import { Image } from '@rneui/themed';
 import { useNavigationState } from '@react-navigation/native';
 
+
+
 const CreateParty = ({ route,navigation }) => {
-    
+    const [id, setId] = React.useState(0);
     const { restaurantName, restaurantImages } = route.params || {};
     const isPartyCreated = restaurantName || restaurantImages;
     
@@ -37,14 +39,14 @@ const CreateParty = ({ route,navigation }) => {
     const [open1, setOpen1] = React.useState(false);
     const [value, setValue] = React.useState(null);
     const data = [
-        { label: 'Item 1', value: '1' },
-        { label: 'Item 2', value: '2' },
-        { label: 'Item 3', value: '3' },
-        { label: 'Item 4', value: '4' },
-        { label: 'Item 5', value: '5' },
-        { label: 'Item 6', value: '6' },
-        { label: 'Item 7', value: '7' },
-        { label: 'Item 8', value: '8' },
+        { label: '1', value: '1' },
+        { label: '2', value: '2' },
+        { label: '3', value: '3' },
+        { label: '4', value: '4' },
+        { label: '5', value: '5' },
+        { label: '6', value: '6' },
+        { label: '7', value: '7' },
+        { label: '8', value: '8' },
     ];
     // const [selectedImage1, setSelectedImage1] = React.useState([]);
     // const [selectedImage2, setSelectedImage2] = React.useState([]);
@@ -114,6 +116,36 @@ const CreateParty = ({ route,navigation }) => {
             setShowModal(false);
         }, 3000);
     };
+    const formatDateThai = (date) => {
+        return moment(date).locale('th').format('DD/MM/YYYY');
+    }
+    const formatTime = (time) => {
+        return moment(time).format('HH:mm');
+    }
+
+    function create(){
+       // const newKey = push(child(ref(database),'users')).key;
+       const newId = id + 1;
+        set(ref(db, 'users/' + 'Id' +newId), {
+            nameParty: text,
+            date : date1.toDateString(),
+            time: time.toLocaleTimeString(),
+            position:text2,
+            people:value,
+            des:text3,
+            img1:selectedImage1,
+            img2:selectedImage2,
+            img3:selectedImage3
+
+          }).then(() => {
+            setId(newId);
+            Alert('data updated');
+          })
+          .catch((error)=>{
+            Alert(error);
+          
+          });
+    }
 
     return (
         <View style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
@@ -150,45 +182,51 @@ const CreateParty = ({ route,navigation }) => {
                     <View style={styles.input}>
                         <TouchableOpacity onPress={() => setOpen(true)}>
                             <View>
-                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{date1.toDateString()} </Text>
+                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{formatDateThai(date1)} </Text>
                             </View>
                         </TouchableOpacity>
-                        <DatePicker
-                            modal
-                            mode="date"
-                            open={open}
-                            date={date1}
-                            onConfirm={(date1) => {
-                                setOpen(false)
-                                setDate1(date1)
-                            }}
-                            onCancel={() => {
-                                setOpen(false)
-                            }}
-                            
-                        />
+                        {open && (
+                <DatePicker
+                    modal
+                    mode="date"
+                    open={open}
+                    date={date1}
+                    onConfirm={(date1) => {
+                        setOpen(false);
+                        setDate1(date1);
+                    }}
+                    onCancel={() => {
+                        setOpen(false);
+                    }}
+                    locale="th-TH"
+                />
+            )}
                     </View>
                     <View style={styles.texttime}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>เวลา</Text></View>
                     <View style={styles.inputtime}>
                         <TouchableOpacity onPress={() => setOpen1(true)}>
                             <View>
-                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{time.toLocaleTimeString()} </Text>
+                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{formatTime(time)} </Text>
                             </View>
                         </TouchableOpacity>
-                        <DatePicker
-                            modal
-                            mode="time"
-                            open={open1}
-                            date={time}
-                            onConfirm={(time) => {
-                                setOpen1(false)
-                                setTime(time)
-                            }}
-                            onCancel={() => {
-                                setOpen1(false)
-                            }}
-                            
-                        />
+                        {open1 && (
+                <DatePicker
+                    modal
+                    mode="time"
+                    open={open1}
+                    date={time}
+                    onConfirm={(time) => {
+                        setOpen1(false);
+                        setTime(time);
+                    }}
+                    onCancel={() => {
+                        setOpen1(false);
+                    }}
+                    locale="th-TH"
+                    display="inline"
+                    is24Hour={true}
+                />
+            )}
                     </View>
                     
 
@@ -226,10 +264,15 @@ const CreateParty = ({ route,navigation }) => {
                         value={text3}
                         placeholder="   -"
                     />
+                    
                     <View style={styles.textinput3}><Text style={{ textAlign: 'center', color: '#FF5C00',fontFamily:'Mitr-Regular' }}>รูปภาพ</Text></View>
+                  
                     <View style={{alignItems:'center',flexDirection: 'row', justifyContent: 'center', borderWidth: 1, borderColor: '#FF5C00', width: 342, height: 131, bottom: 5, borderRadius: 12, }}>
+                        
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+                            
                             <View style={{ flexDirection: 'row',width:102,height:106,alignItems:'center',justifyContent: 'center'}}>
+                           
                                 {selectedImage1.map((image, index) => (
                                     <Image
                                         key={index}
@@ -330,8 +373,11 @@ const CreateParty = ({ route,navigation }) => {
                                 )}
                             </View>
                         </View>
-
+                        
+                        
                     </View>
+  
+
 
                     <View style={styles.container}>
                         {/* <Button title="Show Modal" onPress={handlePopup} /> */}
@@ -353,7 +399,11 @@ const CreateParty = ({ route,navigation }) => {
                                 marginVertical: 5,
                             }}
                            
-                            onPress={handlePopup}
+                            onPress={() => {
+                                create();
+                                handlePopup();
+                            }}
+                            
                             
                         />
                         <Modal
