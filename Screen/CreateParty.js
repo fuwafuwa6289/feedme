@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Button } from '@rneui/themed';
 import { Image } from '@rneui/themed';
 import { useNavigationState } from '@react-navigation/native';
+import moment from 'moment';
+
 
 const CreateParty = ({ route,navigation }) => {
     
@@ -114,6 +116,12 @@ const CreateParty = ({ route,navigation }) => {
             setShowModal(false);
         }, 3000);
     };
+    const formatDateThai = (date) => {
+        return moment(date).locale('th').format('DD/MM/YYYY');
+    }
+    const formatTime = (time) => {
+        return moment(time).format('HH:mm');
+    }
 
     return (
         <View style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
@@ -150,52 +158,51 @@ const CreateParty = ({ route,navigation }) => {
                     <View style={styles.input}>
                         <TouchableOpacity onPress={() => setOpen(true)}>
                             <View>
-                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{date1.toDateString()} </Text>
+                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{formatDateThai(date1)} </Text>
                             </View>
                         </TouchableOpacity>
-                        <DatePicker
-                            modal
-                            mode="date"
-                            open={open}
-                            date={date1}
-                            onConfirm={(date1) => {
-                                setOpen(false)
-                                setDate1(date1)
-                            }}
-                            onCancel={() => {
-                                setOpen(false)
-                            }}
-                            locale="th-TH" 
-                            
-                        />
+                        {open && (
+                <DatePicker
+                    modal
+                    mode="date"
+                    open={open}
+                    date={date1}
+                    onConfirm={(date1) => {
+                        setOpen(false);
+                        setDate1(date1);
+                    }}
+                    onCancel={() => {
+                        setOpen(false);
+                    }}
+                    locale="th-TH"
+                />
+            )}
                     </View>
                     <View style={styles.texttime}><Text style={{ textAlign: 'center', color: '#FF5C00' ,fontFamily:'Mitr-Regular'}}>เวลา</Text></View>
                     <View style={styles.inputtime}>
                         <TouchableOpacity onPress={() => setOpen1(true)}>
                             <View>
-                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{time.toLocaleTimeString()} </Text>
+                                <Text style={{ color: 'black' ,fontFamily:'Mitr-Regular'}}>{formatTime(time)} </Text>
                             </View>
                         </TouchableOpacity>
-                        <DatePicker
-                            modal
-                            mode="time"
-                            open={open1}
-                            date={time}
-                            onConfirm={(time) => {
-                                setOpen1(false)
-                                setTime(time)
-                            }}
-                            onCancel={() => {
-                                setOpen1(false)
-                            }}
-                            
-                            locale="th-TH" 
-                            display="inline"
-                            is24Hour={true}
-                            format="HH:mm"// กำหนดรูปแบบการแสดงผลเวลาเป็น HH:mm
-                    
-                       
-                        />
+                        {open1 && (
+                <DatePicker
+                    modal
+                    mode="time"
+                    open={open1}
+                    date={time}
+                    onConfirm={(time) => {
+                        setOpen1(false);
+                        setTime(time);
+                    }}
+                    onCancel={() => {
+                        setOpen1(false);
+                    }}
+                    locale="th-TH"
+                    display="inline"
+                    is24Hour={true}
+                />
+            )}
                     </View>
                     
 
