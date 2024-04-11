@@ -44,6 +44,7 @@ const [partiesData, setPartiesData] = useState([]);
       <Text>Time: {item.time}</Text>
       <Text>Details: {item.details}</Text>
       <Text>Number of Party Members: {item.party_member}</Text>
+      
     </View>
   );
   
