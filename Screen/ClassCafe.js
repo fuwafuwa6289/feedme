@@ -14,7 +14,7 @@ const ClassCafe = () => {
     fetch('https://pantira111.github.io/FeedmeApi/restaurant.json')
       .then(response => response.json())
       .then(data => {
-        const cafeRestaurants = data[0].filter(restaurant => restaurant.type === 'คาเฟ่');
+        const cafeRestaurants  = data[0].filter(restaurant => restaurant.type === 'คาเฟ่');
         setRestaurantData(cafeRestaurants);
         setLoading(false);
       })
@@ -24,9 +24,9 @@ const ClassCafe = () => {
       });
   }, []);
 
-  const handleCreateParty = (restaurantName, restaurantImages) => {
+  const handleCreateParty = (restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance) => {
     console.log('Create Party');
-    navigation.navigate('CreateParty', { restaurantName, restaurantImages });
+    navigation.navigate('CreateParty', { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance });
   };
 
   const handleGoBack = () => {
@@ -51,7 +51,7 @@ const ClassCafe = () => {
           )}
         />
 
-<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6])}>
+<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6],item.type,item.star,item.distance)}>
   <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
 </TouchableOpacity>
       </View>

@@ -24,9 +24,9 @@ const ClassBreakfast = () => {
       });
   }, []);
 
-  const handleCreateParty = (restaurantName, restaurantImages) => {
+  const handleCreateParty = (restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance) => {
     console.log('Create Party');
-    navigation.navigate('CreateParty', { restaurantName, restaurantImages });
+    navigation.navigate('CreateParty', { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance });
   };
 
   const handleGoBack = () => {
@@ -51,7 +51,7 @@ const ClassBreakfast = () => {
           )}
         />
 
-<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6])}>
+<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6],item.type,item.star,item.distance)}>
   <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
 </TouchableOpacity>
       </View>

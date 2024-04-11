@@ -16,17 +16,22 @@ import{db} from '../comp/config'
 
 const CreateParty = ({ route,navigation }) => {
     const [id, setId] = React.useState(0);
-    const { restaurantName, restaurantImages } = route.params || {};
-    const isPartyCreated = restaurantName || restaurantImages;
-    
+    const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance } = route.params || {};
+    const isPartyCreated = restaurantName || restaurantImages||restaurantType||restaurantDistance||restaurantStar;
+    const [star, setstar] = React.useState(isPartyCreated ? restaurantStar : null);
+    const [distance, setdistance] = React.useState(isPartyCreated ? restaurantDistance : null);
+    const [type, settype] = React.useState(isPartyCreated ? restaurantType : null);
     const [text2, onChangeText2] = React.useState(isPartyCreated ? restaurantName : null);
     const [selectedImage1, setSelectedImage1] = React.useState(isPartyCreated && restaurantImages[0] ? [restaurantImages[0]] : []);
     const [selectedImage2, setSelectedImage2] = React.useState(isPartyCreated && restaurantImages[1] ? [restaurantImages[1]] : []);
     const [selectedImage3, setSelectedImage3] = React.useState(isPartyCreated && restaurantImages[2] ? [restaurantImages[2]] : []);
     React.useEffect(() => {
         if (route.params) {
-          const { restaurantName, restaurantImages } = route.params;
+        const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance } = route.params || {};
           onChangeText2(restaurantName || null);
+          setstar(restaurantStar || null);
+          setdistance(restaurantDistance || null);
+          settype(restaurantType || null);
           setSelectedImage1(restaurantImages && restaurantImages.length > 0 ? [restaurantImages[0]] : []);
           setSelectedImage2(restaurantImages && restaurantImages.length > 1 ? [restaurantImages[1]] : []);
           setSelectedImage3(restaurantImages && restaurantImages.length > 2 ? [restaurantImages[2]] : []);
@@ -129,7 +134,7 @@ const CreateParty = ({ route,navigation }) => {
     function create(){
         // const newKey = push(child(ref(database),'users')).key;
         const newId = id + 1;
-         set(ref(db, 'users/' + 'Id' +newId), {
+         set(ref(db, 'user/' + 'Id' +newId), {
              nameParty: text,
              date : date1.toDateString(),
              time: time.toLocaleTimeString(),
@@ -138,7 +143,10 @@ const CreateParty = ({ route,navigation }) => {
              des:text3,
              img1:selectedImage1,
              img2:selectedImage2,
-             img3:selectedImage3
+             img3:selectedImage3,
+             type:type,
+             star:star,
+             distance:distance
  
            }).then(() => {
              setId(newId);
