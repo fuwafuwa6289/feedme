@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { database } from '@react-native-firebase/database';
 import { useNavigationState } from '@react-navigation/native';
 // import CardComponent from '../Component/Card'
-import userData from '../assets/๊User.json'
+import userData from '../assets/User.json'
 import { push, ref, set,get } from "firebase/database";
 import{db} from '../comp/config'
 
