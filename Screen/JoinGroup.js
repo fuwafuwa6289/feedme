@@ -92,62 +92,25 @@ const JoinGroup = ({ route,navigation }) => {
         source={{ uri: img1 }}
       />
       </View>
-      <View style={{flexDirection:'row',paddingHorizontal:24,paddingVertical:5,justifyContent: 'space-around',left:5}}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <Image
-        style={[styles.inner]}
-        resizeMode="cover"
-        source={require("../assets/rectangle-145.png")}
-      />
-      </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-        style={[styles.inner]}
-        resizeMode="cover"
-        source={require("../assets/rectangle-155.png")}
-      />
+          <FlatList
+      data={[img2, img3, img4, img5, img6, img7, img8]} // ใส่ URL รูปภาพทั้งหมดลงในอาร์เรย์
+      renderItem={({ item }) => (
+        <View style={{ flexDirection: 'row', alignItems: 'space-around' ,}}>
+          <Image
+            style={[styles.inner]}
+            resizeMode="cover"
+            source={{ uri: item }}
+          />
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-        style={[styles.inner]}
-        resizeMode="cover"
-        source={require("../assets/rectangle-166.png")}
-      />
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-        style={[styles.inner]}
-        resizeMode="cover"
-        source={require("../assets/rectangle-155.png")}
-      />
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-        style={[styles.inner]}
-        resizeMode="cover"
-        source={require("../assets/rectangle-155.png")}
-      />
-        </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-        style={[styles.inner]}
-        resizeMode="cover"
-        source={require("../assets/rectangle-155.png")}
-      />
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-        style={[styles.inner2]}
-        resizeMode="cover"
-        source={require("../assets/rectangle-203.png")}
-      />
-        </View>
-      </View>
+      )}
+      keyExtractor={(item, index) => index.toString()} // กำหนด key เป็น index ของรูปภาพ
+      horizontal={true} // ให้ FlatList เป็นแนวนอน
+      contentContainerStyle={{ paddingHorizontal: 24, paddingVertical: 6, justifyContent: 'space-around', left: 5 }} // กำหนดระยะห่างระหว่างรูปภาพแต่ละรายการ
+/>
          
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,paddingHorizontal:24,marginLeft:5}}> 
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,paddingHorizontal:24,marginLeft:5,margin:5}}> 
             
             
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
@@ -376,6 +339,7 @@ const styles = StyleSheet.create({
     width: 363,
     height: 174,
     left: 30,
+    borderRadius:6
   },
 
   titleclass: {
@@ -481,6 +445,7 @@ const styles = StyleSheet.create({
   inner: {
     width: 53,
     height: 49,
+    borderRadius:6
     // top: 80,
     // left: 38,
   },
