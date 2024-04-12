@@ -123,7 +123,7 @@ const Post = () => {
         data={partiesData}
         renderItem={renderPartyItem}
         keyExtractor={(item) => item.
-          party_id.toString()} // Assuming id is unique
+          party_id} // Assuming id is unique
           
       />
       

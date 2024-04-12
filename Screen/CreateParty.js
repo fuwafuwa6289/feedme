@@ -36,6 +36,7 @@ const CreateParty = ({ route,navigation }) => {
     const [selectedImage1, setSelectedImage1] = React.useState(isPartyCreated && restaurantImages[0] ? [restaurantImages[0]] : []);
     const [selectedImage2, setSelectedImage2] = React.useState(isPartyCreated && restaurantImages[1] ? [restaurantImages[1]] : []);
     const [selectedImage3, setSelectedImage3] = React.useState(isPartyCreated && restaurantImages[2] ? [restaurantImages[2]] : []);
+    const [selectedImage4, setSelectedImage4] = React.useState(isPartyCreated && restaurantImages[3] ? [restaurantImages[3]] : []);
     React.useEffect(() => {
         if (route.params) {
         const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg } = route.params || {};
@@ -59,6 +60,7 @@ const CreateParty = ({ route,navigation }) => {
           setSelectedImage1(restaurantImages && restaurantImages.length > 0 ? [restaurantImages[0]] : []);
           setSelectedImage2(restaurantImages && restaurantImages.length > 1 ? [restaurantImages[1]] : []);
           setSelectedImage3(restaurantImages && restaurantImages.length > 2 ? [restaurantImages[2]] : []);
+          setSelectedImage4(restaurantImages && restaurantImages.length > 3 ? [restaurantImages[3]] : []);
         }
       }, [route.params]);
     const image1 = require('../iconnn.png');
@@ -331,110 +333,45 @@ const CreateParty = ({ route,navigation }) => {
                   
                     <View style={{alignItems:'center',flexDirection: 'row', justifyContent: 'center', borderWidth: 1, borderColor: '#FF5C00', width: 342, height: 131, bottom: 5, borderRadius: 12, }}>
                         
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
-                            
-                            <View style={{ flexDirection: 'row',width:102,height:106,alignItems:'center',justifyContent: 'center'}}>
-                           
-                                {selectedImage1.map((image, index) => (
-                                    <Image
-                                        key={index}
-                                        source={{ uri: image }}
-                                        style={{ width: 90, height: 95, margin: 5 }}
-                                        borderRadius={10}
-                                    />
-                                ))}
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+  <FlatList
+data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4]}
+    renderItem={({ item }) => (
+      <View style={{ flexDirection: 'row', width: 102, height: 106, alignItems: 'center', justifyContent: 'center' }}>
+        {item.map((image, index) => (
+          <Image
+            key={index}
+            source={{ uri: image }}
+            style={{ width: 90, height: 95, margin: 5 }}
+            borderRadius={10}
+          />
+        ))}
+        {item.length < 1 && (
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <TouchableOpacity onPress={() => setOpen(true)}>
+              <View>
+                <Icon name="image-outline" size={26} onPress={openImagePicker} />
+              </View>
+            </TouchableOpacity>
+            <View style={{ marginLeft: 12 }}>
+              <TouchableOpacity onPress={() => setOpen(true)}>
+                <View>
+                  <Icon name="camera" size={26} onPress={handleCameraLaunch} />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </View>
+    )}
+    keyExtractor={(item, index) => index.toString()}
+    horizontal ={true}
+    numColumns={1}
+  />
+</View>
 
-                                {selectedImage1.length < 1 && (
-                                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                                        <View >
-                                            {/* <Button title="Choose from Device" onPress={openImagePicker} /> */}
-                                            <TouchableOpacity onPress={() => setOpen(true)}>
-                                                <View>
-                                                    <Icon name="image-outline" size={26} onPress={openImagePicker} />
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={{ marginLeft: 12 }}>
-                                            {/* <Button title="Open Camera" onPress={handleCameraLaunch} /> */}
-                                            <TouchableOpacity onPress={() => setOpen(true)}>
-                                                <View>
-                                                    <Icon name="camera" size={26} onPress={handleCameraLaunch} />
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-
-                                    </View>
-                                )}
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginHorizontal:5}}>
-                            <View style={{ flexDirection: 'row',width:102,height:106 ,alignItems:'center',justifyContent: 'center'}}>
-                                {selectedImage2.map((image, index) => (
-                                    <Image
-                                        key={index}
-                                        source={{ uri: image }}
-                                        style={{ width: 90, height: 95, margin: 5  }}
-                                        borderRadius={10}
-                                    />
-                                ))}
-
-                                {selectedImage2.length < 1 && (
-                                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                                        <View >
-                                            {/* <Button title="Choose from Device" onPress={openImagePicker} /> */}
-                                            <TouchableOpacity onPress={() => setOpen(true)}>
-                                                <View>
-                                                    <Icon name="image-outline" size={26} onPress={openImagePicker} />
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={{ marginLeft: 12 }}>
-                                            {/* <Button title="Open Camera" onPress={handleCameraLaunch} /> */}
-                                            <TouchableOpacity onPress={() => setOpen(true)}>
-                                                <View>
-                                                    <Icon name="camera" size={26} onPress={handleCameraLaunch} />
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-
-                                    </View>
-                                )}
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            <View style={{ flexDirection: 'row',width:102,height:106,alignItems:'center',justifyContent: 'center'}}>
-                                {selectedImage3.map((image, index) => (
-                                    <Image
-                                        key={index}
-                                        source={{ uri: image }}
-                                        style={{ width: 90, height: 95, margin: 5  }}
-                                        borderRadius={10}
-                                    />
-                                ))}
-
-                                {selectedImage3.length < 1 && (
-                                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                                        <View >
-                                            {/* <Button title="Choose from Device" onPress={openImagePicker} /> */}
-                                            <TouchableOpacity onPress={() => setOpen(true)}>
-                                                <View>
-                                                    <Icon name="image-outline" size={26} onPress={openImagePicker} />
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={{ marginLeft: 12 }}>
-                                            {/* <Button title="Open Camera" onPress={handleCameraLaunch} /> */}
-                                            <TouchableOpacity onPress={() => setOpen(true)}>
-                                                <View>
-                                                    <Icon name="camera" size={26} onPress={handleCameraLaunch} />
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-
-                                    </View>
-                                )}
-                            </View>
-                        </View>
+                       
+                       
                         
                         
                         
