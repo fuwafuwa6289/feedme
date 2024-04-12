@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, TouchableOpacity, Image, StyleSheet, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, Image, StyleSheet, TextInput,FlatList,useState ,useEffect } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import Chatinner from './Chatinner';
@@ -7,12 +7,52 @@ import Chatinner from './Chatinner';
 function Chat() {
   const [inputText, setInputText] = React.useState('');
   const navigation = useNavigation(); // Using useNavigation hook to get navigation object
+  const [partiesData, setPartiesData] = React.useState([]);
 
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://feedme-createparty-default-rtdb.asia-southeast1.firebasedatabase.app/user.json');
+        if (!response.ok) {
+          console.error('Failed to fetch data');
+          return;
+        }
+        const data = await response.json();
+        const filteredData = Object.values(data); // Convert object to array
+        setPartiesData(filteredData);
+        console.log('Parties Data:', filteredData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+     
+    };
+
+    fetchData();
+  }, []);
   const handleToChatinner1 = () => { // Corrected function name
     console.log('in chat');
     navigation.navigate('Chatinner');
   };
-
+  const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => console.log('Go to Profile')}>
+      <View style={styles.con}>
+        <Image
+          style={styles.image}
+          contentFit="cover"
+          source={{uri: item.img1}}
+        />
+        <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
+          <View style={{ width: 200, height: 30 }}>
+            <Text style={styles.text}>{item.nameParty}</Text>
+            <Text style={styles.textt}>Hello</Text>
+          </View>
+          <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
+            <Text>00.00</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 
   return (
     <>
@@ -26,7 +66,7 @@ function Chat() {
         </TouchableOpacity>
       </View>
 
-      <Text style={{ color: '#FF4B10', fontSize: 32, fontFamily: 'Mitr-Regular', alignSelf: 'center', top: 45 }}>
+      <Text style={{ color: '#FF4B10', fontSize: 32, fontFamily: 'Kanit-Regular', alignSelf: 'center', top: 45 }}>
         แชท
       </Text>
       <View style={styles.Search}>
@@ -40,174 +80,36 @@ function Chat() {
 
         />
       </View>
-      <View style={{ alignSelf: 'center', justifyContent: 'center', left: 10 }}>
-        <TouchableOpacity onPress={handleToChatinner1}>
-          <View style={styles.con}>
-            <Image
-              style={styles.image}
-              contentFit="cover"
-              source={require("../assets/ellipse-184.png")}
-            />
-            <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
-              <View style={{ width: 200, height: 30 }}>
-                <Text style={styles.text}>ตี้น้อยปาร์ตี้</Text>
-                <Text style={styles.textt}>ไว้เจอกันใหม่</Text>
-              </View>
-              <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
-                <Text >00.00</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <View style={styles.con}>
-            <Image
-              style={styles.image}
-              contentFit="cover"
-              source={require("../assets/ellipse-181.png")}
-            />
-            <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
-              <View style={{ width: 200, height: 30 }}>
-                <Text style={styles.text}>ชอบอาหารไทย</Text>
-                <Text style={styles.textt}>ขอบคุณที่มากินข้าวด้วยกันนะครับ</Text>
-              </View>
-              <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
-                <Text>00.00</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <View style={styles.con}>
-            <Image
-              style={styles.image}
-              contentFit="cover"
-              source={require("../assets/ellipse-21.png")}
-            />
-            <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
-              <View style={{ width: 200, height: 30 }}>
-                <Text style={styles.text}>สุดหล่อต่อยตึง</Text>
-                <Text style={styles.textt}>อาหารมื้อนี้อร่อยมากครับ</Text>
-              </View>
-              <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
-                <Text>00.00</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <View style={styles.con}>
-            <Image
-              style={styles.image}
-              contentFit="cover"
-              source={require("../assets/ellipse-18.png")}
-            />
-            <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
-              <View style={{ width: 200, height: 30 }}>
-                <Text style={styles.text}>โดยองหิวข้าว</Text>
-                <Text style={styles.textt}>กินข้าวด้วยกันไหมครับ</Text>
-              </View>
-              <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
-                <Text>00.00</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <View style={styles.con}>
-            <Image
-              style={styles.image}
-              contentFit="cover"
-              source={require("../assets/ellipse-40.png")}
-            />
-            <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
-              <View style={{ width: 200, height: 30 }}>
-                <Text style={styles.text}>เจโน่รักมัมหมีนะคับ</Text>
-                <Text style={styles.textt}>ถึงไหนแล้วครับ</Text>
-              </View>
-              <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
-                <Text>00.00</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <View style={styles.con}>
-            <Image
-              style={styles.image}
-              contentFit="cover"
-              source={require("../assets/group-62.png")}
-            />
-            <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
-              <View style={{ width: 200, height: 30 }}>
-                <Text style={styles.text}>มาสี่ใส่เดี่ยว มาคนเดียวใส่หมด</Text>
-                <Text style={styles.textt}>ตอนนี้ถึงสามคนแล้วครับ</Text>
-              </View>
-              <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
-                <Text>00.00</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <View style={styles.con}>
-            <Image
-              style={styles.image}
-              contentFit="cover"
-              source={require("../assets/jan.png")}
-            />
-            <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
-              <View style={{ width: 200, height: 30 }}>
-                <Text style={styles.text}>น้องแจน</Text>
-                <Text style={styles.textt}>ข้อความ</Text>
-              </View>
-              <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
-                <Text>00.00</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <View style={styles.con}>
-            <Image
-              style={styles.image}
-              contentFit="cover"
-              source={require("../assets/group-561.png")}
-            />
-            <View style={{ width: 263, height: 50, left: 10, top: 3 }}>
-              <View style={{ width: 200, height: 30 }}>
-                <Text style={styles.text}>คิดว่าหล่อก็มา</Text>
-                <Text style={styles.textt}>เดินทางกลับปลอดภัยนะครับพี่</Text>
-              </View>
-              <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
-                <Text>00.00</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-
-      </View>
+      <View style={styles.container}>
+      <FlatList
+        data={partiesData}
+        renderItem={renderItem}
+        keyExtractor={item => item.party_id}
+      />
+    </View>
     </>
   );
 }
 const styles = StyleSheet.create({
   textt: {
-    fontFamily: 'Mitr-Regular'
+    fontFamily: 'Kanit-Regular'
   },
   text: {
     fontSize: 17, color: 'black',
-    fontFamily: 'Mitr-Regular'
+    fontFamily: 'Kanit-Regular'
   },
   con: {
     flexDirection: 'row',
     alignItems: 'center',
     width: 340,
-    marginTop: 20
+    marginTop: 20,
+    alignSelf:'center',
+    left:10
   },
   image: {
     width: 50,
     height: 50,
-
+    borderRadius:100
 
   },
   iconLayout: {
@@ -230,7 +132,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
     // marginTop:-1,
     alignItems: 'center',
     // backgroundColor:'pink',

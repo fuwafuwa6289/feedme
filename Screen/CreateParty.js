@@ -17,6 +17,31 @@ import { useIsFocused } from '@react-navigation/native';
 
 const CreateParty = ({ route,navigation }) => {
     const [nid, setnId] = React.useState(0);
+
+React.useEffect(() => {
+    const countItems = async () => {
+        const dbRef = ref(db, 'user');
+        try {
+            const snapshot = await get(dbRef);
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                const count = Object.keys(data).length;
+                setnId(count);
+                console.log('Total number of items:', count);
+            } else {
+                console.log('No data available');
+                setnId(0);
+            }
+        } catch (error) {
+            console.error('Error getting data:', error);
+            setnId(-1);
+        }
+    };
+
+    countItems();
+}, []); // ใส่ [] เพื่อให้ useEffect ทำงานเพียงครั้งเดียวตอนเริ่มต้นแอพพลิเคชัน
+
+console.log('nid:', nid);
     const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10 } = route.params || {};
     const isPartyCreated = restaurantName || restaurantImages||restaurantType||restaurantDistance||restaurantStar||img1||img2||img3||img4||img5||img6||img7||img8||img9||img10;
     const [star, setstar] = React.useState(isPartyCreated ? restaurantStar : null);
@@ -48,6 +73,7 @@ const CreateParty = ({ route,navigation }) => {
     React.useEffect(() => {
         if (!isFocused) {
             // Reset all state variables to their initial values 
+          
             setValue(null);
             onChangeText(null);
             onChangeText3(null);
