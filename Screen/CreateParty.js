@@ -9,17 +9,27 @@ import { Button } from '@rneui/themed';
 import { Image } from '@rneui/themed';
 import { useNavigationState } from '@react-navigation/native';
 import moment from 'moment';
-import { ref, set } from "firebase/database";
+import { push, ref, set,get } from "firebase/database";
 import{db} from '../comp/config'
 
 
 
 const CreateParty = ({ route,navigation }) => {
-    const [id, setId] = React.useState(0);
-    const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg } = route.params || {};
-    const isPartyCreated = restaurantName || restaurantImages||restaurantType||restaurantDistance||restaurantStar||restaurantimg;
+    const [nid, setnId] = React.useState(0);
+    const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10 } = route.params || {};
+    const isPartyCreated = restaurantName || restaurantImages||restaurantType||restaurantDistance||restaurantStar||img1||img2||img3||img4||img5||img6||img7||img8||img9||img10;
     const [star, setstar] = React.useState(isPartyCreated ? restaurantStar : null);
-    const [img, setimg] = React.useState(isPartyCreated ? restaurantimg : null);
+    const [imgg0, setimg0] = React.useState(isPartyCreated ? img1 : null);
+    const [imgg1, setimg1] = React.useState(isPartyCreated ? img2 : null);
+    const [imgg2, setimg2] = React.useState(isPartyCreated ? img3 : null);
+    const [imgg3, setimg3] = React.useState(isPartyCreated ? img4 : null);
+    const [imgg4, setimg4] = React.useState(isPartyCreated ? img5 : null);
+    const [imgg5, setimg5] = React.useState(isPartyCreated ? img6 : null);
+    const [imgg6, setimg6] = React.useState(isPartyCreated ? img7 : null);
+    const [imgg7, setimg7] = React.useState(isPartyCreated ? img8 : null);
+    const [imgg8, setimg8] = React.useState(isPartyCreated ? img9 : null);
+    const [imgg9, setimg9] = React.useState(isPartyCreated ? img10 : null);
+
     const [distance, setdistance] = React.useState(isPartyCreated ? restaurantDistance : null);
     const [type, settype] = React.useState(isPartyCreated ? restaurantType : null);
     const [text2, onChangeText2] = React.useState(isPartyCreated ? restaurantName : null);
@@ -29,8 +39,20 @@ const CreateParty = ({ route,navigation }) => {
     React.useEffect(() => {
         if (route.params) {
         const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg } = route.params || {};
-          onChangeText2(restaurantName || null);
-          setimg(restaurantimg || null);
+        
+        onChangeText(null);
+        onChangeText3(null);
+        onChangeText2(restaurantName || null);
+          setimg0(img1 || null);
+          setimg1(img2 || null);
+          setimg2(img3 || null);
+          setimg3(img4 || null);
+          setimg4(img5 || null);
+          setimg5(img6 || null);
+          setimg6(img7 || null);
+          setimg7(img8 || null);
+          setimg8(img9 || null);
+          setimg9(img10 || null);
           setstar(restaurantStar || null);
           setdistance(restaurantDistance || null);
           settype(restaurantType || null);
@@ -133,27 +155,52 @@ const CreateParty = ({ route,navigation }) => {
         return moment(time).format('HH:mm');
     }
 
+    function countItems() {
+    const dbRef = ref(db, 'user');
+    get(dbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            const count = Object.keys(data).length;
+            setnId(count);
+            console.log('Total number of items:', count);
+        } else {
+            console.log('No data available');
+        }
+    }).catch((error) => {
+        console.error('Error getting data:', error);
+    });
+}
+    
     function create(){
         // const newKey = push(child(ref(database),'users')).key;
-        const newId = id + 1;
-         set(ref(db, 'user/' + 'Id' +newId), {
+        const newwId = nid + 1;
+         set(ref(db, 'user/' + 'Id' +newwId), {
              nameParty: text,
              date : moment(date1).locale('th').format('DD/MM/YYYY'),
              time: moment(time).format('HH:mm'),
              position:text2,
              people:value,
              des:text3,
-             img1:img,
-             img2:selectedImage2,
-             img3:selectedImage3,
+             img0:imgg0,
+             img1:imgg1,
+             img2:imgg2,
+             img3:imgg3,
+             img4:imgg4,
+             img5:imgg5,
+             img6:imgg6,
+             img7:imgg7,
+             img8:imgg8,
+             img9:imgg9,
+            //  resimg2:selectedImage2,
+            //  resimg3:selectedImage3,
              type:type,
              star:star,
              distance:distance,
-             party_id:newId
+             party_id:nid
  
            }).then(() => {
-             setId(newId);
-             Alert('data updated');
+             setnId(newwId);
+             
            })
            .catch((error)=>{
              Alert(error);
@@ -390,6 +437,7 @@ const CreateParty = ({ route,navigation }) => {
                         </View>
                         
                         
+                        
                     </View>
   
 
@@ -417,6 +465,7 @@ const CreateParty = ({ route,navigation }) => {
                             onPress={() => {
                                 create();
                                 handlePopup();
+                                countItems();
                             }}
                             
                             

@@ -26,9 +26,9 @@ const ClassThai = () => {
       });
   }, []);
 
-  const handleCreateParty = (restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg) => {
+  const handleCreateParty = (restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10) => {
     console.log('Create Party');
-    navigation.navigate('CreateParty', { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg });
+    navigation.navigate('CreateParty', { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10 });
   };
 
   const handleGoBack = () => {
@@ -53,7 +53,7 @@ const ClassThai = () => {
           )}
         />
 
-<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6],item.type,item.star,item.distance,item.image2)}>
+<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6],item.type,item.star,item.distance,item.image,item.image2,item.image3,item.image4,item.image5,item.image6,item.image7,item.image8,item.image9,item.image10)}>
   <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
 </TouchableOpacity>
       </View>
