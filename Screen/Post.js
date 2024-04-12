@@ -28,9 +28,9 @@ const Post = () => {
 
     fetchData();
   }, []);
-  const handletoJoingroup = (restaurantImages,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
+  const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
     console.log('JoinGroup');
-    navigation.navigate('JoinGroup', {restaurantImages,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
+    navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
   };
 
   const renderPartyItem = ({ item }) => (
@@ -43,14 +43,15 @@ const Post = () => {
           source={{ uri: item.img1 }}
         />
       </View>
-      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.2, paddingLeft: 2 }}>
-        <Image
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.18, paddingLeft: 2 }}>
+        {/* <Image
           // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
 
           resizeMode="cover"
-          source={{ uri: Array.isArray(item.img1) && item.img1.length > 0 ? item.img1[0] : '' }}
+          source={require("../assets/mdifire.png")}
+          // source={{ uri: Array.isArray(item.img1) && item.img1.length > 0 ? item.img1[0] : '' }}
 
-        />
+        /> */}
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
         <Text style={styles.partyName}>{item.nameParty}</Text>
@@ -59,14 +60,14 @@ const Post = () => {
           <Image style={{ marginTop: 5 }}
             contentFit="cover"
             source={require("../assets/star-1.png")} />
-          <Text style={styles.detailStar} >{item.distance} | {item.type}</Text>
+          <Text style={styles.detailStar} >{item.star} คะแนน | {item.type}</Text>
         </View>
         <Text style={styles.detail}>{item.distance}</Text>
 
         {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
         <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/{item.people} คน )</Text>
-        <TouchableOpacity onPress={() => handletoJoingroup( [item.image0, item.image1, item.image2, item.image3, item.image4,item.image5,item.image6,item.image7,item.image8,item.image9,],item.name,
-              item.type,item.star,item.distance,item.nameParty,item.detail,item.people,item.date,item.time)} style={styles.parent}>
+        <TouchableOpacity onPress={() => handletoJoingroup(  item.img1, item.img2, item.img3, item.img4,item.img5,item.img6,item.img7,item.img8,item.img9,item.position,
+              item.type,item.star,item.distance,item.nameParty,item.des,item.people,item.date,item.time)} style={styles.parent}>
 
                 <Text style={styles.joinButton} >เข้าร่วม</Text>
        </TouchableOpacity>
