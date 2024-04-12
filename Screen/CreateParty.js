@@ -37,10 +37,15 @@ const CreateParty = ({ route,navigation }) => {
     const [selectedImage2, setSelectedImage2] = React.useState(isPartyCreated && restaurantImages[1] ? [restaurantImages[1]] : []);
     const [selectedImage3, setSelectedImage3] = React.useState(isPartyCreated && restaurantImages[2] ? [restaurantImages[2]] : []);
     const [selectedImage4, setSelectedImage4] = React.useState(isPartyCreated && restaurantImages[3] ? [restaurantImages[3]] : []);
+    const [selectedImage5, setSelectedImage5] = React.useState(isPartyCreated && restaurantImages[4] ? [restaurantImages[4]] : []);
+    const [selectedImage6, setSelectedImage6] = React.useState(isPartyCreated && restaurantImages[5] ? [restaurantImages[5]] : []);
+    const [selectedImage7, setSelectedImage7] = React.useState(isPartyCreated && restaurantImages[6] ? [restaurantImages[6]] : []);
+    const [selectedImage8, setSelectedImage8] = React.useState(isPartyCreated && restaurantImages[7] ? [restaurantImages[7]] : []);
+    const [selectedImage9, setSelectedImage9] = React.useState(isPartyCreated && restaurantImages[8] ? [restaurantImages[8]] : []);
     React.useEffect(() => {
         if (route.params) {
         const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg } = route.params || {};
-        
+
         onChangeText(null);
         onChangeText3(null);
         onChangeText2(restaurantName || null);
@@ -61,6 +66,11 @@ const CreateParty = ({ route,navigation }) => {
           setSelectedImage2(restaurantImages && restaurantImages.length > 1 ? [restaurantImages[1]] : []);
           setSelectedImage3(restaurantImages && restaurantImages.length > 2 ? [restaurantImages[2]] : []);
           setSelectedImage4(restaurantImages && restaurantImages.length > 3 ? [restaurantImages[3]] : []);
+          setSelectedImage5(restaurantImages && restaurantImages.length > 4 ? [restaurantImages[4]] : []);
+          setSelectedImage6(restaurantImages && restaurantImages.length > 5 ? [restaurantImages[5]] : []);
+          setSelectedImage7(restaurantImages && restaurantImages.length > 6 ? [restaurantImages[6]] : []);
+          setSelectedImage8(restaurantImages && restaurantImages.length > 7 ? [restaurantImages[7]] : []);
+          setSelectedImage9(restaurantImages && restaurantImages.length > 8 ? [restaurantImages[8]] : []);
         }
       }, [route.params]);
     const image1 = require('../iconnn.png');
@@ -198,7 +208,7 @@ const CreateParty = ({ route,navigation }) => {
              type:type,
              star:star,
              distance:distance,
-             party_id:nid
+             party_id:newwId
  
            }).then(() => {
              setnId(newwId);
@@ -335,7 +345,7 @@ const CreateParty = ({ route,navigation }) => {
                         
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
   <FlatList
-data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4]}
+data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4,selectedImage5,selectedImage6,selectedImage7,selectedImage8,selectedImage9,]}
     renderItem={({ item }) => (
       <View style={{ flexDirection: 'row', width: 102, height: 106, alignItems: 'center', justifyContent: 'center' }}>
         {item.map((image, index) => (

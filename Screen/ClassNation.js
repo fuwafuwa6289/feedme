@@ -51,7 +51,7 @@ const ClassNation = () => {
           )}
         />
 
-<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6],item.type,item.star,item.distance,item.image,item.image2,item.image3,item.image4,item.image5,item.image6,item.image7,item.image8,item.image9,item.image10)}>
+<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6,item.image7,item.image8,item.image9,item.image10],item.type,item.star,item.distance,item.image,item.image2,item.image3,item.image4,item.image5,item.image6,item.image7,item.image8,item.image9,item.image10)}>
   <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
 </TouchableOpacity>
       </View>
