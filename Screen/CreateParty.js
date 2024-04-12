@@ -11,6 +11,7 @@ import { useNavigationState } from '@react-navigation/native';
 import moment from 'moment';
 import { push, ref, set,get } from "firebase/database";
 import{db} from '../comp/config'
+import { useIsFocused } from '@react-navigation/native';
 
 
 
@@ -42,6 +43,27 @@ const CreateParty = ({ route,navigation }) => {
     const [selectedImage7, setSelectedImage7] = React.useState(isPartyCreated && restaurantImages[6] ? [restaurantImages[6]] : []);
     const [selectedImage8, setSelectedImage8] = React.useState(isPartyCreated && restaurantImages[7] ? [restaurantImages[7]] : []);
     const [selectedImage9, setSelectedImage9] = React.useState(isPartyCreated && restaurantImages[8] ? [restaurantImages[8]] : []);
+   
+    const isFocused = useIsFocused();
+    React.useEffect(() => {
+        if (!isFocused) {
+            // Reset all state variables to their initial values 
+            onChangeText(null);
+            onChangeText3(null);
+            onChangeText2(null);
+          setSelectedImage1(null);
+          setSelectedImage2(null);
+          setSelectedImage3(null);
+          setSelectedImage4(null);
+          setSelectedImage5(null);
+          setSelectedImage6(null);
+          setSelectedImage7(null);
+          setSelectedImage8(null);
+          setSelectedImage9(null);
+            // Reset other state variables...
+        }
+    }, [isFocused]);
+    
     React.useEffect(() => {
         if (route.params) {
         const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,restaurantimg } = route.params || {};
@@ -348,7 +370,7 @@ const CreateParty = ({ route,navigation }) => {
 data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4,selectedImage5,selectedImage6,selectedImage7,selectedImage8,selectedImage9,]}
     renderItem={({ item }) => (
       <View style={{ flexDirection: 'row', width: 102, height: 106, alignItems: 'center', justifyContent: 'center' }}>
-        {item.map((image, index) => (
+        {item && item.map((image, index) => (
           <Image
             key={index}
             source={{ uri: image }}
@@ -356,7 +378,7 @@ data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4,selectedIma
             borderRadius={10}
           />
         ))}
-        {item.length < 1 && (
+        {(!item || item.length < 1) && (
           <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View>
