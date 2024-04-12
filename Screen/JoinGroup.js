@@ -1,12 +1,58 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { database } from '@react-native-firebase/database';
+import { useNavigationState } from '@react-navigation/native';
+// import CardComponent from '../Component/Card'
+import userData from '../assets/๊User.json'
+import { push, ref, set,get } from "firebase/database";
+import{db} from '../comp/config'
 
-const JoinGroup = () => {
+const JoinGroup = ({ route,navigation }) => {
+  // const [name, setName] = useState('code with Nilz');
   const [inputText, setInputText] = useState('');
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
+  const [partiesData, setPartiesData] = useState([]);
+  var user = Object.values(userData);
 
+  const {
+    img1,img2,img3,img4,img5,img6,img7,img8,img9,
+    restaurantName,
+    restaurantType,
+    restaurantStar,
+    restaurantDistance,
+    partyName,
+    partyDetail,
+    partyMember,
+    partyDate,
+    partyTime,
+  } = route.params;
+
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://feedme-createparty-default-rtdb.asia-southeast1.firebasedatabase.app/user.json');
+        if (!response.ok) {
+          console.error('Failed to fetch data');
+          return;
+        }
+        const data = await response.json();
+        const filteredData = Object.values(data); // Convert object to array
+        setPartiesData(filteredData);
+        console.log('Parties Data:', filteredData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+     
+      console.log('name: ', user[0]);
+      console.log('img: ', user[1]); 
+    };
+
+    fetchData();
+  }, []);
+
+ 
   const handleCreateParty = () => {
     console.log('Create Party');
   };
@@ -35,6 +81,7 @@ const JoinGroup = () => {
           />
         </TouchableOpacity>
         </View> 
+        
         {/* ภาพร้านอาหาร */}
         <View >
           <View style={{flexDirection:'row',marginTop:65,
@@ -42,7 +89,7 @@ const JoinGroup = () => {
         <Image
         style={[styles.item, styles.itemLayout]}
         resizeMode="cover"
-        source={require("../assets/rectangle-135.png")}
+        source={{ uri: img1 }}
       />
       </View>
       <View style={{flexDirection:'row',paddingHorizontal:24,paddingVertical:5,justifyContent: 'space-around',left:5}}>
@@ -105,14 +152,14 @@ const JoinGroup = () => {
             
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
             
-              <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
+              <Text style={styles.restaurantName}>{restaurantName} </Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
                 <Image style={{ marginTop: 3 }}
                   contentFit="cover"
                   source={require("../assets/star-1.png")} />
-                <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
+                <Text style={styles.detailStar} >{restaurantStar} คะแนน | { restaurantType}</Text>
               </View>
-              <Text style={styles.detail}>500 km (40 นาที)</Text>
+              <Text style={styles.detail}>{restaurantDistance}</Text>
 
               <Text style={styles.showReview}>Show review</Text>
              
@@ -131,20 +178,20 @@ const JoinGroup = () => {
         <View style={styles.card}>
         <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
             
-        <Text style={styles.partyName}>โดยองหิวข้าว</Text>
-        <Text style={styles.caption}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
+        <Text style={styles.partyName}>{partyName}</Text>
+        <Text style={styles.caption}>{partyDetail}</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
             <Image
           style={{ marginTop: 3 }}
           resizeMode="cover"
           source={require("../assets/linemdaccount.png")}
         />
-              <Text style={styles.memberDetail} >สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
+              <Text style={styles.memberDetail} >สมาชิกปาร์ตี้ ( 1/{ partyMember} คน )</Text>
             </View>
             <Text style={styles.timeTopic}>ช่วงเวลานัดหมาย</Text>
 
-            <Text style={styles.timeDetail}>วันที่ 05/04/2024</Text>
-            <Text style={styles.timeDetail}>เวลา 10:00 น.</Text>
+            <Text style={styles.timeDetail}>วันที่ {partyDate}</Text>
+            <Text style={styles.timeDetail}>เวลา {partyTime} น.</Text>
           </View>
           <View style={{justifyContent:'center',}}>
           <TouchableOpacity  style={styles.parent}>
@@ -153,24 +200,33 @@ const JoinGroup = () => {
           </View>
         </View>
         <View>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1,justifyContent:'flex-start',marginHorizontal:24,marginTop:15}}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1,justifyContent:'flex-start',marginHorizontal:24,marginTop:15,marginBottom:10}}>
           <Text style={styles.membertopic}>รายชื่อสมาชิก</Text>
         </View>
 
         <View style={styles.card2}>
           <View>
-          <Image
-          style={styles.groupInner}
-          resizeMode="cover"
-          source={require("../assets/ellipse-461.png")}
-        />
+          <Image 
+          style={{height:100,width:100,borderRadius:100,borderColor:'#FF6C3A',borderWidth:1}}
+       
+          source={{ uri: user[1] }}
+          />
           </View>
           <View style={{justifyContent:'center',alignItems:'center',marginTop:7}}>
           <Text style={styles.memberName}>
-          พี่โดไม่ชอบคนทางขวา
+          {user[0]}
         </Text>
           </View>
+
+          
         </View>
+        
+      
+      {/* console.log('name: ', userData.name);
+      console.log('img: ', userData.image); */}
+
+            {/* <CardComponent name={userData.name} image={userData.image}/> */}
+
         </View>
       </View>
     </ScrollView>
@@ -389,6 +445,7 @@ const styles = StyleSheet.create({
     height: 152,
     width: 162,
     left: 20,
+
   },
 
   createpartyBT: {
