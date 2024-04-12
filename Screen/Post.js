@@ -28,6 +28,10 @@ const Post = () => {
 
     fetchData();
   }, []);
+  const handletoJoingroup = (restaurantImages,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
+    console.log('JoinGroup');
+    navigation.navigate('JoinGroup', {restaurantImages,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
+  };
 
   const renderPartyItem = ({ item }) => (
     <View style={styles.card}>
@@ -61,12 +65,11 @@ const Post = () => {
 
         {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
         <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/{item.people} คน )</Text>
-        <Pressable
-          style={styles.parent}
-        // onPress={onFramePressablePress}
-        >
-          <Text style={styles.joinButton} >เข้าร่วม</Text>
-        </Pressable>
+        <TouchableOpacity onPress={() => handletoJoingroup( [item.image0, item.image1, item.image2, item.image3, item.image4,item.image5,item.image6,item.image7,item.image8,item.image9,],item.name,
+              item.type,item.star,item.distance,item.nameParty,item.detail,item.people,item.date,item.time)} style={styles.parent}>
+
+                <Text style={styles.joinButton} >เข้าร่วม</Text>
+       </TouchableOpacity>
       </View>
     </View>
   </View>
