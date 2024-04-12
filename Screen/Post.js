@@ -35,6 +35,10 @@ const Post = () => {
 
     fetchData();
   }, []);
+  const handletoJoingroup = (restaurantImages,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
+    console.log('JoinGroup');
+    navigation.navigate('JoinGroup', {restaurantImages,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
+  };
 
   const renderPartyItem = ({ item }) => {
     
@@ -60,16 +64,18 @@ const Post = () => {
           <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1 }}>
             <Text style={styles.partyName}>{item.party_name}</Text>
             
-            <Text style={styles.restaurantName}>แมว</Text>
+            <Text style={styles.restaurantName}>{item.name}</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               <Image style={{ marginTop: 5 }} contentFit="cover" source={require("../assets/star-1.png")} />
-              <Text style={styles.detailStar}>5.0 (500) | อาหารนานาชาติ</Text>
+              <Text style={styles.detailStar}>{item.star} | {item.type}</Text>
             </View>
-            <Text style={styles.detail}>500 km (40 นาที)</Text>
+            <Text style={styles.detail}>{item.distance}</Text>
             <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/{item.party_member} คน )</Text>
-            <Pressable style={styles.parent}>
-              <Text style={styles.joinButton}>เข้าร่วม</Text>
-            </Pressable>
+            <TouchableOpacity onPress={() => handletoJoingroup( [item.image, item.image2, item.image3, item.image4, item.image5],item.name,
+              item.type,item.star,item.distance,item.party_name,item.details,item.party_member,item.date,item.time)} style={styles.parent}>
+
+                <Text style={styles.joinButton} >เข้าร่วม</Text>
+                </TouchableOpacity>
           </View>
         </View>
       </View>

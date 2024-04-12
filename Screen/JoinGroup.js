@@ -3,15 +3,31 @@ import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { database } from '@react-native-firebase/database';
+import { useNavigationState } from '@react-navigation/native';
 // import CardComponent from '../Component/Card'
 import userData from '../assets/User.json'
+import { push, ref, set,get } from "firebase/database";
+import{db} from '../comp/config'
 
-const JoinGroup = () => {
+const JoinGroup = ({ route,navigation }) => {
   // const [name, setName] = useState('code with Nilz');
   const [inputText, setInputText] = useState('');
-  const navigation = useNavigation();
-const [partiesData, setPartiesData] = useState([]);
- var user = Object.values(userData);
+  // const navigation = useNavigation();
+  const [partiesData, setPartiesData] = useState([]);
+  var user = Object.values(userData);
+
+  const {
+    restaurantImages,
+    restaurantName,
+    restaurantType,
+    restaurantStar,
+    restaurantDistance,
+    partyName,
+    partyDetail,
+    partyMember,
+    partyDate,
+    partyTime,
+  } = route.params;
 
    useEffect(() => {
     const fetchData = async () => {
@@ -146,7 +162,7 @@ const [partiesData, setPartiesData] = useState([]);
             
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
             
-              <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
+              <Text style={styles.restaurantName}>{restaurantName} </Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
                 <Image style={{ marginTop: 3 }}
                   contentFit="cover"
@@ -172,8 +188,8 @@ const [partiesData, setPartiesData] = useState([]);
         <View style={styles.card}>
         <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
             
-        <Text style={styles.partyName}>โดยองหิวข้าว</Text>
-        <Text style={styles.caption}>“รักปลารักเขาไม่รักเราเหรอ”</Text>
+        <Text style={styles.partyName}>{partyName}</Text>
+        <Text style={styles.caption}>{partyDetail}</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
             <Image
           style={{ marginTop: 3 }}
