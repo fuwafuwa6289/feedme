@@ -20,7 +20,7 @@ const CreateParty = ({ route,navigation }) => {
     const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10 } = route.params || {};
     const isPartyCreated = restaurantName || restaurantImages||restaurantType||restaurantDistance||restaurantStar||img1||img2||img3||img4||img5||img6||img7||img8||img9||img10;
     const [star, setstar] = React.useState(isPartyCreated ? restaurantStar : null);
-    const [imgg0, setimg0] = React.useState(isPartyCreated ? img1 : null);
+    
     const [imgg1, setimg1] = React.useState(isPartyCreated ? img2 : null);
     const [imgg2, setimg2] = React.useState(isPartyCreated ? img3 : null);
     const [imgg3, setimg3] = React.useState(isPartyCreated ? img4 : null);
@@ -72,7 +72,7 @@ const CreateParty = ({ route,navigation }) => {
         onChangeText(null);
         onChangeText3(null);
         onChangeText2(restaurantName || null);
-          setimg0(img1 || null);
+          
           setimg1(img2 || null);
           setimg2(img3 || null);
           setimg3(img4 || null);
@@ -230,7 +230,7 @@ const CreateParty = ({ route,navigation }) => {
              position:text2,
              people:value,
              des:text3,
-             img0:imgg0,
+            
              img1:imgg1,
              img2:imgg2,
              img3:imgg3,
