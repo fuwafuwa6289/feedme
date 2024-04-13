@@ -13,7 +13,7 @@ const Home = () => {
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
   const [partiesData, setPartiesData] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [filteredParties, setFilteredParties] = useState([]);
 
   // checkbox
   const [selectedIndex, setIndex] = React.useState(0);
@@ -59,6 +59,16 @@ const Home = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    // เมื่อ partiesData หรือ inputText เปลี่ยนแปลง
+    const filteredParties = partiesData.filter(item =>
+      item.nameParty.toLowerCase().includes(inputText.toLowerCase())
+    );
+    setFilteredParties(filteredParties);
+  }, [partiesData, inputText]);
+
+
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
     console.log('JoinGroup');
     navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
@@ -142,7 +152,7 @@ const Home = () => {
             style={styles.input}
             onChangeText={setInputText}
             value={inputText}
-            placeholder="ค้นหาชื่อร้านอาหาร"
+            placeholder="ค้นหาชื่อปาร์ตี้"
             
           />
         </View>
@@ -263,46 +273,12 @@ const Home = () => {
 
           <Text style={[styles.text, styles.textTypo]}>การเชิญชวนแนะนำ</Text>
           <FlatList
-        data={partiesData}
+         data={filteredParties}
         renderItem={renderPartyItem}
         keyExtractor={(item) => item.
           party_id} // Assuming id is unique
-          
       />
-{/* 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop: -20, }}>
-            <View style={{ alignItems: 'flex-start' }}>
-              <Image style={{ width: 170, height: 137, borderRadius: 10 }}
-                resizeMode="cover"
-                source={require("../assets/rectangle-131.png")}
-              />
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.2, paddingLeft: 2 }}>
-              <Image
-                // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
 
-                resizeMode="cover"
-                source={require("../assets/mdifire.png")}
-
-              />
-            </View>
-            <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
-              <Text style={styles.partyName}>โดยองหิวข้าว</Text>
-              <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-                <Image style={{ marginTop: 3 }}
-                  contentFit="cover"
-                  source={require("../assets/star-1.png")} />
-                <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
-              </View>
-              <Text style={styles.detail}>500 km (40 นาที)</Text>
-
-              <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
-              <TouchableOpacity onPress={handletoJoingroup} style={styles.parent}>
-                <Text style={styles.joinButton} >เข้าร่วม</Text>
-                </TouchableOpacity>
-            </View>
-          </View> */}
         </View>
 
       </View>
@@ -459,7 +435,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#FEF1EE',
     borderRadius: 5,
-    paddingTop:40,
+    paddingTop:22,
     paddingHorizontal: 10,
     marginTop: 10,
     width: '90%',
@@ -475,8 +451,8 @@ const styles = StyleSheet.create({
   
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginTop: 10,
-   
+    marginTop: 16,
+    paddingTop:10,
     height: 'auto',
 
     // backgroundColor:'red'

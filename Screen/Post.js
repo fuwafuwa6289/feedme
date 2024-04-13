@@ -7,6 +7,7 @@ const Post = () => {
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
   const [partiesData, setPartiesData] = useState([]);
+  const [filteredParties, setFilteredParties] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +29,16 @@ const Post = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    // เมื่อ partiesData หรือ inputText เปลี่ยนแปลง
+    const filteredParties = partiesData.filter(item =>
+      item.nameParty.toLowerCase().includes(inputText.toLowerCase())
+    );
+    setFilteredParties(filteredParties);
+  }, [partiesData, inputText]);
+
+
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
     console.log('JoinGroup');
     navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
@@ -127,7 +138,7 @@ const Post = () => {
         
         
       <FlatList
-        data={partiesData}
+        data={filteredParties}
         renderItem={renderPartyItem}
         keyExtractor={(item) => item.
           party_id} // Assuming id is unique
@@ -158,7 +169,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#ff4b10',
     textAlign: "left",
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   Search: {
     flexDirection: 'row',
@@ -176,7 +187,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontFamily:'Mitr-Regular',
+    fontFamily:'Kanit-Regular',
     // marginTop:-1,
     alignItems:'center',
     // backgroundColor:'pink',
@@ -241,7 +252,7 @@ const styles = StyleSheet.create({
     left: 15,
     color: 'black',
     textAlign: "left",
-    fontFamily: 'interRegular',
+    fontFamily: 'Kanit-Regular',
   },
 
   starIcon: {
@@ -253,28 +264,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: -1,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   restaurantName: {
     fontSize: 14,
     margin: 1,
     marginTop:2,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   detail: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   detailStar: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
     paddingLeft: 2,
 
   },
@@ -283,13 +294,13 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 7,
     color: '#FF4B10',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
 
   },
   joinButton: {
     fontSize: 13,
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   parent: {
     borderRadius: 15,
