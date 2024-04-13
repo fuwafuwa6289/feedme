@@ -13,6 +13,7 @@ const Home = () => {
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
   const [partiesData, setPartiesData] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   // checkbox
   const [selectedIndex, setIndex] = React.useState(0);
@@ -36,6 +37,7 @@ const Home = () => {
     console.log('ClassBreakfast');
     navigation.navigate('ClassBreakfast'); 
   };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,7 +65,16 @@ const Home = () => {
   };
 
   const renderPartyItem = ({ item }) => {
+    
     const truncatedName = item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
+   
+    const isThreeOrMorePeople = selectedIndex === 1 && item.people >= 3;
+    const isTwoPeople = selectedIndex === 0 && item.people == 2;
+  
+    if ((selectedIndex === 0 && !isTwoPeople) || (selectedIndex === 1 && !isThreeOrMorePeople)) {
+      return null; // Skip rendering if the checkbox is selected but the condition doesn't match
+    }
+  
     return(
     <View style={styles.card1}>
 
@@ -105,6 +116,8 @@ const Home = () => {
       </View>
     </View>
   </View>
+
+  
   );
 };
   
