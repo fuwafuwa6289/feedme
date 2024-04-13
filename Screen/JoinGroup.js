@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
   item: {
     // top: 75,
     width: 363,
-    height: 174,
+    height: 180,
     left: 30,
     borderRadius:6
   },
@@ -414,6 +414,7 @@ const styles = StyleSheet.create({
     width: 53,
     height: 49,
     borderRadius:6,
+    marginTop:10,
     margin:3
     // top: 80,
     // left: 38,
