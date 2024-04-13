@@ -33,11 +33,10 @@ const Post = () => {
   useEffect(() => {
     // เมื่อ partiesData หรือ inputText เปลี่ยนแปลง
     const filteredParties = partiesData.filter(item =>
-      item.nameParty.toLowerCase().includes(inputText.toLowerCase())
+      item.nameParty && item.nameParty.toLowerCase().includes(inputText.toLowerCase())
     );
     setFilteredParties(filteredParties);
   }, [partiesData, inputText]);
-
 
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
     console.log('JoinGroup');

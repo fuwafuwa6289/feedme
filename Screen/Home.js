@@ -63,7 +63,7 @@ const Home = () => {
   useEffect(() => {
     // เมื่อ partiesData หรือ inputText เปลี่ยนแปลง
     const filteredParties = partiesData.filter(item =>
-      item.nameParty.toLowerCase().includes(inputText.toLowerCase())
+      item.nameParty && item.nameParty.toLowerCase().includes(inputText.toLowerCase())
     );
     setFilteredParties(filteredParties);
   }, [partiesData, inputText]);
