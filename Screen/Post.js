@@ -55,7 +55,7 @@ const Post = () => {
 
         /> */}
       </View>
-      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
+      <View style={{ flexDirection: 'colunm', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
         <Text style={styles.partyName}>{item.nameParty}</Text>
         <Text style={styles.restaurantName}>{truncatedName}</Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
