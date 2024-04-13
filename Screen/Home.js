@@ -75,14 +75,14 @@ const Home = () => {
         />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.18, paddingLeft: 2 }}>
-        {/* <Image
+        <Image
           // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
 
           resizeMode="cover"
           source={require("../assets/mdifire.png")}
           // source={{ uri: Array.isArray(item.img1) && item.img1.length > 0 ? item.img1[0] : '' }}
 
-        /> */}
+        />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
         <Text style={styles.partyName}>{item.nameParty}</Text>
@@ -109,15 +109,6 @@ const Home = () => {
 };
   
 
-  const handleCreateParty = () => {
-    console.log('Create Party');
-  };
-
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
-
-  
 
   return (
     <ScrollView style={styles.container}>
