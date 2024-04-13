@@ -20,6 +20,9 @@ const Home = () => {
   const toggleCheckbox1 = () => setChecked1(!checked1);
   const toggleCheckbox2 = () => setChecked2(!checked2);
 
+  const [selectedIndex, setIndex] = React.useState(0);
+
+
   const handletoJoingroup = () => {
     console.log('join group'); 
     navigation.navigate('JoinGroup');
@@ -80,25 +83,25 @@ const Home = () => {
           
           <CheckBox
             title="ทาน 2 คน"
-            checked={checked1}
+            checked={selectedIndex === 0}
+            onPress={() => setIndex(0)}
             checkedIcon="circle"
             uncheckedColor="#FFE5DC"
             uncheckedIcon="circle"
             checkedColor="#FF6C3A"
-            onPress={toggleCheckbox1}
             size={20}
-            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Mitr-Regular', }}
+            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Kanit-Regular', }}
           />
           <CheckBox
             title="ปาร์ตี้ 3 คนขึ้นไป"
-            checked={checked2}
+            checked={selectedIndex === 1}
+            onPress={() => setIndex(1)}
             checkedIcon="circle"
             uncheckedColor="#FFE5DC"
             uncheckedIcon="circle"
             checkedColor="#FF6C3A"
-            onPress={toggleCheckbox2}
             size={20}
-            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Mitr-Regular', }}
+            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Kanit-Regular', }}
           />
         </View>
 
@@ -202,7 +205,7 @@ const Home = () => {
 
               />
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
+            <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
               <Text style={styles.partyName}>โดยองหิวข้าว</Text>
               <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
@@ -213,7 +216,6 @@ const Home = () => {
               </View>
               <Text style={styles.detail}>500 km (40 นาที)</Text>
 
-              {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
               <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
               <TouchableOpacity onPress={handletoJoingroup} style={styles.parent}>
                 <Text style={styles.joinButton} >เข้าร่วม</Text>
@@ -263,7 +265,7 @@ const styles = StyleSheet.create({
 
   input: {
     flex: 1,
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
     // marginTop:-1,
     alignItems:'center',
     // backgroundColor:'pink',
@@ -280,27 +282,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: -1,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   restaurantName: {
     fontSize: 14,
     margin: 1,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   detail: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   detailStar: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
     paddingLeft: 2,
 
   },
@@ -309,13 +311,13 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 7,
     color: '#FF4B10',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
 
   },
   joinButton: {
     fontSize: 13,
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   titleclass: {
     flexDirection: 'row',
@@ -330,20 +332,20 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45,
     backgroundColor: '#FFE5DC',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
 
   },
 
   txtclass: {
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   categoryText: {
     fontSize: 12,
     marginBottom: 10,
     marginTop: 5,
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   iconLayout: {
     position: 'absolute',
@@ -391,7 +393,7 @@ const styles = StyleSheet.create({
     left: 15,
     color: '#FF6C3A',
     textAlign: "left",
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
 
   starIcon: {
@@ -400,7 +402,7 @@ const styles = StyleSheet.create({
     left: 15,
   },
   text: {
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
 
 
