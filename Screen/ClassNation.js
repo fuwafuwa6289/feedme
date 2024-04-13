@@ -59,7 +59,10 @@ const ClassNation = () => {
   };
 
   const renderEmpty = () => (
-    <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#FF8259" />
+      <Text style={styles.loadingText}>Loading...</Text>
+    </View>
   );
 
   const getFilteredRestaurants = () => {
@@ -195,6 +198,17 @@ const styles = StyleSheet.create({
     height: 250,
     left: 20,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontFamily: 'Kanit-Light',
+    fontSize: 16,
+  },
+
 
   createpartyBT: {
     position: 'absolute',
