@@ -8,6 +8,7 @@ import { useNavigationState } from '@react-navigation/native';
 import userData from '../assets/User.json'
 import { push, ref, set,get } from "firebase/database";
 import{db} from '../comp/config'
+import FastImage from 'react-native-fast-image';
 
 const JoinGroup = ({ route,navigation }) => {
   // const [name, setName] = useState('code with Nilz');
@@ -83,7 +84,7 @@ const JoinGroup = ({ route,navigation }) => {
         </View> 
         
         {/* ภาพร้านอาหาร */}
-        <View >
+        <View style={{width:393,}}>
           <View style={{flexDirection:'row',marginTop:65,
     height: 174,}}>
         <Image
@@ -93,24 +94,25 @@ const JoinGroup = ({ route,navigation }) => {
       />
       </View>
           <FlatList
-      data={[img2, img3, img4, img5, img6, img7, img8]} // ใส่ URL รูปภาพทั้งหมดลงในอาร์เรย์
+      data={[img2, img3, img4, img5, img6, img7, img8,img9]} // ใส่ URL รูปภาพทั้งหมดลงในอาร์เรย์
       renderItem={({ item }) => (
-        <View style={{ flexDirection: 'row', alignItems: 'space-around' ,}}>
-          <Image
+        <View style={{ flexDirection: 'row', alignItems: 'space-around' ,height:55,}}>
+          <FastImage
             style={[styles.inner]}
-            resizeMode="cover"
+            resizeMode={FastImage.resizeMode.cover}
             source={{ uri: item }}
           />
         </View>
       )}
       keyExtractor={(item, index) => index.toString()} // กำหนด key เป็น index ของรูปภาพ
       horizontal={true} // ให้ FlatList เป็นแนวนอน
-      contentContainerStyle={{ paddingHorizontal: 24, paddingVertical: 6, justifyContent: 'space-around', left: 5 }} // กำหนดระยะห่างระหว่างรูปภาพแต่ละรายการ
+      contentContainerStyle={{ paddingHorizontal: 26, paddingVertical: 6, alignItems: 'center',
+      justifyContent: 'center', }} // กำหนดระยะห่างระหว่างรูปภาพแต่ละรายการ
 />
          
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,paddingHorizontal:24,marginLeft:5,margin:5}}> 
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:3,paddingHorizontal:24,marginLeft:5,marginRight:-8}}> 
             
             
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
@@ -128,7 +130,7 @@ const JoinGroup = ({ route,navigation }) => {
              
              
             </View>
-            <View style={{justifyContent:'center',}}>
+            <View style={{justifyContent:'flex-end',flex:1.2,flexDirection:'row',flexWrap:'wrap'}}>
             <Image
         style={[styles.rectangleIcon1]}
         resizeMode="cover"
@@ -163,7 +165,7 @@ const JoinGroup = ({ route,navigation }) => {
           </View>
         </View>
         <View>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1,justifyContent:'flex-start',marginHorizontal:24,marginTop:15,marginBottom:10}}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1,justifyContent:'flex-start',marginHorizontal:24,marginTop:10,marginBottom:10}}>
           <Text style={styles.membertopic}>รายชื่อสมาชิก</Text>
         </View>
 
@@ -217,7 +219,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     marginTop: -5,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   joinButton: {
     fontSize: 13,
@@ -248,7 +250,7 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 1,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Light',
   },
   timeTopic: {
     fontSize: 13 ,
@@ -273,67 +275,43 @@ const styles = StyleSheet.create({
     fontFamily: 'Mitr-Regular',
   },
   timeDetail: {
-    fontSize: 13 ,
+    fontSize: 14 ,
     margin: 2,
     marginBottom: 2,
     color: '#5E5E5E',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   caption: {
     fontSize: 15 ,
     margin: 2,
     marginBottom: 2,
     color: '#5E5E5E',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   detailStar: {
     fontSize: 10,
     marginBottom: 1,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
     paddingLeft: 2,
 
   },
   memberDetail: {
-    fontSize: 10,
+    fontSize: 12,
     margin: 2,
-    marginBottom: 7,
+    marginBottom: 3,
     color: '#FF4B10',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
 
   },
   rectangleIcon1: {
     justifyContent:'center',
     alignItems:'center',
-    width: 206,
-    height: 60,
+    width: 190,
+    height: 80,
     borderRadius: 6 ,
   },
 
-  Search: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#FE502A',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginTop: 60,
-    width: '80%',
-    height: 40,
-    left: 45
-  },
-  inner2:{
-  
-      
-      width: 20,
-      height: 49,
-  },
-  input: {
-    flex: 1,
-  },
-
-  
   item: {
     // top: 75,
     width: 363,
@@ -405,33 +383,12 @@ const styles = StyleSheet.create({
     borderColor: '#FEF1EE',
     borderRadius: 21,
     paddingTop:10,
-    marginTop: 10,
+    marginTop: 4,
     height: 152,
     width: 162,
     left: 20,
+    marginBottom:20
 
-  },
-
-  createpartyBT: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#FFE5DC',
-    borderRadius: 50,
-    paddingHorizontal: 10,
-    marginTop: 20,
-    width: '40%',
-    height: 40,
-    backgroundColor: '#FFE5DC'
-  },
-
-  txtcreatepartyBT: {
-    color: '#FF6C3A',
-    fontFamily: 'Inter'
   },
 
   textTypo: {
@@ -445,7 +402,8 @@ const styles = StyleSheet.create({
   inner: {
     width: 53,
     height: 49,
-    borderRadius:6
+    borderRadius:6,
+    margin:3
     // top: 80,
     // left: 38,
   },
