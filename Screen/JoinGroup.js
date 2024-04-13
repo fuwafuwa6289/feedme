@@ -112,7 +112,7 @@ const JoinGroup = ({ route,navigation }) => {
          
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:3,paddingHorizontal:24,marginLeft:5,marginRight:-8}}> 
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:3,paddingHorizontal:24,marginLeft:5,marginRight:-5}}> 
             
             
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
@@ -130,7 +130,7 @@ const JoinGroup = ({ route,navigation }) => {
              
              
             </View>
-            <View style={{justifyContent:'flex-end',flex:1.2,flexDirection:'row',flexWrap:'wrap'}}>
+            <View style={{justifyContent:'flex-end',flexDirection:'column',flexWrap:'wrap'}}>
             <Image
         style={[styles.rectangleIcon1]}
         resizeMode="cover"
@@ -307,8 +307,8 @@ const styles = StyleSheet.create({
   rectangleIcon1: {
     justifyContent:'center',
     alignItems:'center',
-    width: 190,
-    height: 80,
+    width: 150,
+    height: 90,
     borderRadius: 6 ,
   },
 
