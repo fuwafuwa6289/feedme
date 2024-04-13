@@ -33,7 +33,9 @@ const Post = () => {
     navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
   };
 
-  const renderPartyItem = ({ item }) => (
+  const renderPartyItem = ({ item }) => {
+    const truncatedName = item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
+    return(
     <View style={styles.card}>
 
     <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, }}>
@@ -55,7 +57,7 @@ const Post = () => {
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
         <Text style={styles.partyName}>{item.nameParty}</Text>
-        <Text style={styles.restaurantName}>{item.position}</Text>
+        <Text style={styles.restaurantName}>{truncatedName}</Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
           <Image style={{ marginTop: 5 }}
             contentFit="cover"
@@ -75,6 +77,7 @@ const Post = () => {
     </View>
   </View>
   );
+};
 
   
 
