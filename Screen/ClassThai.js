@@ -61,7 +61,10 @@ const ClassThai = () => {
   };
 
   const renderEmpty = () => (
-    <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#FF8259" />
+      <Text style={styles.loadingText}>Loading...</Text>
+    </View>
   );
 
   const getFilteredRestaurants = () => {
@@ -230,6 +233,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Kanit-Light',
     fontSize: 16,
   },
+  loadingText: {
+    marginTop: 10,
+    fontFamily: 'Kanit-Light',
+    fontSize: 16,
+  },
 
   starIcon: {
     position: 'absolute',
@@ -247,6 +255,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'Black'
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
 
   text2: {
     position: 'absolute',

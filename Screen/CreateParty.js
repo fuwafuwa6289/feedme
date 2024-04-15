@@ -14,9 +14,13 @@ import{db} from '../comp/config'
 import { useIsFocused } from '@react-navigation/native';
 
 
-
 const CreateParty = ({ route,navigation }) => {
+   
+    const datajson = require('../User.json');
+    
+
     const [nid, setnId] = React.useState(0);
+    const [nid1, setnId1] = React.useState(0);
 
 React.useEffect(() => {
     const countItems = async () => {
@@ -41,7 +45,33 @@ React.useEffect(() => {
     countItems();
 }, []); // ใส่ [] เพื่อให้ useEffect ทำงานเพียงครั้งเดียวตอนเริ่มต้นแอพพลิเคชัน
 
+React.useEffect(() => {
+    
+    const countItems1 = async () => {
+        const dbRef = ref(db, 'Member');
+        try {
+            const snapshot = await get(dbRef);
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                const count = Object.keys(data).length;
+                setnId1(count);
+                console.log('Total number of Member:', count);
+            } else {
+                console.log('No data available');
+                setnId1(0);
+            }
+        } catch (error) {
+            console.error('Error getting data:', error);
+            setnId1(-1);
+      
+        }
+    };
+    
+    countItems1();
+}, ); // ใส่ [] เพื่อให้ useEffect ทำงานเพียงครั้งเดียวตอนเริ่มต้นแอพพลิเคชัน
+
 console.log('nid:', nid);
+console.log('nid1:', nid1);
     const { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10 } = route.params || {};
     const isPartyCreated = restaurantName || restaurantImages||restaurantType||restaurantDistance||restaurantStar||img1||img2||img3||img4||img5||img6||img7||img8||img9||img10;
     const [star, setstar] = React.useState(isPartyCreated ? restaurantStar : null);
@@ -245,7 +275,21 @@ console.log('nid:', nid);
         console.error('Error getting data:', error);
     });
 }
-    
+function countItems1() {
+    const dbRef = ref(db, 'Member');
+    get(dbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            const count = Object.keys(data).length;
+            setnId1(count);
+            console.log('Total number of Member:', count);
+        } else {
+            console.log('No data available');
+        }
+    }).catch((error) => {
+        console.error('Error getting data:', error);
+    });
+}
     function create(){
         // const newKey = push(child(ref(database),'users')).key;
         const newwId = nid + 1;
@@ -256,7 +300,6 @@ console.log('nid:', nid);
              position:text2,
              people:value,
              des:text3,
-            
              img1:imgg1,
              img2:imgg2,
              img3:imgg3,
@@ -266,13 +309,14 @@ console.log('nid:', nid);
              img7:imgg7,
              img8:imgg8,
              img9:imgg9,
-            //  resimg2:selectedImage2,
-            //  resimg3:selectedImage3,
+            //resimg2:selectedImage2,
+            //resimg3:selectedImage3,
              type:type,
              star:star,
              distance:distance,
-             party_id:newwId
- 
+             party_id:newwId,
+             partyMem:1,
+
            }).then(() => {
              setnId(newwId);
              
@@ -282,7 +326,34 @@ console.log('nid:', nid);
            
            });
      }
+
+     
+    function createmem(){
+        // const newKey = push(child(ref(database),'users')).key;
+        const newwId1 = nid1 + 1;
+         set(ref(db, 'Member/' + 'Id' +newwId1), {
+             name:datajson.name,
+             image:datajson.image,
+             party_id:newwId1,
+             role:"Host"
  
+           }).then(() => {
+             setnId1(newwId1);
+             
+           })
+           .catch((error)=>{
+             Alert(error);
+           
+           });
+     }
+    
+  
+
+// ฟังก์ชันสำหรับเขียน role เข้าไฟล์ User.json
+
+
+// ฟังก์ชันสำหรับเขียน role เข้าไฟล์ User.json
+
 
     return (
         <View style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
@@ -475,8 +546,11 @@ data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4,selectedIma
                             onPress={() => {
                                 create();
                                 handlePopup();
-                                countItems();
+                               countItems();
+                               countItems1();
+                               createmem();
                                 
+                             
                             }}
                             
                             

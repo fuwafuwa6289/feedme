@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, Pressable } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CheckBox, Stack } from '@rneui/themed';
 import FrameComponent from "./FrameComponent";
@@ -12,18 +12,11 @@ const Home = () => {
 
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
+  const [partiesData, setPartiesData] = useState([]);
+  const [filteredParties, setFilteredParties] = useState([]);
 
   // checkbox
-  const [checked1, setChecked1] = React.useState(true);
-  const [checked2, setChecked2] = React.useState(true);
-
-  const toggleCheckbox1 = () => setChecked1(!checked1);
-  const toggleCheckbox2 = () => setChecked2(!checked2);
-
-  const handletoJoingroup = () => {
-    console.log('join group'); 
-    navigation.navigate('JoinGroup');
-  };
+  const [selectedIndex, setIndex] = React.useState(0);
 
   const handletoClassthai = () => {
     console.log('Classthai');
@@ -44,6 +37,100 @@ const Home = () => {
     console.log('ClassBreakfast');
     navigation.navigate('ClassBreakfast'); 
   };
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://feedme-createparty-default-rtdb.asia-southeast1.firebasedatabase.app/user.json');
+        if (!response.ok) {
+          console.error('Failed to fetch data');
+          return;
+        }
+        const data = await response.json();
+        const filteredData = Object.values(data); // Convert object to array
+        setPartiesData(filteredData);
+        console.log('Parties Data:', filteredData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+     
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // เมื่อ partiesData หรือ inputText เปลี่ยนแปลง
+    const filteredParties = partiesData.filter(item =>
+      item.nameParty && item.nameParty.toLowerCase().includes(inputText.toLowerCase())
+    );
+    setFilteredParties(filteredParties);
+  }, [partiesData, inputText]);
+
+
+  const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
+    console.log('JoinGroup');
+    navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
+  };
+
+  const renderPartyItem = ({ item }) => {
+    
+    const truncatedName = item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
+   
+    const isThreeOrMorePeople = selectedIndex === 1 && item.people >= 3;
+    const isTwoPeople = selectedIndex === 0 && item.people == 2;
+  
+    if ((selectedIndex === 0 && !isTwoPeople) || (selectedIndex === 1 && !isThreeOrMorePeople)) {
+      return null; // Skip rendering if the checkbox is selected but the condition doesn't match
+    }
+  
+    return(
+    <View style={styles.card1}>
+
+    <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, }}>
+      <View style={{ alignItems: 'flex-start' }}>
+        <Image style={{ width: 170, height: 137, borderRadius: 10 }}
+          resizeMode="cover"
+          source={{ uri: item.img1 }}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.18, paddingLeft: 2 }}>
+        <Image
+          // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
+
+          resizeMode="cover"
+          source={require("../assets/mdifire.png")}
+          // source={{ uri: Array.isArray(item.img1) && item.img1.length > 0 ? item.img1[0] : '' }}
+
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
+        <Text style={styles.partyName}>{item.nameParty}</Text>
+        <Text style={styles.restaurantName}>{truncatedName}</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+          <Image style={{ marginTop: 5 }}
+            contentFit="cover"
+            source={require("../assets/star-1.png")} />
+          <Text style={styles.detailStar} >{item.star} คะแนน | {item.type}</Text>
+        </View>
+        <Text style={styles.detail}>{item.distance}</Text>
+
+        {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
+        <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/{item.people} คน )</Text>
+        <TouchableOpacity onPress={() => handletoJoingroup(  item.img1, item.img2, item.img3, item.img4,item.img5,item.img6,item.img7,item.img8,item.img9,item.position,
+              item.type,item.star,item.distance,item.nameParty,item.des,item.people,item.date,item.time)} style={styles.parent}>
+
+                <Text style={styles.joinButton} >เข้าร่วม</Text>
+       </TouchableOpacity>
+      </View>
+    </View>
+  </View>
+
+  
+  );
+};
+  
 
 
   return (
@@ -65,7 +152,7 @@ const Home = () => {
             style={styles.input}
             onChangeText={setInputText}
             value={inputText}
-            placeholder="ค้นหาชื่อร้านอาหาร"
+            placeholder="ค้นหาชื่อปาร์ตี้"
             
           />
         </View>
@@ -80,25 +167,25 @@ const Home = () => {
           
           <CheckBox
             title="ทาน 2 คน"
-            checked={checked1}
+            checked={selectedIndex === 0}
+            onPress={() => setIndex(0)}
             checkedIcon="circle"
             uncheckedColor="#FFE5DC"
             uncheckedIcon="circle"
             checkedColor="#FF6C3A"
-            onPress={toggleCheckbox1}
             size={20}
-            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Mitr-Regular', }}
+            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Kanit-Regular', }}
           />
           <CheckBox
             title="ปาร์ตี้ 3 คนขึ้นไป"
-            checked={checked2}
+            checked={selectedIndex === 1}
+            onPress={() => setIndex(1)}
             checkedIcon="circle"
             uncheckedColor="#FFE5DC"
             uncheckedIcon="circle"
             checkedColor="#FF6C3A"
-            onPress={toggleCheckbox2}
             size={20}
-            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Mitr-Regular', }}
+            textStyle={{ color: '#FF6C3A', fontWeight: 'normal', fontFamily: 'Kanit-Regular', }}
           />
         </View>
 
@@ -185,41 +272,13 @@ const Home = () => {
         <View style={styles.card}>
 
           <Text style={[styles.text, styles.textTypo]}>การเชิญชวนแนะนำ</Text>
+          <FlatList
+         data={filteredParties}
+        renderItem={renderPartyItem}
+        keyExtractor={(item) => item.
+          party_id} // Assuming id is unique
+      />
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop: -20, }}>
-            <View style={{ alignItems: 'flex-start' }}>
-              <Image style={{ width: 170, height: 137, borderRadius: 10 }}
-                resizeMode="cover"
-                source={require("../assets/rectangle-131.png")}
-              />
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.2, paddingLeft: 2 }}>
-              <Image
-                // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
-
-                resizeMode="cover"
-                source={require("../assets/mdifire.png")}
-
-              />
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
-              <Text style={styles.partyName}>โดยองหิวข้าว</Text>
-              <Text style={styles.restaurantName}>หงส์ติ่มซำ</Text>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-                <Image style={{ marginTop: 3 }}
-                  contentFit="cover"
-                  source={require("../assets/star-1.png")} />
-                <Text style={styles.detailStar} >5.0 (500) | อาหารนานาชาติ</Text>
-              </View>
-              <Text style={styles.detail}>500 km (40 นาที)</Text>
-
-              {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
-              <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/2 คน )</Text>
-              <TouchableOpacity onPress={handletoJoingroup} style={styles.parent}>
-                <Text style={styles.joinButton} >เข้าร่วม</Text>
-                </TouchableOpacity>
-            </View>
-          </View>
         </View>
 
       </View>
@@ -263,7 +322,7 @@ const styles = StyleSheet.create({
 
   input: {
     flex: 1,
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
     // marginTop:-1,
     alignItems:'center',
     // backgroundColor:'pink',
@@ -280,27 +339,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: -1,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   restaurantName: {
     fontSize: 14,
     margin: 1,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   detail: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   detailStar: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
     paddingLeft: 2,
 
   },
@@ -309,13 +368,13 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 7,
     color: '#FF4B10',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
 
   },
   joinButton: {
     fontSize: 13,
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   titleclass: {
     flexDirection: 'row',
@@ -330,20 +389,20 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45,
     backgroundColor: '#FFE5DC',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
 
   },
 
   txtclass: {
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   categoryText: {
     fontSize: 12,
     marginBottom: 10,
     marginTop: 5,
     color: '#FF6C3A',
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
   iconLayout: {
     position: 'absolute',
@@ -376,14 +435,29 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#FEF1EE',
     borderRadius: 5,
-    paddingTop:40,
+    paddingTop:22,
     paddingHorizontal: 10,
     marginTop: 10,
     width: '90%',
-    height: 220,
+    height: 'auto',
     left: 20,
     // backgroundColor:'red'
   },
+
+  card1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginTop: 16,
+    paddingTop:10,
+    height: 'auto',
+
+    // backgroundColor:'red'
+  },
+
 
   textTypo: {
     position: 'absolute',
@@ -391,7 +465,7 @@ const styles = StyleSheet.create({
     left: 15,
     color: '#FF6C3A',
     textAlign: "left",
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
 
   starIcon: {
@@ -400,7 +474,7 @@ const styles = StyleSheet.create({
     left: 15,
   },
   text: {
-    fontFamily: 'Mitr-Regular',
+    fontFamily: 'Kanit-Regular',
   },
 
 
