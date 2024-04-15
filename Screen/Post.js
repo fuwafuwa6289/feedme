@@ -7,7 +7,6 @@ const Post = () => {
   const [inputText, setInputText] = useState('');
   const navigation = useNavigation();
   const [partiesData, setPartiesData] = useState([]);
-  const [filteredParties, setFilteredParties] = useState([]);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -31,16 +30,6 @@ const Post = () => {
 
   
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem ) => {
-
-  useEffect(() => {
-    // เมื่อ partiesData หรือ inputText เปลี่ยนแปลง
-    const filteredParties = partiesData.filter(item =>
-      item.nameParty && item.nameParty.toLowerCase().includes(inputText.toLowerCase())
-    );
-    setFilteredParties(filteredParties);
-  }, [partiesData, inputText]);
-
-  const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
     console.log('JoinGroup');
     navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem });
   };
@@ -87,53 +76,6 @@ const Post = () => {
       </View>
     );
   };
-  const renderPartyItem = ({ item }) => {
-    const truncatedName = item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
-    return(
-    <View style={styles.card}>
-
-    <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, }}>
-      <View style={{ alignItems: 'flex-start' }}>
-        <Image style={{ width: 170, height: 137, borderRadius: 10 }}
-          resizeMode="cover"
-          source={{ uri: item.img1 }}
-        />
-      </View>
-      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.18, paddingLeft: 2 }}>
-        {/* <Image
-          // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
-
-          resizeMode="cover"
-          source={require("../assets/mdifire.png")}
-          // source={{ uri: Array.isArray(item.img1) && item.img1.length > 0 ? item.img1[0] : '' }}
-
-        /> */}
-      </View>
-      <View style={{ flexDirection: 'colunm', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
-        <Text style={styles.partyName}>{item.nameParty}</Text>
-        <Text style={styles.restaurantName}>{truncatedName}</Text>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-          <Image style={{ marginTop: 5 }}
-            contentFit="cover"
-            source={require("../assets/star-1.png")} />
-          <Text style={styles.detailStar} >{item.star} คะแนน | {item.type}</Text>
-        </View>
-        <Text style={styles.detail}>{item.distance}</Text>
-
-        {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
-        <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/{item.people} คน )</Text>
-        <TouchableOpacity onPress={() => handletoJoingroup(  item.img1, item.img2, item.img3, item.img4,item.img5,item.img6,item.img7,item.img8,item.img9,item.position,
-              item.type,item.star,item.distance,item.nameParty,item.des,item.people,item.date,item.time)} style={styles.parent}>
-
-                <Text style={styles.joinButton} >เข้าร่วม</Text>
-       </TouchableOpacity>
-      </View>
-    </View>
-  </View>
-  );
-};
-
-  
 
   const handleCreateParty = () => {
     console.log('Create Party');
@@ -183,30 +125,6 @@ const Post = () => {
       renderItem={renderPartyItem}
       keyExtractor={(item) => item.party_id}
     />
-        <View style={styles.Search}>
-          <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
-          <TextInput
-            style={styles.input}
-            onChangeText={setInputText}
-            value={inputText}
-            placeholder="ค้นหาชื่อปาร์ตี้"
-            
-          />
-        </View>
-        
-        
-      <FlatList
-        data={filteredParties}
-        renderItem={renderPartyItem}
-        keyExtractor={(item) => item.
-          party_id} // Assuming id is unique
-          
-      />
-      
- 
-       
-      </View>
-    </ScrollView>
   );
 }
 
@@ -227,7 +145,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#ff4b10',
     textAlign: "left",
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   Search: {
     flexDirection: 'row',
@@ -245,7 +163,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontFamily:'Kanit-Regular',
+    fontFamily:'Mitr-Regular',
     // marginTop:-1,
     alignItems:'center',
     // backgroundColor:'pink',
@@ -294,7 +212,7 @@ const styles = StyleSheet.create({
     left: 15,
     color: 'black',
     textAlign: "left",
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'interRegular',
   },
   starIcon: {
     position: 'absolute',
@@ -305,28 +223,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: -1,
     color: 'black',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   restaurantName: {
     fontSize: 14,
     margin: 1,
     marginTop:2,
     color: 'black',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   detail: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   detailStar: {
     fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: 'black',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
     paddingLeft: 2,
 
   },
@@ -335,13 +253,13 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 7,
     color: '#FF4B10',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
 
   },
   joinButton: {
     fontSize: 13,
     color: '#FF6C3A',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   parent: {
     borderRadius: 15,

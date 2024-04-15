@@ -8,11 +8,8 @@ import { useNavigationState } from '@react-navigation/native';
 import userData from '../User.json'
 import { push, ref, set,get, update } from "firebase/database";
 import{db} from '../comp/config'
-import FastImage from 'react-native-fast-image';
 
 const JoinGroup = ({ route,navigation }) => {
-
-  
   // const [name, setName] = useState('code with Nilz');
   const [inputText, setInputText] = useState('');
   // const navigation = useNavigation();
@@ -34,9 +31,6 @@ const JoinGroup = ({ route,navigation }) => {
     party_id,
     partyMem
   } = route.params;
-  
-  const [selectedImage, setSelectedImage] = useState(null);
-  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
 
    useEffect(() => {
     const fetchData = async () => {
@@ -158,42 +152,35 @@ function creatememparty(){
         </TouchableOpacity>
         </View> 
         
-        <View style={{ flex: 1,}}>
-      {/* ภาพร้านอาหาร */}
-      <View style={{width:393}}>
-        <View style={{ flexDirection: 'row', marginTop: 65, height: 174, }}>
+        {/* ภาพร้านอาหาร */}
+        <View >
+          <View style={{flexDirection:'row',marginTop:65,
+    height: 174,}}>
+        <Image
+        style={[styles.item, styles.itemLayout]}
+        resizeMode="cover"
+        source={{ uri: img1 }}
+      />
+      </View>
+          <FlatList
+      data={[img2, img3, img4, img5, img6, img7, img8]} // ใส่ URL รูปภาพทั้งหมดลงในอาร์เรย์
+      renderItem={({ item }) => (
+        <View style={{ flexDirection: 'row', alignItems: 'space-around' ,}}>
           <Image
-            style={[styles.item, styles.itemLayout]}
+            style={[styles.inner]}
             resizeMode="cover"
-            source={{ uri: selectedImage || img1 }}
+            source={{ uri: item }}
           />
         </View>
-        <FlatList
-          data={images}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setSelectedImage(item)}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 55 }}>
-                <FastImage
-                  style={[styles.inner]}
-                  resizeMode={FastImage.resizeMode.cover}
-                  source={{ uri: item }}
-                />
-              </View>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal={true}
-          contentContainerStyle={{
-            paddingHorizontal: 26,
-            paddingVertical: 6,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        />
-      </View>
-    </View>
+      )}
+      keyExtractor={(item, index) => index.toString()} // กำหนด key เป็น index ของรูปภาพ
+      horizontal={true} // ให้ FlatList เป็นแนวนอน
+      contentContainerStyle={{ paddingHorizontal: 24, paddingVertical: 6, justifyContent: 'space-around', left: 5 }} // กำหนดระยะห่างระหว่างรูปภาพแต่ละรายการ
+/>
+         
+        </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:3,paddingHorizontal:24,marginLeft:5,marginRight:-5}}> 
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,paddingHorizontal:24,marginLeft:5,margin:5}}> 
             
             
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
@@ -211,7 +198,7 @@ function creatememparty(){
              
              
             </View>
-            <View style={{justifyContent:'flex-end',flexDirection:'column',flexWrap:'wrap'}}>
+            <View style={{justifyContent:'center',}}>
             <Image
         style={[styles.rectangleIcon1]}
         resizeMode="cover"
@@ -254,7 +241,7 @@ function creatememparty(){
           </View>
         </View>
         <View>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1,justifyContent:'flex-start',marginHorizontal:24,marginTop:10,marginBottom:10}}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1,justifyContent:'flex-start',marginHorizontal:24,marginTop:15,marginBottom:10}}>
           <Text style={styles.membertopic}>รายชื่อสมาชิก</Text>
         </View>
 
@@ -308,7 +295,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     marginTop: -5,
     color: 'black',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   joinButton: {
     fontSize: 13,
@@ -339,7 +326,7 @@ const styles = StyleSheet.create({
     margin: 2,
     marginBottom: 1,
     color: 'black',
-    fontFamily: 'Kanit-Light',
+    fontFamily: 'Mitr-Regular',
   },
   timeTopic: {
     fontSize: 13 ,
@@ -364,47 +351,71 @@ const styles = StyleSheet.create({
     fontFamily: 'Mitr-Regular',
   },
   timeDetail: {
-    fontSize: 14 ,
+    fontSize: 13 ,
     margin: 2,
     marginBottom: 2,
     color: '#5E5E5E',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   caption: {
     fontSize: 15 ,
     margin: 2,
     marginBottom: 2,
     color: '#5E5E5E',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
   },
   detailStar: {
     fontSize: 10,
     marginBottom: 1,
     color: 'black',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
     paddingLeft: 2,
 
   },
   memberDetail: {
-    fontSize: 12,
+    fontSize: 10,
     margin: 2,
-    marginBottom: 3,
+    marginBottom: 7,
     color: '#FF4B10',
-    fontFamily: 'Kanit-Regular',
+    fontFamily: 'Mitr-Regular',
 
   },
   rectangleIcon1: {
     justifyContent:'center',
     alignItems:'center',
-    width: 150,
-    height: 90,
+    width: 206,
+    height: 60,
     borderRadius: 6 ,
   },
 
+  Search: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: '#FE502A',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginTop: 60,
+    width: '80%',
+    height: 40,
+    left: 45
+  },
+  inner2:{
+  
+      
+      width: 20,
+      height: 49,
+  },
+  input: {
+    flex: 1,
+  },
+
+  
   item: {
     // top: 75,
     width: 363,
-    height: 180,
+    height: 174,
     left: 30,
     borderRadius:6
   },
@@ -472,12 +483,33 @@ const styles = StyleSheet.create({
     borderColor: '#FEF1EE',
     borderRadius: 21,
     paddingTop:10,
-    marginTop: 4,
+    marginTop: 10,
     height: 152,
     width: 162,
     left: 20,
-    marginBottom:20
 
+  },
+
+  createpartyBT: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: '#FFE5DC',
+    borderRadius: 50,
+    paddingHorizontal: 10,
+    marginTop: 20,
+    width: '40%',
+    height: 40,
+    backgroundColor: '#FFE5DC'
+  },
+
+  txtcreatepartyBT: {
+    color: '#FF6C3A',
+    fontFamily: 'Inter'
   },
 
   textTypo: {
@@ -491,9 +523,7 @@ const styles = StyleSheet.create({
   inner: {
     width: 53,
     height: 49,
-    borderRadius:6,
-    marginTop:10,
-    margin:3
+    borderRadius:6
     // top: 80,
     // left: 38,
   },
