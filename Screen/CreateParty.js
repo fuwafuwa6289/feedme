@@ -330,10 +330,10 @@ function countItems1() {
      
     function createmem(){
         // const newKey = push(child(ref(database),'users')).key;
-        const newwId1 = nid1 + 1;
+        const newwId1 = nid + 1;
          set(ref(db, 'Member/' + 'Id' +newwId1), {
-             name:datajson.name,
-             image:datajson.image,
+             nameMem:datajson.name,
+             imageMem:datajson.image,
              party_id:newwId1,
              role:"Host"
  

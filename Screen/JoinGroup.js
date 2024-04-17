@@ -97,8 +97,8 @@ console.log('nid1:', nid);
   // const newKey = push(child(ref(database),'users')).key;
   const newwId = nid + 1;
    set(ref(db, 'Member/' + 'Id' +newwId), {
-       name:datajson.name,
-       image:datajson.image,
+       nameMem:datajson.name,
+       imageMem:datajson.image,
        party_id:party_id,
        role:"Member"
 
