@@ -141,15 +141,18 @@ console.log('nid1:', nid1);
           setstar(restaurantStar || null);
           setdistance(restaurantDistance || null);
           settype(restaurantType || null);
-          setSelectedImage1(restaurantImages && restaurantImages.length > 0 ? [restaurantImages[0]] : []);
-          setSelectedImage2(restaurantImages && restaurantImages.length > 1 ? [restaurantImages[1]] : []);
-          setSelectedImage3(restaurantImages && restaurantImages.length > 2 ? [restaurantImages[2]] : []);
-          setSelectedImage4(restaurantImages && restaurantImages.length > 3 ? [restaurantImages[3]] : []);
-          setSelectedImage5(restaurantImages && restaurantImages.length > 4 ? [restaurantImages[4]] : []);
-          setSelectedImage6(restaurantImages && restaurantImages.length > 5 ? [restaurantImages[5]] : []);
-          setSelectedImage7(restaurantImages && restaurantImages.length > 6 ? [restaurantImages[6]] : []);
-          setSelectedImage8(restaurantImages && restaurantImages.length > 7 ? [restaurantImages[7]] : []);
-          setSelectedImage9(restaurantImages && restaurantImages.length > 8 ? [restaurantImages[8]] : []);
+          setSelectedImage1(selectedImage1&&restaurantImages && restaurantImages.length > 0 ? [restaurantImages[0]] : []);
+          setSelectedImage2(selectedImage2&&restaurantImages && restaurantImages.length > 1 ? [restaurantImages[1]] : []);
+          setSelectedImage3(selectedImage3&&restaurantImages && restaurantImages.length > 2 ? [restaurantImages[2]] : []);
+          setSelectedImage4(selectedImage4&&restaurantImages && restaurantImages.length > 3 ? [restaurantImages[3]] : []);
+          setSelectedImage5(selectedImage5&&restaurantImages && restaurantImages.length > 4 ? [restaurantImages[4]] : []);
+          setSelectedImage6(selectedImage6&&restaurantImages && restaurantImages.length > 5 ? [restaurantImages[5]] : []);
+          setSelectedImage7(selectedImage7&&restaurantImages && restaurantImages.length > 6 ? [restaurantImages[6]] : []);
+          setSelectedImage8(selectedImage8&&restaurantImages && restaurantImages.length > 7 ? [restaurantImages[7]] : []);
+          setSelectedImage9(selectedImage9&&restaurantImages && restaurantImages.length > 8 ? [restaurantImages[8]] : []);
+          setSelectedImage01(selectedImage01||null);
+          setSelectedImage02(selectedImage02||null);
+          setSelectedImage03(selectedImage03||null);
         }
       }, [route.params]);
     const image1 = require('../iconnn.png');
@@ -184,9 +187,9 @@ console.log('nid1:', nid1);
         { label: '20', value: '20' },
         
     ];
-    // const [selectedImage1, setSelectedImage1] = React.useState([]);
-    // const [selectedImage2, setSelectedImage2] = React.useState([]);
-    // const [selectedImage3, setSelectedImage3] = React.useState([]);
+     const [selectedImage01, setSelectedImage01] = React.useState([]);
+     const [selectedImage02, setSelectedImage02] = React.useState([]);
+    const [selectedImage03, setSelectedImage03] = React.useState([]);
     const openImagePicker = () => {
         const options = {
             mediaType: 'photo',
@@ -202,9 +205,26 @@ console.log('nid1:', nid1);
                 console.log('Image picker error: ', response.error);
             } else {
                 let imageUri = response.uri || response.assets?.[0]?.uri;
-                if (selectedImage.length < 3) {
-                    setSelectedImage(prevImages => [...prevImages, imageUri]);
-                } else {
+                if (selectedImage1.length < 1) {
+                    setSelectedImage1(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage2.length < 1) {
+                    setSelectedImage2(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage3.length < 1) {
+                    setSelectedImage3(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage4.length < 1) {
+                    setSelectedImage4(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage5.length < 1) {
+                    setSelectedImage5(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage6.length < 1) {
+                    setSelectedImage6(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage7.length < 1) {
+                    setSelectedImage7(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage8.length < 1) {
+                    setSelectedImage8(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage9.length < 1) {
+                    setSelectedImage9(prevImages => [...prevImages, imageUri]);
+                }
+                else {
                     console.log('You can only select up to 3 images.');
                 }
             }
@@ -227,14 +247,29 @@ console.log('nid1:', nid1);
                 console.log('Camera Error: ', response.error);
             } else {
                 let imageUri = response.uri || response.assets?.[0]?.uri;
-                if (selectedImage1.length < 1) {
+                if (selectedImage1&&selectedImage1.length < 1) {
                     setSelectedImage1(prevImages => [...prevImages, imageUri]);
                 } 
-                else if (selectedImage2.length < 1) {
+                else if (selectedImage2&&selectedImage2.length < 1) {
                     setSelectedImage2(prevImages => [...prevImages, imageUri]);
                 } 
-                else if (selectedImage3.length < 1) {
+                else if (selectedImage3&&selectedImage3.length < 1) {
                     setSelectedImage3(prevImages => [...prevImages, imageUri]);
+                }else if (selectedImage4&&selectedImage4.length < 1) {
+                    setSelectedImage4(prevImages => [...prevImages, imageUri]);
+                } 
+                else if (selectedImage5&&selectedImage5.length < 1) {
+                    setSelectedImage5(prevImages => [...prevImages, imageUri]);
+                } else if (selectedImage6&&selectedImage6.length < 1) {
+                    setSelectedImage6(prevImages => [...prevImages, imageUri]);
+                } 
+                else if (selectedImage7&&selectedImage7.length < 1) {
+                    setSelectedImage7(prevImages => [...prevImages, imageUri]);
+                }  else if (selectedImage8&&selectedImage8.length < 1) {
+                    setSelectedImage8(prevImages => [...prevImages, imageUri]);
+                } 
+                else if (selectedImage9&&selectedImage9.length < 1) {
+                    setSelectedImage9(prevImages => [...prevImages, imageUri]);
                 } 
                 
                 else {
@@ -480,7 +515,7 @@ function countItems1() {
                         
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
   <FlatList
-data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4,selectedImage5,selectedImage6,selectedImage7,selectedImage8,selectedImage9,]}
+data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4,selectedImage5,selectedImage6,selectedImage7,selectedImage8,selectedImage9]}
     renderItem={({ item }) => (
       <View style={{ flexDirection: 'row', width: 102, height: 106, alignItems: 'center', justifyContent: 'center' }}>
         {item && item.map((image, index) => (

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, TouchableOpacity, Image, StyleSheet, TextInput,FlatList,useState ,useEffect } from 'react-native';
+import { Text, View, TouchableOpacity, Image, StyleSheet, TextInput,FlatList,useState ,useEffect,ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import Chatinner from './Chatinner';
@@ -84,13 +84,15 @@ function Chat() {
 
         />
       </View>
-      <View style={styles.container}>
-      <FlatList
-        data={partiesData}
-        renderItem={renderItem}
-        keyExtractor={item => item.party_id}
-      />
-    </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <FlatList
+            data={partiesData}
+            renderItem={renderItem}
+            keyExtractor={item => item.party_id}
+          />
+        </View>
+      </ScrollView>
     </>
   );
 }
