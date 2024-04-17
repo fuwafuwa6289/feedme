@@ -32,30 +32,35 @@ const JoinGroup = ({ route,navigation }) => {
     partyMem
   } = route.params;
 
-   useEffect(() => {
+  const [members, setMembers] = useState([]);
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://feedme-createparty-default-rtdb.asia-southeast1.firebasedatabase.app/user.json');
+        const response = await fetch('https://feedme-createparty-default-rtdb.asia-southeast1.firebasedatabase.app/Member.json');
         if (!response.ok) {
           console.error('Failed to fetch data');
           return;
         }
         const data = await response.json();
-        const filteredData = Object.values(data); // Convert object to array
-        setPartiesData(filteredData);
-        console.log('Parties Data:', filteredData);
+        const filteredMembers = Object.values(data).filter(member => member.party_id === party_id);
+        setMembers(filteredMembers);
+        console.log('Filtered Members:', filteredMembers);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-     
-      console.log('name: ', user[0]);
-      console.log('img: ', user[1]); 
     };
 
     fetchData();
-  }, []);
+  }, [party_id]);
 
- 
+  const renderMemberItem = ({ item }) => (
+    <View style={styles.card2}>
+      <Image style={{ height: 100, width: 100, borderRadius: 100, borderColor: '#FF6C3A', borderWidth: 1 }} source={{ uri: item.imageMem }} />
+      <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 7 }}>
+        <Text style={styles.memberName}>{item.nameMem} ({item.role})</Text>
+      </View>
+    </View>
+  );
   const handleCreateParty = () => {
     console.log('Create Party');
   };
@@ -245,23 +250,14 @@ function creatememparty(){
           <Text style={styles.membertopic}>รายชื่อสมาชิก</Text>
         </View>
 
-        <View style={styles.card2}>
-          <View>
-          <Image 
-          style={{height:100,width:100,borderRadius:100,borderColor:'#FF6C3A',borderWidth:1}}
-       
-          source={{ uri: user[1] }}
-          />
-          </View>
-          <View style={{justifyContent:'center',alignItems:'center',marginTop:7}}>
-          <Text style={styles.memberName}>
-          {user[0]}
-        </Text>
-          </View>
-
-          
-        </View>
-        
+        <FlatList
+  data={members}
+  renderItem={renderMemberItem}
+  keyExtractor={(item) => item.party_id.toString()}
+  horizontal
+  showsHorizontalScrollIndicator={false}
+  inverted
+/>
       
       {/* console.log('name: ', userData.name);
       console.log('img: ', userData.image); */}
@@ -486,7 +482,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 152,
     width: 162,
-    left: 20,
+    
 
   },
 
