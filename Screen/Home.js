@@ -76,7 +76,7 @@ const Home = () => {
 
   const renderPartyItem = ({ item }) => {
     
-    const truncatedName = item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
+    const truncatedName = item.position && item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
    
     const isThreeOrMorePeople = selectedIndex === 1 && item.people >= 3;
     const isTwoPeople = selectedIndex === 0 && item.people == 2;

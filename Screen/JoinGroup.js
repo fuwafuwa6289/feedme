@@ -10,6 +10,7 @@ import { push, ref, set,get, update } from "firebase/database";
 import{db} from '../comp/config'
 
 const JoinGroup = ({ route,navigation }) => {
+  
   // const [name, setName] = useState('code with Nilz');
   const [inputText, setInputText] = useState('');
   // const navigation = useNavigation();

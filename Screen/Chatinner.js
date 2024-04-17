@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, TextInput, ScrollView, KeyboardAvoidingView,useEffect} from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const Chatinner = () => {
+import LinearGradient from 'react-native-linear-gradient';
+const Chatinner = ({ route }) => {
     const navigation = useNavigation();
 
     const handleGoBack = () => {
@@ -20,9 +19,24 @@ const Chatinner = () => {
     };
 
     const [chatHistory, setChatHistory] = useState([]); // เก็บประวัติการแชท
-
+    const [partiesData, setPartiesData] = useState([]);
     const [inputText, setInputText] = useState('');
-
+    const {
+        img1,img2,img3,img4,img5,img6,img7,img8,img9,
+        restaurantName,
+        restaurantType,
+        restaurantStar,
+        restaurantDistance,
+        partyName,
+        partyDetail,
+        partyMember,
+        partyDate,
+        partyTime,
+        party_id,
+        partyMem,
+        host
+      } = route.params;
+   
     const handleSend = () => {
         if (inputText.trim() === '') return;
         const newMessage = { id: chatHistory.length, text: inputText }; // สร้างข้อความใหม่
@@ -53,25 +67,25 @@ const Chatinner = () => {
             <Image
                 style={styles.ellipseIcon}
                 resizeMode="cover"
-                source={require("../assets/ellipse-184.png")} />
-            <Text style={styles.text4}>ตี๋น้อยปาร์ตี้</Text>
+                source={{uri:img1}} />
+            <Text style={styles.text4}>{partyName}</Text>
             <Text style={styles.text5}>กำลังใช้งาน</Text>
-            <Text style={styles.textFlexBox}>สุกี้ตี๋น้อย เกษตร-นวมินทร์</Text>
+            <Text style={styles.textFlexBox}>{restaurantName}</Text>
             <Image
                 style={styles.starIcon}
                 resizeMode="cover"
                 source={require("../assets/star-11.png")} />
-            <Text style={styles.textstar}>5.0 (500) | อาหารไทย</Text>
+            <Text style={styles.textstar}>{ restaurantStar} | {restaurantType}</Text>
 
-            <Text style={styles.km}>500 km (40 นาที)</Text>
-            <Text style={styles.textmember}>จำนวนสมาชิก 3 (คน)</Text>
-            <Text style={styles.texthost}>น้องแทไม่ชอบคนทางซ้าย (Host)</Text>
+            <Text style={styles.km}>{restaurantDistance}</Text>
+            <Text style={styles.textmember}>จำนวนสมาชิก {partyMem} (คน)</Text>
+            <Text style={styles.texthost}>{host} (Host)</Text>
             <Image
                 style={styles.hostIcon}
                 resizeMode="cover"
                 source={require("../assets/bxscrown.png")} />
 
-            <Text style={styles.hosttime}>วันที่นัดหมาย : 11/03/2024 เวลา : 15:00 น.</Text>
+            <Text style={styles.hosttime}>วันที่นัดหมาย : {partyDate} เวลา : {partyTime} น.</Text>
             <Text style={styles.textconfirm}>ยืนยันการนัดพบ</Text>
 
             <TouchableOpacity onPress={handleConfirmation} style={styles.buttonConfirm}>
@@ -129,6 +143,7 @@ const styles = StyleSheet.create({
         left: 70,
         width: 50,
         height: 50,
+        borderRadius:100
     },
     text4: {
         position: 'absolute',

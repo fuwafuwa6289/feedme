@@ -8,7 +8,8 @@ function Chat() {
   const [inputText, setInputText] = React.useState('');
   const navigation = useNavigation(); // Using useNavigation hook to get navigation object
   const [partiesData, setPartiesData] = React.useState([]);
-
+  
+  
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,12 +30,15 @@ function Chat() {
 
     fetchData();
   }, []);
-  const handleToChatinner1 = () => { // Corrected function name
-    console.log('in chat');
-    navigation.navigate('Chatinner');
+
+  const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem,host ) => {
+    console.log('Chat');
+    navigation.navigate('Chatinner', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem,host });
   };
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => console.log('Go to Profile')}>
+    <TouchableOpacity onPress={() => handletoJoingroup(  item.img1, item.img2, item.img3, item.img4,item.img5,item.img6,item.img7,item.img8,item.img9,item.position,
+      item.type,item.star,item.distance,item.nameParty,item.partyDetail,item.people,item.date,item.time,item.party_id,item.partyMem,item.nameMem,item.imageMem,item.host)}>
       <View style={styles.con}>
         <Image
           style={styles.image}
@@ -46,7 +50,7 @@ function Chat() {
             <Text style={styles.text}>{item.nameParty}</Text>
             <Text style={styles.textt}>Hello</Text>
           </View>
-          <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 10 }}>
+          <View style={{ width: 40, height: 20, alignSelf: 'flex-end', position: 'absolute', top: 20 }}>
             <Text>00.00</Text>
           </View>
         </View>

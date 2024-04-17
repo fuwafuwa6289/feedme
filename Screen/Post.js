@@ -26,7 +26,7 @@ const Post = () => {
     };
 
     fetchData();
-  }, []);
+  },[]);
 
   
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem ) => {
@@ -76,9 +76,6 @@ const Post = () => {
     );
   };
 
-  const handleCreateParty = () => {
-    console.log('Create Party');
-  };
 
   const handleGoBack = () => {
     navigation.goBack();

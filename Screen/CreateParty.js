@@ -316,6 +316,7 @@ function countItems1() {
              distance:distance,
              party_id:newwId,
              partyMem:1,
+             host:datajson.name
 
            }).then(() => {
              setnId(newwId);
