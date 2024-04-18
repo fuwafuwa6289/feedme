@@ -117,7 +117,7 @@ const Home = () => {
         <Text style={styles.detail}>{item.distance}</Text>
 
         {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
-        <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( 1/{item.people} คน )</Text>
+        <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( {item.partyMem}/{item.people} คน )</Text>
         <TouchableOpacity onPress={() => handletoJoingroup(  item.img1, item.img2, item.img3, item.img4,item.img5,item.img6,item.img7,item.img8,item.img9,item.position,
               item.type,item.star,item.distance,item.nameParty,item.des,item.people,item.date,item.time)} style={styles.parent}>
 
