@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
+import { GiftedChat } from 'react-native-gifted-chat';
 const Chatinner = ({ route }) => {
     const navigation = useNavigation();
 
@@ -37,11 +38,8 @@ const Chatinner = ({ route }) => {
         host
       } = route.params;
    
-    const handleSend = () => {
-        if (inputText.trim() === '') return;
-        const newMessage = { id: chatHistory.length, text: inputText }; // สร้างข้อความใหม่
-        setChatHistory([...chatHistory, newMessage]); // เพิ่มข้อความใหม่เข้าไปในประวัติการแชท
-        setInputText('');
+      const handleSend = (messages) => {
+        setChatHistory(GiftedChat.append(chatHistory, messages));
     };
 
     const renderMessageItem = ({ item }) => (
@@ -52,80 +50,63 @@ const Chatinner = ({ route }) => {
 
     return (
         <KeyboardAvoidingView style={{ backgroundColor: '#FFFFFF', flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : null}>
-            <LinearGradient
-                colors={['#FF7336', '#FFFFFF']}
-                style={{ flex: 0.8 }}
+        <LinearGradient
+            colors={['#FF7336', '#FFFFFF']}
+            style={{ flex: 0.8 }}
+        />
+        <TouchableOpacity onPress={handleGoBack}>
+            <Image
+                style={styles.iconBack}
+                resizeMode="cover"
+                source={require("../assets/makiarrow.png")}
             />
-            <TouchableOpacity onPress={handleGoBack}>
-                <Image
-                    style={styles.iconBack}
-                    resizeMode="cover"
-                    source={require("../assets/makiarrow.png")}
-                />
-            </TouchableOpacity>
+        </TouchableOpacity>
 
-            <Image
-                style={styles.ellipseIcon}
-                resizeMode="cover"
-                source={{uri:img1}} />
-            <Text style={styles.text4}>{partyName}</Text>
-            <Text style={styles.text5}>กำลังใช้งาน</Text>
-            <Text style={styles.textFlexBox}>{restaurantName}</Text>
-            <Image
-                style={styles.starIcon}
-                resizeMode="cover"
-                source={require("../assets/star-11.png")} />
-            <Text style={styles.textstar}>{ restaurantStar} | {restaurantType}</Text>
+        <Image
+            style={styles.ellipseIcon}
+            resizeMode="cover"
+            source={{uri:img1}} />
+        <Text style={styles.text4}>{partyName}</Text>
+        <Text style={styles.text5}>กำลังใช้งาน</Text>
+        <Text style={styles.textFlexBox}>{restaurantName}</Text>
+        <Image
+            style={styles.starIcon}
+            resizeMode="cover"
+            source={require("../assets/star-11.png")} />
+        <Text style={styles.textstar}>{ restaurantStar} | {restaurantType}</Text>
 
-            <Text style={styles.km}>{restaurantDistance}</Text>
-            <Text style={styles.textmember}>จำนวนสมาชิก {partyMem} (คน)</Text>
-            <Text style={styles.texthost}>{host} (Host)</Text>
-            <Image
-                style={styles.hostIcon}
-                resizeMode="cover"
-                source={require("../assets/bxscrown.png")} />
+        <Text style={styles.km}>{restaurantDistance}</Text>
+        <Text style={styles.textmember}>จำนวนสมาชิก {partyMem} (คน)</Text>
+        <Text style={styles.texthost}>{host} (Host)</Text>
+        <Image
+            style={styles.hostIcon}
+            resizeMode="cover"
+            source={require("../assets/bxscrown.png")} />
 
-            <Text style={styles.hosttime}>วันที่นัดหมาย : {partyDate} เวลา : {partyTime} น.</Text>
-            <Text style={styles.textconfirm}>ยืนยันการนัดพบ</Text>
+        <Text style={styles.hosttime}>วันที่นัดหมาย : {partyDate} เวลา : {partyTime} น.</Text>
+        <Text style={styles.textconfirm}>ยืนยันการนัดพบ</Text>
 
-            <TouchableOpacity onPress={handleConfirmation} style={styles.buttonConfirm}>
-                <Text style={styles.buttonText}>ยืนยัน</Text>
-            </TouchableOpacity>
+        <TouchableOpacity onPress={handleConfirmation} style={styles.buttonConfirm}>
+            <Text style={styles.buttonText}>ยืนยัน</Text>
+        </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleCancel} style={styles.buttonCancel}>
-                <Text style={styles.buttonText}>ยกเลิก</Text>
-            </TouchableOpacity>
+        <TouchableOpacity onPress={handleCancel} style={styles.buttonCancel}>
+            <Text style={styles.buttonText}>ยกเลิก</Text>
+        </TouchableOpacity>
 
-            <View style={styles.container}>
-                <FlatList
-                    data={chatHistory} // ใช้ chatHistory แทน messages
-                    renderItem={renderMessageItem}
-                    keyExtractor={(item) => item.id.toString()}
-                    style={styles.messagesList}
-                    inverted={false}
-                />
-                <View style={styles.inputContainer}>
-                    <TouchableOpacity style={styles.iconButton}>
-                        <Icon name="plus" size={20} color='#FF872E' />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconButton}>
-                        <Icon name="camera" size={20} color='#FF872E' />
-                    </TouchableOpacity>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="พิมพ์..."
-                        placeholderTextColor="#FF872E"
-                        value={inputText}
-                        onChangeText={(text) => setInputText(text)}
-                    />
-                    <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
-                        <Icon name="send" size={20} color="white" />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </KeyboardAvoidingView>
-    )
-}
+        <View style={styles.container}>
+            <GiftedChat
+                messages={chatHistory}
+                onSend={messages => {
+                    setChatHistory(GiftedChat.append(chatHistory, messages));
+                }}
+                user={{
+                    _id: 1,
+                }}
+            />
+        </View>
+    </KeyboardAvoidingView>
+)}
 
 export default Chatinner;
 

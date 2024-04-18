@@ -257,7 +257,7 @@ function creatememparty(){
   keyExtractor={(item) => item.party_id.toString()}
   horizontal
   showsHorizontalScrollIndicator={false}
-  inverted
+  //inverted
 />
       
       {/* console.log('name: ', userData.name);
