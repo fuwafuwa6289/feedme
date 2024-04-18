@@ -169,7 +169,7 @@ function creatememparty(){
       />
       </View>
           <FlatList
-      data={[img2, img3, img4, img5, img6, img7, img8]} // ใส่ URL รูปภาพทั้งหมดลงในอาร์เรย์
+      data={[img2, img3, img4, img5, img6, img7, img8,img9]} // ใส่ URL รูปภาพทั้งหมดลงในอาร์เรย์
       renderItem={({ item }) => (
         <View style={{ flexDirection: 'row', alignItems: 'space-around' ,}}>
           <Image
@@ -187,8 +187,6 @@ function creatememparty(){
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,paddingHorizontal:24,marginLeft:5,margin:5}}> 
-            
-            
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
             
               <Text style={styles.restaurantName}>{restaurantName} </Text>
@@ -225,7 +223,7 @@ function creatememparty(){
           resizeMode="cover"
           source={require("../assets/linemdaccount.png")}
         />
-              <Text style={styles.memberDetail} >สมาชิกปาร์ตี้ ({partyMem}/{ partyMember} คน )</Text>
+              <Text style={styles.memberDetail} >สมาชิกปาร์ตี้ ( {partyMem}/{ partyMember} คน )</Text>
             </View>
             <Text style={styles.timeTopic}>ช่วงเวลานัดหมาย</Text>
 
