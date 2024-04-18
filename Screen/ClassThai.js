@@ -4,9 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 
-
 const ClassThai = () => {
-  const [inputText, setInputText] = useState('');
   const [restaurantData, setRestaurantData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -26,9 +24,9 @@ const ClassThai = () => {
       });
   }, []);
 
-  const handleCreateParty = (restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10) => {
+  const handleCreateParty = (restaurantName, restaurantImages, restaurantType, restaurantStar, restaurantDistance, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10) => {
     console.log('Create Party');
-    navigation.navigate('CreateParty', { restaurantName, restaurantImages,restaurantType,restaurantStar,restaurantDistance,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10 });
+    navigation.navigate('CreateParty', { restaurantName, restaurantImages, restaurantType, restaurantStar, restaurantDistance, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10 });
   };
 
   const handleGoBack = () => {
@@ -53,9 +51,9 @@ const ClassThai = () => {
           )}
         />
 
-<TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6,item.image7,item.image8,item.image9,item.image10],item.type,item.star,item.distance,item.image,item.image2,item.image3,item.image4,item.image5,item.image6,item.image7,item.image8,item.image9,item.image10)}>
-  <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
-</TouchableOpacity>
+        <TouchableOpacity style={styles.createpartyBT} onPress={() => handleCreateParty(item.name, [item.image2, item.image3, item.image4, item.image5, item.image6, item.image7, item.image8, item.image9, item.image10], item.type, item.star, item.distance, item.image, item.image2, item.image3, item.image4, item.image5, item.image6, item.image7, item.image8, item.image9, item.image10)}>
+          <Text style={styles.txtcreatepartyBT}>สร้างปาร์ตี้</Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -76,50 +74,48 @@ const ClassThai = () => {
   const filteredRestaurants = getFilteredRestaurants();
 
   return (
-    <FlatList
-      style={styles.container}
-      data={[{ key: 'dummy' }]}
-      renderItem={({ item }) => (
-        <View>
-          <TouchableOpacity onPress={handleGoBack}>
-            <Image
-              style={styles.iconBack}
-              contentFit="cover"
-              source={require("../assets/epback.png")}
-            />
-          </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={handleGoBack}>
+        <Image
+          style={styles.iconBack}
+          contentFit="cover"
+          source={require("../assets/epback.png")}
+        />
+      </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-            <Image
-              style={styles.iconLayout}
-              contentFit="cover"
-              source={require("../assets/ellipse-46.png")}
-            />
-          </TouchableOpacity>
+      <TouchableOpacity onPress={() => console.log('Go to Profile')}>
+        <Image
+          style={styles.iconLayout}
+          contentFit="cover"
+          source={require("../assets/ellipse-46.png")}
+        />
+      </TouchableOpacity>
 
-          <View style={styles.Search}>
-            <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
-            <TextInput
-              style={styles.input}
-              onChangeText={setSearchKeyword}
-              value={searchKeyword}
-              placeholder="ค้นหาร้านอาหาร..."
-            />
-          </View>
+      <View style={styles.Search}>
+        <Icon name="search" size={20} color="#FE502A" style={styles.searchIcon} />
+        <TextInput
+          style={styles.input}
+          onChangeText={setSearchKeyword}
+          value={searchKeyword}
+          placeholder="ค้นหาร้านอาหาร..."
+        />
+      </View>
 
-          <View style={styles.titleclass}>
-            <Text style={styles.txtclass}>อาหารไทย</Text>
-          </View>
+      <View style={styles.titleclass}>
+        <Text style={styles.txtclass}>อาหารไทย</Text>
+      </View>
 
-          <FlatList
-            data={filteredRestaurants}
-            keyExtractor={(item, id) => id.toString()}
-            renderItem={renderItem}
-            ListEmptyComponent={renderEmpty}
-          />
-        </View>
+      {loading ? (
+        renderEmpty()
+      ) : (
+        <FlatList
+          data={filteredRestaurants}
+          keyExtractor={(item, id) => id.toString()}
+          renderItem={renderItem}
+          ListEmptyComponent={renderEmpty}
+        />
       )}
-    />
+    </View>
   );
 }
 
@@ -143,13 +139,11 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 50,
     left: 45,
-
   },
 
   input: {
     flex: 1,
-    fontFamily:'Kanit-Light',
-
+    fontFamily: 'Kanit-Light',
   },
 
   searchIcon: {
@@ -169,6 +163,7 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45,
     backgroundColor: '#FFE5DC',
+    marginBottom: 10,
   },
 
   txtclass: {
@@ -259,6 +254,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
   },
 
 
