@@ -69,13 +69,17 @@ const Home = () => {
   }, [partiesData, inputText]);
 
 
-  const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime ) => {
+  const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem ) => {
     console.log('JoinGroup');
-    navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime });
+    navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem });
   };
 
   const renderPartyItem = ({ item }) => {
     
+    if (item.partyMem >= item.people) {
+      return null; 
+    }
+
     const truncatedName = item.position && item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
    
     const isThreeOrMorePeople = selectedIndex === 1 && item.people >= 3;
@@ -119,10 +123,9 @@ const Home = () => {
         {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
         <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( {item.partyMem}/{item.people} คน )</Text>
         <TouchableOpacity onPress={() => handletoJoingroup(  item.img1, item.img2, item.img3, item.img4,item.img5,item.img6,item.img7,item.img8,item.img9,item.position,
-              item.type,item.star,item.distance,item.nameParty,item.des,item.people,item.date,item.time)} style={styles.parent}>
-
-                <Text style={styles.joinButton} >เข้าร่วม</Text>
-       </TouchableOpacity>
+                  item.type,item.star,item.distance,item.nameParty,item.partyDetail,item.people,item.date,item.time,item.party_id,item.partyMem,item.nameMem,item.imageMem)} style={styles.parent}>
+              <Text style={styles.joinButton}>เข้าร่วม</Text>
+            </TouchableOpacity>
       </View>
     </View>
   </View>
