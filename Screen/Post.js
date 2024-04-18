@@ -35,6 +35,8 @@ const Post = () => {
   };
 
   const renderPartyItem = ({ item }) => {
+    const truncatedName = item.position && item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
+
     if (item.partyMem >= item.people) {
       return null; 
     }
@@ -57,7 +59,7 @@ const Post = () => {
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1 }}>
             <Text style={styles.partyName}>{item.nameParty}</Text>
-            <Text style={styles.restaurantName}>{item.position}</Text>
+            <Text style={styles.restaurantName}>{truncatedName}</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               <Image style={{ marginTop: 5 }}
                 contentFit="cover"

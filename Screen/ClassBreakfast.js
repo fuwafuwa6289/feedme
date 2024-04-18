@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45,
     backgroundColor: '#FFE5DC',
+    marginBottom: 10,
   },
 
   txtclass: {
