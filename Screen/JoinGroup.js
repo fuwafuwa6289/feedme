@@ -8,6 +8,7 @@ import { useNavigationState } from '@react-navigation/native';
 import userData from '../User.json'
 import { push, ref, set,get, update } from "firebase/database";
 import{db} from '../comp/config'
+import FastImage from 'react-native-fast-image';
 
 const JoinGroup = ({ route,navigation }) => {
   
@@ -32,7 +33,8 @@ const JoinGroup = ({ route,navigation }) => {
     party_id,
     partyMem
   } = route.params;
-
+  const [selectedImage, setSelectedImage] = useState(null);
+  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
   const [members, setMembers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -158,33 +160,40 @@ function creatememparty(){
         </TouchableOpacity>
         </View> 
         
-        {/* ภาพร้านอาหาร */}
-        <View >
-          <View style={{flexDirection:'row',marginTop:65,
-    height: 174,}}>
-        <Image
-        style={[styles.item, styles.itemLayout]}
-        resizeMode="cover"
-        source={{ uri: img1 }}
-      />
-      </View>
-          <FlatList
-      data={[img2, img3, img4, img5, img6, img7, img8,img9]} // ใส่ URL รูปภาพทั้งหมดลงในอาร์เรย์
-      renderItem={({ item }) => (
-        <View style={{ flexDirection: 'row', alignItems: 'space-around' ,}}>
+        <View style={{ flex: 1,}}>
+      {/* ภาพร้านอาหาร */}
+      <View style={{width:393}}>
+        <View style={{ flexDirection: 'row', marginTop: 65, height: 174, }}>
           <Image
-            style={[styles.inner]}
+            style={[styles.item, styles.itemLayout]}
             resizeMode="cover"
-            source={{ uri: item }}
+            source={{ uri: selectedImage || img1 }}
           />
         </View>
-      )}
-      keyExtractor={(item, index) => index.toString()} // กำหนด key เป็น index ของรูปภาพ
-      horizontal={true} // ให้ FlatList เป็นแนวนอน
-      contentContainerStyle={{ paddingHorizontal: 24, paddingVertical: 6, justifyContent: 'space-around', left: 5 }} // กำหนดระยะห่างระหว่างรูปภาพแต่ละรายการ
-/>
-         
-        </View>
+        <FlatList
+          data={images}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => setSelectedImage(item)}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', height: 55 }}>
+                <FastImage
+                  style={[styles.inner]}
+                  resizeMode={FastImage.resizeMode.cover}
+                  source={{ uri: item }}
+                />
+              </View>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal={true}
+          contentContainerStyle={{
+            paddingHorizontal: 26,
+            paddingVertical: 6,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
+      </View>
+    </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,paddingHorizontal:24,marginLeft:5,margin:5}}> 
             <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
