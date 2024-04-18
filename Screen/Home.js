@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CheckBox, Stack } from '@rneui/themed';
@@ -20,24 +20,24 @@ const Home = () => {
 
   const handletoClassthai = () => {
     console.log('Classthai');
-    navigation.navigate('ClassThai');
+    navigation.navigate('ClassThai'); 
   };
 
   const handletoClassNation = () => {
     console.log('ClassNation');
-    navigation.navigate('ClassNation');
+    navigation.navigate('ClassNation'); 
   };
 
   const handletoClassCafe = () => {
     console.log('ClassCafe');
-    navigation.navigate('ClassCafe');
+    navigation.navigate('ClassCafe'); 
   };
 
   const handletoClassBreakfast = () => {
     console.log('ClassBreakfast');
-    navigation.navigate('ClassBreakfast');
+    navigation.navigate('ClassBreakfast'); 
   };
-
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +54,7 @@ const Home = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-
+     
     };
 
     fetchData();
@@ -69,70 +69,50 @@ const Home = () => {
   }, [partiesData, inputText]);
 
 
-<<<<<<< HEAD
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem ) => {
     console.log('JoinGroup');
     navigation.navigate('JoinGroup', {img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem });
-=======
-  const handletoJoingroup = (img1, img2, img3, img4, img5, img6, img7, img8, img9, restaurantName, restaurantType, restaurantStar, restaurantDistance, partyName, partyDetail, partyMember, partyDate, partyTime, party_id, partyMem, nameMem, imageMem) => {
-    console.log('JoinGroup');
-    navigation.navigate('JoinGroup', { img1, img2, img3, img4, img5, img6, img7, img8, img9, restaurantName, restaurantType, restaurantStar, restaurantDistance, partyName, partyDetail, partyMember, partyDate, partyTime, party_id, partyMem, nameMem, imageMem });
->>>>>>> b8bc9e5b92535754a5195de0b0e6638628fbc944
   };
   const renderPartyItem = ({ item }) => {
-
-    if (item.partyMem >= item.people) {
-      return null;
-    }
-
+    
     const truncatedName = item.position && item.position.length > 16 ? item.position.slice(0, 16) + '...' : item.position;
+   
     const isThreeOrMorePeople = selectedIndex === 1 && item.people >= 3;
     const isTwoPeople = selectedIndex === 0 && item.people == 2;
-
+  
     if ((selectedIndex === 0 && !isTwoPeople) || (selectedIndex === 1 && !isThreeOrMorePeople)) {
       return null; // Skip rendering if the checkbox is selected but the condition doesn't match
     }
+  
+    return(
+    <View style={styles.card1}>
 
-    return (
-      <View style={styles.card1}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, }}>
+      <View style={{ alignItems: 'flex-start' }}>
+        <Image style={{ width: 170, height: 137, borderRadius: 10 }}
+          resizeMode="cover"
+          source={{ uri: item.img1 }}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.18, paddingLeft: 2 }}>
+        <Image
+          // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, }}>
-          <View style={{ alignItems: 'flex-start' }}>
-            <Image style={{ width: 170, height: 137, borderRadius: 10 }}
-              resizeMode="cover"
-              source={{ uri: item.img1 }}
-            />
-          </View>
-          <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 0.18, paddingLeft: 2 }}>
-            <Image
-              // style={[styles.mdifireIcon2, styles.mdifireIconLayout]}
+          resizeMode="cover"
+          source={require("../assets/mdifire.png")}
+          // source={{ uri: Array.isArray(item.img1) && item.img1.length > 0 ? item.img1[0] : '' }}
 
-              resizeMode="cover"
-              source={require("../assets/mdifire.png")}
-            // source={{ uri: Array.isArray(item.img1) && item.img1.length > 0 ? item.img1[0] : '' }}
-
-            />
-          </View>
-          <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
-            <Text style={styles.partyName}>{item.nameParty}</Text>
-            <Text style={styles.restaurantName}>{truncatedName}</Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-              <Image style={{ marginTop: 5 }}
-                contentFit="cover"
-                source={require("../assets/star-1.png")} />
-              <Text style={styles.detailStar} >{item.star} คะแนน | {item.type}</Text>
-            </View>
-            <Text style={styles.detail}>{item.distance}</Text>
-
-            {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
-            <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( {item.partyMem}/{item.people} คน )</Text>
-            <TouchableOpacity onPress={() => handletoJoingroup(item.img1, item.img2, item.img3, item.img4, item.img5, item.img6, item.img7, item.img8, item.img9, item.position,
-              item.type, item.star, item.distance, item.nameParty, item.partyDetail, item.people, item.date, item.time, item.party_id, item.partyMem, item.nameMem, item.imageMem)} style={styles.parent}>
-              <Text style={styles.joinButton}>เข้าร่วม</Text>
-            </TouchableOpacity>
-          </View>
+        />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
+        <Text style={styles.partyName}>{item.nameParty}</Text>
+        <Text style={styles.restaurantName}>{truncatedName}</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+          <Image style={{ marginTop: 5 }}
+            contentFit="cover"
+            source={require("../assets/star-1.png")} />
+          <Text style={styles.detailStar} >{item.star} คะแนน | {item.type}</Text>
         </View>
-<<<<<<< HEAD
         <Text style={styles.detail}>{item.distance}</Text>
 
         {/* <Text style={styles.detail}>“รักปลารักเขาไม่รักเราเหรอ”</Text> */}
@@ -142,14 +122,14 @@ const Home = () => {
 
                 <Text style={styles.joinButton} >เข้าร่วม</Text>
        </TouchableOpacity>
-=======
->>>>>>> b8bc9e5b92535754a5195de0b0e6638628fbc944
       </View>
+    </View>
+  </View>
 
-
-    );
-  };
-
+  
+  );
+};
+  
 
 
   return (
@@ -172,7 +152,7 @@ const Home = () => {
             onChangeText={setInputText}
             value={inputText}
             placeholder="ค้นหาชื่อปาร์ตี้"
-
+            
           />
         </View>
 
@@ -183,7 +163,7 @@ const Home = () => {
 
         {/* checkbox */}
         <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 17 }}>
-
+          
           <CheckBox
             title="ทาน 2 คน"
             checked={selectedIndex === 0}
@@ -214,43 +194,43 @@ const Home = () => {
           <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-around', flex: 1, flexWrap: 'wrap', marginTop: 25 }}>
             {/* row1 */}
             <TouchableOpacity onPress={handletoClassthai}>
-              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                 <Image
                   resizeMode="cover"
                   source={require("../assets/ellipse-14.png")}
                 />
-                <Text style={styles.categoryText} >อาหารไทย</Text>
-              </View>
+              <Text style={styles.categoryText} >อาหารไทย</Text>
+            </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handletoClassNation}>
-              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <Image
-                  resizeMode="cover"
-                  source={require("../assets/ellipse-15.png")}
-                />
-                <Text style={styles.categoryText}>อาหารนานาชาติ</Text>
-              </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-15.png")}
+              />
+              <Text style={styles.categoryText}>อาหารนานาชาติ</Text>
+            </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handletoClassBreakfast}>
-              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <Image
-                  resizeMode="cover"
-                  source={require("../assets/ellipse-16.png")}
-                />
-                <Text style={styles.categoryText}>อาหารเช้า</Text>
-              </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-16.png")}
+              />
+              <Text style={styles.categoryText}>อาหารเช้า</Text>
+            </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handletoClassCafe}>
-              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                <Image
-                  resizeMode="cover"
-                  source={require("../assets/ellipse-17.png")}
-                />
-                <Text style={styles.categoryText}>คาเฟ่และขนมหวาน</Text>
-              </View>
+            <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                resizeMode="cover"
+                source={require("../assets/ellipse-17.png")}
+              />
+              <Text style={styles.categoryText}>คาเฟ่และขนมหวาน</Text>
+            </View>
             </TouchableOpacity>
 
             {/* row2 */}
@@ -292,11 +272,11 @@ const Home = () => {
 
           <Text style={[styles.text, styles.textTypo]}>การเชิญชวนแนะนำ</Text>
           <FlatList
-            data={filteredParties}
-            renderItem={renderPartyItem}
-            keyExtractor={(item) => item.
-              party_id} // Assuming id is unique
-          />
+         data={filteredParties}
+        renderItem={renderPartyItem}
+        keyExtractor={(item) => item.
+          party_id} // Assuming id is unique
+      />
 
         </View>
 
@@ -311,9 +291,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FCFCFC',
-
+    
   },
-
+  
 
   Search: {
     flexDirection: 'row',
@@ -343,10 +323,10 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: 'Kanit-Regular',
     // marginTop:-1,
-    alignItems: 'center',
+    alignItems:'center',
     // backgroundColor:'pink',
-    textAlignVertical: 'center',
-    alignContent: 'center',
+    textAlignVertical:'center',
+    alignContent:'center',
 
 
   },
@@ -454,7 +434,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#FEF1EE',
     borderRadius: 5,
-    paddingTop: 22,
+    paddingTop:22,
     paddingHorizontal: 10,
     marginTop: 10,
     width: '90%',
@@ -467,11 +447,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-
+  
     borderRadius: 5,
     paddingHorizontal: 10,
     marginTop: 16,
-    paddingTop: 10,
+    paddingTop:10,
     height: 'auto',
 
     // backgroundColor:'red'
