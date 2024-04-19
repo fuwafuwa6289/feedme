@@ -15,6 +15,7 @@ import ClassBreakfast from './Screen/ClassBreakfast';
 import ClassCafe from './Screen/ClassCafe';
 import JoinGroup from './Screen/JoinGroup';
 import Chatinner from './Screen/Chatinner';
+import Map from './Screen/Map';
 import { useEffect, useState } from 'react';
 
 
@@ -129,6 +130,10 @@ export default function App() {
 
         <Stack.Screen name="Chatinner"
           component={Chatinner}
+          options={{ headerShown: false }} />
+
+        <Stack.Screen name="Map"
+          component={Map}
           options={{ headerShown: false }} />
       </Stack.Navigator>
 
