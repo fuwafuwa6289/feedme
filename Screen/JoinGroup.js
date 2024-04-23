@@ -1,17 +1,18 @@
-import React, { useState,useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity,FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { database } from '@react-native-firebase/database';
 import { useNavigationState } from '@react-navigation/native';
 // import CardComponent from '../Component/Card'
 import userData from '../User.json'
-import { push, ref, set,get, update } from "firebase/database";
-import{db} from '../comp/config'
+import { push, ref, set, get, update } from "firebase/database";
+import { db } from '../comp/config'
 import FastImage from 'react-native-fast-image';
+import Map from './Map';
 
-const JoinGroup = ({ route,navigation }) => {
-  
+const JoinGroup = ({ route, navigation }) => {
+
   // const [name, setName] = useState('code with Nilz');
   const [inputText, setInputText] = useState('');
   // const navigation = useNavigation();
@@ -20,7 +21,7 @@ const JoinGroup = ({ route,navigation }) => {
   const [nid, setnId] = React.useState(0);
   const [nid1, setnId1] = React.useState(1);
   const {
-    img1,img2,img3,img4,img5,img6,img7,img8,img9,
+    img1, img2, img3, img4, img5, img6, img7, img8, img9,
     restaurantName,
     restaurantType,
     restaurantStar,
@@ -74,203 +75,212 @@ const JoinGroup = ({ route,navigation }) => {
   const datajson = require('../User.json');
   React.useEffect(() => {
     const countItems = async () => {
-        const dbRef = ref(db, 'Member');
-        try {
-            const snapshot = await get(dbRef);
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                const count = Object.keys(data).length;
-                const countmem = partyMem;
-                setnId1(countmem);
-                setnId(count);
-                console.log('Total number of Member:', count);
-            } else {
-                console.log('No data available');
-                setnId(0);
-            }
-        } catch (error) {
-            console.error('Error getting data:', error);
-            setnId(-1);
+      const dbRef = ref(db, 'Member');
+      try {
+        const snapshot = await get(dbRef);
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const count = Object.keys(data).length;
+          const countmem = partyMem;
+          setnId1(countmem);
+          setnId(count);
+          console.log('Total number of Member:', count);
+        } else {
+          console.log('No data available');
+          setnId(0);
         }
+      } catch (error) {
+        console.error('Error getting data:', error);
+        setnId(-1);
+      }
     };
 
     countItems();
-}, []); // ใส่ [] เพื่อให้ useEffect ทำงานเพียงครั้งเดียวตอนเริ่มต้นแอพพลิเคชัน
+  }, []); // ใส่ [] เพื่อให้ useEffect ทำงานเพียงครั้งเดียวตอนเริ่มต้นแอพพลิเคชัน
 
 
 
-console.log('nid1:', nid);
+  console.log('nid1:', nid);
 
- function createmem(){
-  // const newKey = push(child(ref(database),'users')).key;
-  const newwId = nid + 1;
-   set(ref(db, 'Member/' + 'Id' +newwId), {
-       nameMem:datajson.name,
-       imageMem:datajson.image,
-       party_id:party_id,
-       role:"Member"
+  function createmem() {
+    // const newKey = push(child(ref(database),'users')).key;
+    const newwId = nid + 1;
+    set(ref(db, 'Member/' + 'Id' + newwId), {
+      nameMem: datajson.name,
+      imageMem: datajson.image,
+      party_id: party_id,
+      role: "Member"
 
-     }).then(() => {
-       setnId(newwId);
-       
-     })
-     .catch((error)=>{
-       Alert(error);
-     
-     });
-}
+    }).then(() => {
+      setnId(newwId);
 
-function creatememparty(){
-  // const newKey = push(child(ref(database),'users')).key;
- 
-  const newwId = party_id;
-  const eiei = nid1+1;
-   update(ref(db, 'user/' + 'Id' +newwId), {
-      partyMem:eiei
+    })
+      .catch((error) => {
+        Alert(error);
 
-     }).then(() => {
-       setnId1(eiei);
-       
-     })
-     .catch((error)=>{
-       Alert(error);
-     
-     });
-}
+      });
+  }
 
+  function creatememparty() {
+    // const newKey = push(child(ref(database),'users')).key;
+
+    const newwId = party_id;
+    const eiei = nid1 + 1;
+    update(ref(db, 'user/' + 'Id' + newwId), {
+      partyMem: eiei
+
+    }).then(() => {
+      setnId1(eiei);
+
+    })
+      .catch((error) => {
+        Alert(error);
+
+      });
+  }
+
+  const sendLocation = () => { // Corrected function name
+    console.log('Location');
+    navigation.navigate('Map');
+  };
 
   return (
     <ScrollView style={styles.container}>
       <View>
-        <View> 
-        <TouchableOpacity onPress={handleGoBack}>
-          <Image
-            style={styles.iconBack}
-            contentFit="cover"
-            source={require("../assets/epback.png")}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => console.log('Go to Profile')}>
-          <Image
-            style={styles.iconLayout}
-            contentFit="cover"
-            source={require("../assets/ellipse-46.png")}
-          />
-        </TouchableOpacity>
-        </View> 
-        
-        <View style={{ flex: 1,}}>
-      {/* ภาพร้านอาหาร */}
-      <View style={{width:393}}>
-        <View style={{ flexDirection: 'row', marginTop: 65, height: 174, }}>
-          <Image
-            style={[styles.item, styles.itemLayout]}
-            resizeMode="cover"
-            source={{ uri: selectedImage || img1 }}
-          />
-        </View>
-        <FlatList
-          data={images}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setSelectedImage(item)}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 55 }}>
-                <FastImage
-                  style={[styles.inner]}
-                  resizeMode={FastImage.resizeMode.cover}
-                  source={{ uri: item }}
-                />
-              </View>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal={true}
-          contentContainerStyle={{
-            paddingHorizontal: 26,
-            paddingVertical: 6,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        />
-      </View>
-    </View>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop:20,paddingHorizontal:24,marginLeft:5,margin:5}}> 
-            <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
-            
-              <Text style={styles.restaurantName}>{restaurantName} </Text>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-                <Image style={{ marginTop: 3 }}
-                  contentFit="cover"
-                  source={require("../assets/star-1.png")} />
-                <Text style={styles.detailStar} >{restaurantStar} คะแนน | { restaurantType}</Text>
-              </View>
-              <Text style={styles.detail}>{restaurantDistance}</Text>
-
-              <Text style={styles.showReview}>Show review</Text>
-             
-             
-            </View>
-            <View style={{justifyContent:'center',}}>
+        <View>
+          <TouchableOpacity onPress={handleGoBack}>
             <Image
-        style={[styles.rectangleIcon1]}
-        resizeMode="cover"
-        source={require("../assets/rectangle.png")}
-      />
-      <Text style={styles.showMap}>Show map</Text>
+              style={styles.iconBack}
+              contentFit="cover"
+              source={require("../assets/epback.png")}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => console.log('Go to Profile')}>
+            <Image
+              style={styles.iconLayout}
+              contentFit="cover"
+              source={require("../assets/ellipse-46.png")}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ flex: 1, }}>
+          {/* ภาพร้านอาหาร */}
+          <View style={{ width: 393 }}>
+            <View style={{ flexDirection: 'row', marginTop: 65, height: 174, }}>
+              <Image
+                style={[styles.item, styles.itemLayout]}
+                resizeMode="cover"
+                source={{ uri: selectedImage || img1 }}
+              />
             </View>
+            <FlatList
+              data={images}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => setSelectedImage(item)}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', height: 55 }}>
+                    <FastImage
+                      style={[styles.inner]}
+                      resizeMode={FastImage.resizeMode.cover}
+                      source={{ uri: item }}
+                    />
+                  </View>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              horizontal={true}
+              contentContainerStyle={{
+                paddingHorizontal: 26,
+                paddingVertical: 6,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            />
           </View>
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1, marginTop: 20, paddingHorizontal: 24, marginLeft: 5, margin: 5 }}>
+          <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
+
+            <Text style={styles.restaurantName}>{restaurantName} </Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
+              <Image style={{ marginTop: 3 }}
+                contentFit="cover"
+                source={require("../assets/star-1.png")} />
+              <Text style={styles.detailStar} >{restaurantStar} คะแนน | {restaurantType}</Text>
+            </View>
+            <Text style={styles.detail}>{restaurantDistance}</Text>
+
+            <Text style={styles.showReview}>Show review</Text>
+
+
+          </View>
+          <View style={{ justifyContent: 'center', }}>
+            <TouchableOpacity onPress={sendLocation}>
+              <Image
+                style={[styles.rectangleIcon1]}
+                resizeMode="cover"
+                source={require("../assets/rectangle.png")}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={sendLocation}>
+              <Text style={styles.showMap}>Show map</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
         <View style={styles.card}>
-        <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1,}}>
-            
-        <Text style={styles.partyName}>{partyName}</Text>
-        <Text style={styles.caption}>{partyDetail}</Text>
+          <View style={{ flexDirection: 'column', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1, }}>
+
+            <Text style={styles.partyName}>{partyName}</Text>
+            <Text style={styles.caption}>{partyDetail}</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', }}>
-            <Image
-          style={{ marginTop: 3 }}
-          resizeMode="cover"
-          source={require("../assets/linemdaccount.png")}
-        />
-              <Text style={styles.memberDetail} >สมาชิกปาร์ตี้ ( {partyMem}/{ partyMember} คน )</Text>
+              <Image
+                style={{ marginTop: 3 }}
+                resizeMode="cover"
+                source={require("../assets/linemdaccount.png")}
+              />
+              <Text style={styles.memberDetail} >สมาชิกปาร์ตี้ ( {partyMem}/{partyMember} คน )</Text>
             </View>
             <Text style={styles.timeTopic}>ช่วงเวลานัดหมาย</Text>
 
             <Text style={styles.timeDetail}>วันที่ {partyDate}</Text>
             <Text style={styles.timeDetail}>เวลา {partyTime} น.</Text>
           </View>
-          <View style={{justifyContent:'center',}}>
-          <TouchableOpacity  style={styles.parent}
-           onPress={() => {
-            console.log({party_id});
-           createmem({party_id});
-         creatememparty();
-         
-        }}
- >
-                <Text style={styles.joinButton} >เข้าร่วม</Text>
-                
-                </TouchableOpacity>
+          <View style={{ justifyContent: 'center', }}>
+            <TouchableOpacity style={styles.parent}
+              onPress={() => {
+                console.log({ party_id });
+                createmem({ party_id });
+                creatememparty();
+
+              }}
+            >
+              <Text style={styles.joinButton} >เข้าร่วม</Text>
+
+            </TouchableOpacity>
           </View>
         </View>
         <View>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1,justifyContent:'flex-start',marginHorizontal:24,marginTop:15,marginBottom:10}}>
-          <Text style={styles.membertopic}>รายชื่อสมาชิก</Text>
-        </View>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1, justifyContent: 'flex-start', marginHorizontal: 24, marginTop: 15, marginBottom: 10 }}>
+            <Text style={styles.membertopic}>รายชื่อสมาชิก</Text>
+          </View>
 
-        <FlatList
-  data={members}
-  renderItem={renderMemberItem}
-  keyExtractor={(item) => item.party_id.toString()}
-  horizontal
-  showsHorizontalScrollIndicator={false}
-  //inverted
-/>
-      
-      {/* console.log('name: ', userData.name);
+          <FlatList
+            data={members}
+            renderItem={renderMemberItem}
+            keyExtractor={(item) => item.party_id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          //inverted
+          />
+
+          {/* console.log('name: ', userData.name);
       console.log('img: ', userData.image); */}
 
-            {/* <CardComponent name={userData.name} image={userData.image}/> */}
+          {/* <CardComponent name={userData.name} image={userData.image}/> */}
 
         </View>
       </View>
@@ -285,13 +295,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FCFCFC',
   },
-  membertopic:{
-    fontSize:14,
+  membertopic: {
+    fontSize: 14,
     color: 'black',
     fontFamily: 'Mitr-Regular',
   },
-  memberName:{
-    fontSize:13,
+  memberName: {
+    fontSize: 13,
     color: 'black',
     fontFamily: 'Mitr-Regular',
   },
@@ -318,7 +328,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 11,
     paddingVertical: 4,
   },
-  
+
   restaurantName: {
     fontSize: 16,
     margin: 1,
@@ -326,43 +336,43 @@ const styles = StyleSheet.create({
     fontFamily: 'Mitr-Regular',
   },
   detail: {
-    fontSize: 10 ,
+    fontSize: 10,
     margin: 2,
     marginBottom: 1,
     color: 'black',
     fontFamily: 'Mitr-Regular',
   },
   timeTopic: {
-    fontSize: 13 ,
+    fontSize: 13,
     margin: 2,
     marginBottom: 2,
     color: 'black',
     fontFamily: 'Mitr-Regular',
   },
   showMap: {
-    fontSize: 10 ,
+    fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: '#F24E1E',
     fontFamily: 'Mitr-Regular',
-    textAlign:'right'
+    textAlign: 'right'
   },
   showReview: {
-    fontSize: 10 ,
+    fontSize: 10,
     margin: 2,
     marginBottom: 2,
     color: '#F24E1E',
     fontFamily: 'Mitr-Regular',
   },
   timeDetail: {
-    fontSize: 13 ,
+    fontSize: 13,
     margin: 2,
     marginBottom: 2,
     color: '#5E5E5E',
     fontFamily: 'Mitr-Regular',
   },
   caption: {
-    fontSize: 15 ,
+    fontSize: 15,
     margin: 2,
     marginBottom: 2,
     color: '#5E5E5E',
@@ -385,11 +395,11 @@ const styles = StyleSheet.create({
 
   },
   rectangleIcon1: {
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 206,
     height: 60,
-    borderRadius: 6 ,
+    borderRadius: 6,
   },
 
   Search: {
@@ -405,23 +415,23 @@ const styles = StyleSheet.create({
     height: 40,
     left: 45
   },
-  inner2:{
-  
-      
-      width: 20,
-      height: 49,
+  inner2: {
+
+
+    width: 20,
+    height: 49,
   },
   input: {
     flex: 1,
   },
 
-  
+
   item: {
     // top: 75,
     width: 363,
     height: 174,
     left: 30,
-    borderRadius:6
+    borderRadius: 6
   },
 
   titleclass: {
@@ -472,7 +482,7 @@ const styles = StyleSheet.create({
     borderColor: '#FEF1EE',
     borderRadius: 21,
     paddingHorizontal: 10,
-    paddingVertical:10,
+    paddingVertical: 10,
     marginTop: 10,
     height: 195,
     width: '90%',
@@ -486,11 +496,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#FEF1EE',
     borderRadius: 21,
-    paddingTop:10,
+    paddingTop: 10,
     marginTop: 10,
     height: 152,
     width: 162,
-    
+
 
   },
 
@@ -527,7 +537,7 @@ const styles = StyleSheet.create({
   inner: {
     width: 53,
     height: 49,
-    borderRadius:6
+    borderRadius: 6
     // top: 80,
     // left: 38,
   },
