@@ -19,14 +19,15 @@ const Post = () => {
         const data = await response.json();
         const filteredData = Object.values(data); // Convert object to array
         setPartiesData(filteredData);
-        console.log('Parties Data:', filteredData);
+        //console.log('Parties Data:', filteredData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        //console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  },[]);
+}, []);
+
 
   
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem ) => {
@@ -69,7 +70,7 @@ const Post = () => {
             <Text style={styles.detail}>{item.distance}</Text>
             <Text style={styles.memberDetail}>สมาชิกปาร์ตี้ ( {item.partyMem}/{item.people} คน )</Text>
             <TouchableOpacity onPress={() => handletoJoingroup(  item.img1, item.img2, item.img3, item.img4,item.img5,item.img6,item.img7,item.img8,item.img9,item.position,
-                  item.type,item.star,item.distance,item.nameParty,item.partyDetail,item.people,item.date,item.time,item.party_id,item.partyMem,item.nameMem,item.imageMem)} style={styles.parent}>
+                  item.type,item.star,item.distance,item.nameParty,item.des,item.people,item.date,item.time,item.party_id,item.partyMem,item.nameMem,item.imageMem)} style={styles.parent}>
               <Text style={styles.joinButton}>เข้าร่วม</Text>
             </TouchableOpacity>
           </View>
