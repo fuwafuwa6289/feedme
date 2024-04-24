@@ -179,7 +179,7 @@ const JoinGroup = ({ route, navigation }) => {
               data={images}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => setSelectedImage(item)}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', height: 55 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center',height: 55 , marginRight: 4}}>
                     <FastImage
                       style={[styles.inner]}
                       resizeMode={FastImage.resizeMode.cover}
@@ -267,7 +267,7 @@ const JoinGroup = ({ route, navigation }) => {
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1, justifyContent: 'flex-start', marginHorizontal: 24, marginTop: 15, marginBottom: 10 }}>
             <Text style={styles.membertopic}>รายชื่อสมาชิก</Text>
           </View>
-
+          <View style={{flexDirection:'row',justifyContent:'space-around',marginLeft:21,}}>    
           <FlatList
             data={members}
             renderItem={renderMemberItem}
@@ -281,7 +281,7 @@ const JoinGroup = ({ route, navigation }) => {
       console.log('img: ', userData.image); */}
 
           {/* <CardComponent name={userData.name} image={userData.image}/> */}
-
+          </View>
         </View>
       </View>
     </ScrollView>
