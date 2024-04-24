@@ -99,6 +99,7 @@ console.log('nid1:', nid1);
     const [selectedImage8, setSelectedImage8] = React.useState(isPartyCreated && restaurantImages[7] ? [restaurantImages[7]] : []);
     const [selectedImage9, setSelectedImage9] = React.useState(isPartyCreated && restaurantImages[8] ? [restaurantImages[8]] : []);
    
+    
     const isFocused = useIsFocused();
     React.useEffect(() => {
         if (!isFocused) {
@@ -141,7 +142,8 @@ console.log('nid1:', nid1);
 
         onChangeText(null);
         onChangeText3(null);
-        onChangeText2(restaurantName ||setimg1(img2 || null));
+        onChangeText2(restaurantName ||null);
+          setimg1(img2 || null);
           setimg2(img3 || null);
           setimg3(img4 || null);
           setimg4(img5 || null);
@@ -199,6 +201,8 @@ console.log('nid1:', nid1);
      const [selectedImage01, setSelectedImage01] = React.useState([]);
      const [selectedImage02, setSelectedImage02] = React.useState([]);
     const [selectedImage03, setSelectedImage03] = React.useState([]);
+
+
     const openImagePicker = () => {
         const options = {
             mediaType: 'photo',
@@ -525,39 +529,37 @@ function countItems1() {
                         
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
                     <FlatList
-data={[selectedImage1, selectedImage2, selectedImage3,selectedImage4,selectedImage5,selectedImage6,selectedImage7,selectedImage8,selectedImage9]}
-    renderItem={({ item }) => (
-      <View style={{ flexDirection: 'row', width: 102, height: 106, alignItems: 'center', justifyContent: 'center' }}>
-        {item && item.map((image, index) => (
-          <Image
-            key={index}
-            source={{ uri: image }}
-            style={{ width: 90, height: 95, margin: 5 }}
-            borderRadius={10}
-          />
-        ))}
-        {(!item || item.length < 1) && (
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+  data={[imgg1, imgg2, imgg3, imgg4, imgg5, imgg6, imgg7, imgg8, imgg9]}
+  renderItem={({ item }) => (
+    <View style={{ flexDirection: 'row', width: 102, height: 106, alignItems: 'center', justifyContent: 'center' }}>
+      {item && item !== null && item !== undefined ? (
+        <Image
+          source={{ uri: item }}
+          style={{ width: 90, height: 95, margin: 5 }}
+          borderRadius={10}
+        />
+      ) : (
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <TouchableOpacity onPress={() => setOpen(true)}>
+            <View>
+              <Icon name="image-outline" size={26} onPress={openImagePicker} />
+            </View>
+          </TouchableOpacity>
+          <View style={{ marginLeft: 12 }}>
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View>
-                <Icon name="image-outline" size={26} onPress={openImagePicker} />
+                <Icon name="camera" size={26} onPress={handleCameraLaunch} />
               </View>
             </TouchableOpacity>
-            <View style={{ marginLeft: 12 }}>
-              <TouchableOpacity onPress={() => setOpen(true)}>
-                <View>
-                  <Icon name="camera" size={26} onPress={handleCameraLaunch} />
-                </View>
-              </TouchableOpacity>
-            </View>
           </View>
-        )}
-      </View>
-    )}
-    keyExtractor={(item, index) => index.toString()}
-    horizontal ={true}
-    numColumns={1}
-  />
+        </View>
+      )}
+    </View>
+  )}
+  keyExtractor={(item, index) => index.toString()}
+  horizontal={true}
+  numColumns={1}
+/>
 </View>
 
                        
