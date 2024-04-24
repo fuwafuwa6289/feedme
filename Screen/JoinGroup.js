@@ -96,7 +96,7 @@ const JoinGroup = ({ route, navigation }) => {
     };
 
     countItems();
-  }, []); // ใส่ [] เพื่อให้ useEffect ทำงานเพียงครั้งเดียวตอนเริ่มต้นแอพพลิเคชัน
+  }, ); // ใส่ [] เพื่อให้ useEffect ทำงานเพียงครั้งเดียวตอนเริ่มต้นแอพพลิเคชัน
 
 
 
@@ -255,7 +255,7 @@ const JoinGroup = ({ route, navigation }) => {
                 console.log({ party_id });
                 createmem({ party_id });
                 creatememparty();
-
+                navigation.navigate('Post');
               }}
             >
               <Text style={styles.joinButton} >เข้าร่วม</Text>

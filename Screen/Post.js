@@ -27,7 +27,25 @@ const Post = () => {
 
     fetchData();
 }, []);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://feedme-createparty-default-rtdb.asia-southeast1.firebasedatabase.app/user.json');
+      if (!response.ok) {
+        console.error('Failed to fetch data');
+        return;
+      }
+      const data = await response.json();
+      const filteredData = Object.values(data); // Convert object to array
+      setPartiesData(filteredData);
+      //console.log('Parties Data:', filteredData);
+    } catch (error) {
+      //console.error('Error fetching data:', error);
+    }
+  };
 
+  fetchData();
+}, );
 
   
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem ) => {
