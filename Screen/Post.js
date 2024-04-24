@@ -19,14 +19,15 @@ const Post = () => {
         const data = await response.json();
         const filteredData = Object.values(data); // Convert object to array
         setPartiesData(filteredData);
-        console.log('Parties Data:', filteredData);
+        //console.log('Parties Data:', filteredData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        //console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  },[]);
+}, []);
+
 
   
   const handletoJoingroup = (img1,img2,img3,img4,img5,img6,img7,img8,img9,restaurantName,restaurantType,restaurantStar,restaurantDistance,partyName,partyDetail,partyMember,partyDate,partyTime,party_id,partyMem,nameMem,imageMem ) => {
