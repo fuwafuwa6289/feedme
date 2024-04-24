@@ -1,92 +1,170 @@
-import { StyleSheet, Text, View, FlatList, Image, Pressable, TouchableOpacity } from 'react-native'
+import { StyleSheet, View} from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
 import MapView, { Marker } from 'react-native-maps'
-import { useNavigation } from '@react-navigation/native';
 
 const Map = () => {
   const [items, setItems] = useState([])
   const mapRef = useRef(null)
 
-  const navigation = useNavigation();
-
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
-
   useEffect(() => {
-    fetch('https://www.melivecode.com/api/attractions')
+    fetch('https://pantira111.github.io/FeedmeApi/restaurant.json')
       .then(res => res.json())
       .then((result) => {
-        // console.log(result)
-        setItems(result)
+        setItems(result);
+        if (mapRef.current && result.length > 0) {
+          mapRef.current.animateToRegion({
+            latitude: result[0].latitude,
+            longitude: result[0].longitude,
+            latitudeDelta: 0.000922,
+            longitudeDelta: 0.000421,
+          });
+        }
       })
-  }, [])
-
-  const go = (latitude, longitude) => {
-    mapRef.current.animateToRegion({
-      latitude: latitude,
-      longitude: longitude,
-      latitudeDelta: 1,
-      longitudeDelta: 1,
-    })
-  }
-
-  const renderItem = ({ item }) => {
-    return (
-      <View style={styles.listItem}>
-        <Pressable onPress={() => go(item.latitude, item.longitude)}>
-          <Text>{item.name}</Text>
-          <Image source={{ uri: item.image }}
-            style={{ width: 300, height: 150 }} />
-        </Pressable>
-      </View>
-    );
-  };
-
-  if (items.length === 0) {
-    return (<View><Text>Loading...</Text></View>)
-  }
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
-      <TouchableOpacity onPress={handleGoBack}>
-        <Image
-          style={styles.iconBack}
-          resizeMode="cover"
-          source={require("../assets/makiarrow.png")}
-        />
-      </TouchableOpacity>
-
       <MapView
         ref={mapRef}
         style={styles.map}
+        // Set initialRegion to center of Bangkok as a fallback
         initialRegion={{
-          latitude: items[0].latitude,
-          longitude: items[0].longitude,
-          latitudeDelta: 1,
-          longitudeDelta: 1,
+          latitude: 13.742467,
+          longitude: 100.522484,
+          latitudeDelta: 0.000922,
+          longitudeDelta: 0.000421,
         }}
       >
-        {items.map((item, index) => (
-          <Marker
-            key={item.id}
-            coordinate={{
-              latitude: item.latitude,
-              longitude: item.longitude
-            }}
-            title={item.name}
-          />
-        ))}
-      </MapView>
-
-      <View style={styles.listView}>
-        <FlatList
-          horizontal={true}
-          data={items}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
+        <Marker
+          coordinate={{
+            latitude: 13.742467, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.522484, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
         />
-      </View>
+        <Marker
+          coordinate={{
+            latitude: 13.721646, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.546074, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.865158, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.617824, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.864792, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.643831, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.862816, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.614658, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.849094, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.638039, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.857417, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.641152, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.880902, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.59963, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.877466, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.620154, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.723826, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.587993, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.723826, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.587993, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.868374, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.619047, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.857836, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.644851, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.874433, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.579716, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.748384, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.583907, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.870548, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.605528, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.867853, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.653687, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.86273, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.643234, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.878269, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.632368, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.810554, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.537195, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+        <Marker
+          coordinate={{
+            latitude: 13.811231, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+            longitude: 100.663739, // ใช้ค่าเริ่มต้นหากข้อมูลไม่ถูกต้อง
+          }}
+        />
+      </MapView>
     </View>
   )
 }
@@ -94,21 +172,12 @@ const Map = () => {
 export default Map
 
 const styles = StyleSheet.create({
-  iconBack: {
-    position: 'absolute',
-    top: -290,
-    right: 20,
-    width: 30,
-    height: 30,
-  },
   map: {
     ...StyleSheet.absoluteFillObject,
   },
   listView: {
     position: 'absolute',
-    bottom: 0
+    bottom: 0,
+    paddingHorizontal: 10,
   },
-  listItem: {
-    padding: 5,
-  }
 });
