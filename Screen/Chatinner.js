@@ -1,11 +1,23 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, TextInput, ScrollView, KeyboardAvoidingView,useEffect} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, TextInput, ScrollView, KeyboardAvoidingView, Modal, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
-import { GiftedChat } from 'react-native-gifted-chat';
-const Chatinner = ({ route }) => {
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Map from './Map';
+
+const Chatinner = () => {
+
     const navigation = useNavigation();
+
+    const [modalVisible, setModalVisible] = useState(false); // เพิ่มสถานะ modalVisible เพื่อเปิดและปิด Modal
+
+    const handleOpenModal = () => {
+        setModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+    };
 
     const handleGoBack = () => {
         navigation.goBack();
@@ -20,26 +32,14 @@ const Chatinner = ({ route }) => {
     };
 
     const [chatHistory, setChatHistory] = useState([]); // เก็บประวัติการแชท
-    const [partiesData, setPartiesData] = useState([]);
+
     const [inputText, setInputText] = useState('');
-    const {
-        img1,img2,img3,img4,img5,img6,img7,img8,img9,
-        restaurantName,
-        restaurantType,
-        restaurantStar,
-        restaurantDistance,
-        partyName,
-        partyDetail,
-        partyMember,
-        partyDate,
-        partyTime,
-        party_id,
-        partyMem,
-        host
-      } = route.params;
-   
-      const handleSend = (messages) => {
-        setChatHistory(GiftedChat.append(chatHistory, messages));
+
+    const handleSend = () => {
+        if (inputText.trim() === '') return;
+        const newMessage = { id: chatHistory.length, text: inputText }; // สร้างข้อความใหม่
+        setChatHistory([...chatHistory, newMessage]); // เพิ่มข้อความใหม่เข้าไปในประวัติการแชท
+        setInputText('');
     };
 
     const renderMessageItem = ({ item }) => (
@@ -48,65 +48,108 @@ const Chatinner = ({ route }) => {
         </View>
     );
 
+    const sendLocation = () => { // Corrected function name
+        console.log('Location');
+        navigation.navigate('Map');
+      };
+
     return (
         <KeyboardAvoidingView style={{ backgroundColor: '#FFFFFF', flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : null}>
-        <LinearGradient
-            colors={['#FF7336', '#FFFFFF']}
-            style={{ flex: 0.8 }}
-        />
-        <TouchableOpacity onPress={handleGoBack}>
+            <LinearGradient
+                colors={['#FF7336', '#FFFFFF']}
+                style={{ flex: 0.8 }}
+            />
+            <TouchableOpacity onPress={handleGoBack}>
+                <Image
+                    style={styles.iconBack}
+                    resizeMode="cover"
+                    source={require("../assets/makiarrow.png")}
+                />
+            </TouchableOpacity>
+
             <Image
-                style={styles.iconBack}
+                style={styles.ellipseIcon}
                 resizeMode="cover"
-                source={require("../assets/makiarrow.png")}
-            />
-        </TouchableOpacity>
+                source={require("../assets/ellipse-184.png")} />
+            <Text style={styles.text4}>ตี๋น้อยปาร์ตี้</Text>
+            <Text style={styles.text5}>กำลังใช้งาน</Text>
+            <Text style={styles.textFlexBox}>สุกี้ตี๋น้อย เกษตร-นวมินทร์</Text>
+            <Image
+                style={styles.starIcon}
+                resizeMode="cover"
+                source={require("../assets/star-11.png")} />
+            <Text style={styles.textstar}>5.0 (500) | อาหารไทย</Text>
 
-        <Image
-            style={styles.ellipseIcon}
-            resizeMode="cover"
-            source={{uri:img1}} />
-        <Text style={styles.text4}>{partyName}</Text>
-        <Text style={styles.text5}>กำลังใช้งาน</Text>
-        <Text style={styles.textFlexBox}>{restaurantName}</Text>
-        <Image
-            style={styles.starIcon}
-            resizeMode="cover"
-            source={require("../assets/star-11.png")} />
-        <Text style={styles.textstar}>{ restaurantStar} | {restaurantType}</Text>
+            <Text style={styles.km}>500 km (40 นาที)</Text>
+            <Text style={styles.textmember}>จำนวนสมาชิก 3 (คน)</Text>
+            <Text style={styles.texthost}>น้องแทไม่ชอบคนทางซ้าย (Host)</Text>
+            <Image
+                style={styles.hostIcon}
+                resizeMode="cover"
+                source={require("../assets/bxscrown.png")} />
 
-        <Text style={styles.km}>{restaurantDistance}</Text>
-        <Text style={styles.textmember}>จำนวนสมาชิก {partyMem} (คน)</Text>
-        <Text style={styles.texthost}>{host} (Host)</Text>
-        <Image
-            style={styles.hostIcon}
-            resizeMode="cover"
-            source={require("../assets/bxscrown.png")} />
+            <Text style={styles.hosttime}>วันที่นัดหมาย : 11/03/2024 เวลา : 15:00 น.</Text>
+            <Text style={styles.textconfirm}>ยืนยันการนัดพบ</Text>
 
-        <Text style={styles.hosttime}>วันที่นัดหมาย : {partyDate} เวลา : {partyTime} น.</Text>
-        <Text style={styles.textconfirm}>ยืนยันการนัดพบ</Text>
+            <TouchableOpacity onPress={handleConfirmation} style={styles.buttonConfirm}>
+                <Text style={styles.buttonText}>ยืนยัน</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleConfirmation} style={styles.buttonConfirm}>
-            <Text style={styles.buttonText}>ยืนยัน</Text>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={handleCancel} style={styles.buttonCancel}>
+                <Text style={styles.buttonText}>ยกเลิก</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleCancel} style={styles.buttonCancel}>
-            <Text style={styles.buttonText}>ยกเลิก</Text>
-        </TouchableOpacity>
+            <View style={styles.container}>
+                <FlatList
+                    data={chatHistory} // ใช้ chatHistory แทน messages
+                    renderItem={renderMessageItem}
+                    keyExtractor={(item) => item.id.toString()}
+                    style={styles.messagesList}
+                    inverted={false}
+                />
+                <View style={styles.inputContainer}>
 
-        <View style={styles.container}>
-            <GiftedChat
-                messages={chatHistory}
-                onSend={messages => {
-                    setChatHistory(GiftedChat.append(chatHistory, messages));
-                }}
-                user={{
-                    _id: 1,
-                }}
-            />
-        </View>
-    </KeyboardAvoidingView>
-)}
+                    <View>
+                        <TouchableOpacity style={styles.iconButton} onPress={handleOpenModal}>
+                            <Icon name="plus" size={20} color='#FF872E' />
+                        </TouchableOpacity>
+                        <Modal
+                            animationType="fade"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={handleCloseModal}
+                        >
+                            <TouchableOpacity style={styles.modalOverlay} onPress={handleCloseModal}>
+                                <View style={styles.modalContainer}>
+                                    <View style={styles.modalContent}>
+                                        <TouchableOpacity style={[styles.modalButton, styles.locationButton]} onPress={sendLocation}>
+                                            <Icon name="location-arrow" size={20} color='#FFFFFF' marginRight={9} />
+                                            <Text style={styles.locationText}>สถานที่</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </Modal>
+                    </View>
+
+                    <TouchableOpacity style={styles.iconButton}>
+                        <Icon name="camera" size={20} color='#FF872E' />
+                    </TouchableOpacity>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="พิมพ์..."
+                        placeholderTextColor="#FF872E"
+                        value={inputText}
+                        onChangeText={(text) => setInputText(text)}
+                    />
+                    <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
+                        <Icon name="send" size={20} color="white" />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </KeyboardAvoidingView>
+    )
+}
 
 export default Chatinner;
 
@@ -124,7 +167,6 @@ const styles = StyleSheet.create({
         left: 70,
         width: 50,
         height: 50,
-        borderRadius:100
     },
     text4: {
         position: 'absolute',
@@ -281,6 +323,34 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         paddingVertical: 10,
         paddingHorizontal: 15,
+    },
+    modalContainer: {
+        backgroundColor: '#FF872E',
+        borderRadius: 8,
+        position: 'absolute',
+        left: 25,
+        bottom: 67,
+        borderColor: '#FF872E'
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        padding: 4,
+    },
+    modalButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#FF872E',
+        paddingVertical: 5,
+        paddingHorizontal: 7,
+    },
+    locationText: {
+        fontSize: 16,
+        color: '#FFFFFF',
+        fontFamily: 'Kanit-Light',
     },
 });
 
