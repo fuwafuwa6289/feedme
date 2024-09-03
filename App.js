@@ -41,7 +41,7 @@ function MyTabs() {
         component={Home}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="home-outline" color="#FFFFFF" size={26} />
+            <Icon name="home-outline" Color="#FFFFFF" size={26} />
           ),
           headerShown: false, // ซ่อน Header ของหน้า Home
         }}
@@ -52,7 +52,7 @@ function MyTabs() {
         component={Post}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="newspaper-outline" color="#FFFFFF" size={26} />
+            <Icon name="newspaper-outline" Color="#FFFFFF" size={26} />
           ),
           headerShown: false, // ซ่อน Header ของหน้า Post
         }}
@@ -63,7 +63,7 @@ function MyTabs() {
         component={CreateParty}
         options={{
           tabBarLabel: 'Create',
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ Color }) => (
             <Image
               source={require('./assets/fluentfoodpizza24regular.png')}
               style={{ tintColor: "#FFFFFF", width: 29, height: 29 }}
